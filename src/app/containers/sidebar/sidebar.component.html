@@ -1,0 +1,29 @@
+<!-- <mat-nav-list class="text-center py-5" >
+    <div class="py-3">
+
+        <div *ngFor="let app of navItems;  let i = index"> -->
+            <!-- <div *ngFor="let userdata of app.menu;  let i = index"> -->
+
+                <!-- <div>
+                    <a mat-list-item routerLink="{{app.url}}">
+                        <mat-icon> <span class="material-icons-sharp text-dark">{{app.icon}} </span>
+                        </mat-icon>{{app.name}} 
+                    </a>
+                </div> -->
+            <!-- </div> -->
+        <!-- </div>
+    </div>
+</mat-nav-list> -->
+
+<mat-nav-list class="text-center py-5">
+    <div class="py-3">
+        <div *ngFor="let app of userPrivilege.application; let i = index">
+            <div (click)="onClick(app.appCode)" >
+                <a mat-list-item >
+                    <mat-icon> <span class="material-icons-sharp text-dark">home </span>
+                    </mat-icon>{{app.appName}} 
+                </a>
+            </div> 
+        </div>
+    </div>
+</mat-nav-list>

@@ -1,0 +1,70 @@
+
+<div class="container-fluid px-0">
+    <mat-icon class="font close" (click)="cancel()">close</mat-icon>
+    <div class="row">
+        <div *ngIf="viewDocList.length!=0">
+            <table>
+                <thead class="heading">
+                    <!-- <th>Document Id</th> -->
+                    <th class="docName">Document Name</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let list of viewDocList">
+                        <!-- <td>{{list.documentId}}</td> -->
+                        <div class="col-md-12">
+                            <td class="fileName">{{list.reqName?list.reqName:list.fileNm}}</td>
+                        </div>
+                        <!-- <div class="col-2"> -->
+                            <td>
+                                <!-- <button mat-raised-button class="button-1 mx-3 preview"
+                                    (click)="previrewDoc(list.tdocumentId,list.fileNm)">Preview</button> -->
+                                    <mat-icon class="icon view" title="Preview" (click)="previrewDoc(list.tdocumentId,list.fileNm)">visibility</mat-icon>
+                                    
+                                <!-- <a  *ngIf="!isPdf" [href]="documentListToDisplay" >Download as image--{{documentListToDisplay}}</a> -->
+                
+                            </td>
+                        <!-- </div> -->
+                            
+                        <!-- <div class="col-2"> -->
+                            <td>
+                                <!-- <button mat-raised-button class="button-1 mx-3 preview" (click)="downloadImage(list.tdocumentId)">
+                                    Download
+                                </button> -->
+                                <mat-icon class="icon download" title="Download" (click)="downloadImage(list.tdocumentId,list)">get_app</mat-icon>
+                            </td>   
+                        <!-- </div> -->
+                                                 
+                    </tr>
+            
+                </tbody>
+                <!-- <button mat-raised-button class="button-1 mx-3 cancelbtn"
+                (click)="cancel()">Cancel</button> -->
+            </table>
+        </div>
+        
+        <div *ngIf="viewDocList.length==0">
+            <span class="noDataFound">No documents found to preview!</span>
+        </div>
+        
+        <div *ngIf="isPdf">
+            <ngx-doc-viewer [url]='documentUrl' viewer="url"> </ngx-doc-viewer>
+            <!-- <ngx-doc-viewer [url]="documentUrl" viewer="url" 
+          (loaded)="contentLoaded()"
+          class="doc-viewer">
+        </ngx-doc-viewer> -->
+        
+            <!-- <ngx-doc-viewer url="documentUrl" viewer="google" style="width:100%;height:93vh;">
+        </ngx-doc-viewer> -->
+        
+        </div>
+        
+        <div *ngIf="!isPdf">
+            <ngx-image-viewer *ngIf="docView" [src]="documentListToDisplay"></ngx-image-viewer>
+        </div>
+    </div>
+    </div>
+    
+
+
+
+<!-- <button class="btn-danger" (click)="cancel()">Cancel</button> -->

@@ -1,0 +1,31 @@
+<mat-card>
+    <form [formGroup]="myForm" >
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-8">
+            <mat-form-field floatLabel="always">
+                <mat-label class="title">Document List </mat-label>
+                <mat-select placeholder="--select--" formControlName="docvalue" 
+                [ngClass]="{ 'is-invalid': submitted && f['docvalue'].errors }">
+                    <mat-option *ngFor="let data of DocList" [value]="data.rqmtCode">{{data.rqmtName}}</mat-option>
+                </mat-select>
+                <mat-error>
+                    <div
+                        *ngIf="(submitted && f['docvalue'].errors) || !f['docvalue'].valid && f['docvalue'].touched">
+                        Please Select  Document Name
+                    </div>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        </div>
+        <div class="row">
+            <div class="btn my-3">
+                <button mat-raised-button (click)="cancel()" type="button" class="mx-3 btn-btn1" color="primary">Cancel</button>
+                <button mat-raised-button mat-dialog-close="data()" type="submit" class="btn-btn" color="primary" (click)="onSubmit()" >Add</button>
+            </div>
+        </div>
+    </div>
+</form>
+</mat-card>
+
+

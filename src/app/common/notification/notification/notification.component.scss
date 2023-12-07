@@ -1,0 +1,55 @@
+
+.font{
+margin-left: 2px;
+
+}
+
+.clearfix{
+    cursor: pointer;
+}
+.badge {
+    padding-left: 9px;
+    padding-right: 9px;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
+  }
+  
+  .label-warning[href],
+  .badge-warning[href] {
+    background-color: #c67605;
+  }
+  #lblCartCount {
+      font-size: 12px;
+      background: #ff0000;
+      color: #fff;
+      padding: 0 5px;
+      vertical-align: top;
+      margin-left: -10px; 
+  }
+  .title-work{
+    margin-bottom: 10px;
+  }
+
+  #header{
+    color: #EC3137;
+  }
+
+  .mat{
+
+  }
+  #tr1{
+    margin-right: 5px;
+  }
+  #table-header{
+    margin-right: 5px;
+  }
+  .my_class{
+    color: rgb(133, 128, 134);
+  }
+  .my_class1{
+    color: #ff0000;
+  }
+  a:hover {
+    cursor:pointer;
+   }

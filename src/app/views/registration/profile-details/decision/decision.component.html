@@ -1,0 +1,770 @@
+<div class="container-fluid px-0">
+
+    <div class="row">
+
+        <div class="">
+
+            <mat-card class="mb-2 m-1 scrollbar scrollbar-primary">
+                <div *ngIf="showDetails">
+                <!-- <form [formGroup]="coverageForm">
+                    <div formArrayName="coverage">
+                        <div *ngFor="let a of userFormGroups.controls; let i = index">
+                            <div [formGroupName]="i"> -->
+
+                <div class="row mb-3 col-md-12 text-center mx-0" *ngIf = "showRadioButton">
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div>
+                                <input type="radio" id="visible" name="visibility" (click)="requirement()" [disabled]="isAPReadOnly">
+
+                                <span class="radio-title">Referral Consultation</span>
+
+                            </div>
+                            <span class="underline-requirement"></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <div class="row ">
+                            <div>
+                                <input type="radio" id="visible" name="visibility" (click)="decision()">
+
+                                <span class="radio-title">Decision</span>
+
+                            </div>
+                            <span class="underline-decision"></span>
+
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-2">
+                        <div class="row ">
+                            <div>
+                                <input type="radio" id="visible" name="visibility" (click)="awaitRequirement()">
+
+                                <span class="radio-title">Await_Requirement</span>
+
+                            </div>
+                            <span class="underline-decision"></span>
+
+                        </div>
+                    </div> -->
+                    <div class="col-md-3" *ngIf="(appCode == 'AS' && taskCode == 'ASSESSMENT_TSK')">
+                        <div class="row">
+                            <div>
+                                <input type="radio" id="visible" name="visibility" (click)="decisionRequirement()" >
+                                <span class="radio-title">Decision-Requirement</span>
+                            </div>
+                            <span class="underline-decision"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 px-0" *ngIf="this.appCode == 'AP' || this.appCode == 'PO'">
+                        <div class="row ">
+                                <p class="title-heading ">Last Document Received Date: <span> {{(LrdDate == "" ||
+                                    LrdDate == null) ? "-" :
+                                    LrdDate}}</span> </p>
+                            <span class="underline-decisionn"></span>
+                        </div>
+                    </div>
+                   
+                    <div class="col-md-3 px-0 d-flex justify-content-end" *ngIf="(this.appCode == 'AS' && (this.taskCode == 'ASSESSMENT_TSK' || this.taskCode == 'AWAIT_ASSESSMENT_REQ'))">
+                        <button mat-raised-button class="button-1" (click)="reRegestration()">Re-Registration</button>
+                    </div>
+                </div>
+
+
+                <div *ngIf="requirementhidden">
+                    <div class="col-md-12 px-5 mt-3">
+                        <form [formGroup]="referralForm" id="referalform">
+                            <div formArrayName="referralsFormArray" class="row  col-md-12 justify-content-between"
+                                *ngFor="let data of referrals; let i = index">
+                                <div *ngIf="i == 0" class="row col-md-12 d-flex">
+                                    <div class="form-check col-md-3" *ngFor="let data of referrals">
+                                        <input class="form-check-input" [checked]="!data.showRemark" type="checkbox"
+                                            (click)="showremark(data.lookupCd,i)" [value]="data.lookupCd" [disabled] = "isReadonly">
+
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            {{data.lngName}}
+                                        </label>
+                                    </div>
+
+                                </div>
+                                <mat-card class="mb-3" *ngIf="!data.showRemark" [formGroupName]="i">
+                                    <div class="col-md-3 col-sm-3 row mb-3 text-center">
+                                        <span class="title-1">{{data.lngName}}</span>
+                                        <span class="underline-investigation"></span>
+
+                                    </div>
+
+                                    <div class="row col-md-12 d-flex">
+
+                                        <div class="mt-5 col-md-4" *ngIf="(data.lookupCd != 'REFERRAL_TYPE_CRC_CLM_REVEW_COMMITTEE')">
+                                            <label class="mt-1">User Name</label>
+                                            <mat-form-field appearance="outline">
+                                                <mat-select #r formControlName="user"
+                                                    (selectionChange)="userChange(r.value)" class="col-md-3"
+                                                    [ngClass]="{ 'is-invalid': submitted && referFormGroups.controls[i].get('user')?.errors }"
+                                                    required>
+                                                    <mat-option *ngFor="let user of referralUsers[i]"
+                                                        [value]="user.loginId" [errorStateMatcher]="errroMatcherNew">
+                                                        {{user.dispName}}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error>
+                                                    <!-- <div *ngIf="(referFormGroups.controls[i].get('user')?.touched || referFormGroups.controls[i].get('user')?.dirty)" > -->
+                                                    <div
+                                                        *ngIf="referFormGroups.controls[i].get('user')?.errors?.['required']">
+                                                        Please select User</div>
+                                                    <!-- </div> -->
+                                                </mat-error>
+                                            </mat-form-field>
+
+                                        </div>
+
+                                        <mat-card class="mt-3 col-md-8">
+                                            <span class="title-1 textArea">Remarks <span class="ErrorMessage">&#42;</span></span>
+                                            <span class="underline-requirement"></span>
+                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                <textarea matInput name="remark" cols="100" rows="1"
+                                                    formControlName="remarks"
+                                                    [ngClass]="{ 'is-invalid': submitted && referFormGroups.controls[i].get('remarks')?.errors }"
+                                                    required [errorStateMatcher]="errroMatcherNew"></textarea>
+
+                                                <mat-error>
+                                                    <!-- <div *ngIf="(referFormGroups.controls[i].get('remarks')?.touched || referFormGroups.controls[i].get('remarks')?.dirty)" > -->
+                                                    <div
+                                                        *ngIf="referFormGroups.controls[i].get('remarks')?.errors?.['required']">
+                                                        Please enter Remarks</div>
+                                                    <!-- </div> -->
+                                                </mat-error>
+                                            </mat-form-field>
+
+                                        </mat-card>
+                                    </div>
+                                </mat-card>
+
+
+                            </div>
+                        </form>
+                    </div>
+                    <hr>
+                    <div class="row col-md-12">
+
+
+                        <div class=" row mb-3 col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-md-3 col-sm-3 row mb-3 text-center">
+                                <span class="title-1">Investigation</span>
+                                <span class="underline-investigation"></span>
+
+                            </div>
+
+                            <div class="col-md-12 mb-3">
+                                <div class="row mb-2">
+                                    <div class="col-md-3">
+                                        <input type="radio" id="raise-investigation" name="raise-investigation"
+                                            value="raise-investigation" class="col-md-2" (click)="raise()" [disabled] = "isReadonly">
+                                        <label for="raise-investigation" class="col-md-10">Raise
+                                        </label>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <input type="radio" id="raise-investigation" name="raise-investigation"
+                                            value="waive-investigation" class="col-md-2" (click)="waive()" [disabled] = "isReadonly">
+                                        <label for="waive-investigation" id="waive" class="col-md-10">Waive
+                                        </label>
+                                    </div>
+                                    <div *ngIf="showWaive">
+                                        <mat-card class="mt-3">
+                                            <span class="title-1 textArea">Remarks <span class="ErrorMessage">&#42;</span></span>
+                                            <span class="underline-requirement"></span>
+                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                <textarea matInput formControlName="remark" name="remark" cols="100"
+                                                    rows="1" required [disabled] = "isReadonly"></textarea>
+                                            </mat-form-field>
+                                        </mat-card>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div *ngIf="decisionhidden">
+                    <form [formGroup]="coverageForm">
+                        <div formArrayName="coverage">
+                            <div class="mt-2" *ngFor="let data of coverageData.controls; let i = index">
+                                <div [formGroupName]="i">
+                                    <div>
+                                        <div class="row col-md-12 d-flex">
+                                            <div class="col-md-12 d-flex">
+                                                <label class="mt-1 col-md-3">{{data.get('lablename')?.value.toUpperCase()}}</label>
+                                                <div >
+                                                    <mat-form-field  appearance="outline">
+                                                        <mat-select placeholder="Select"  #t formControlName="approval"
+                                                            (selectionChange)="approvalChange(t.value,i)" class="col-md-3" 
+                                                            [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('approval')?.errors }" [disabled] = "isReadonly">
+                                                            <mat-option *ngFor="let Data of decisionlist"
+                                                                [value]="Data.dcsnCode" [disabled] = "isReadonly">
+                                                                {{Data.dcsnName}}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                        <mat-error>
+                                                            <div>
+                                                                Please enter appropriate decision
+                                                            </div>
+                                                        </mat-error>
+                                                        <!-- {{data.get('approval')?.value.toUpperCase()}} -->
+                                                    </mat-form-field>
+                                                    
+                                                </div>
+                                                <div class="col-md-2 mx-2">
+                                                    <mat-form-field  appearance="outline">
+                                                        <mat-select placeholder="Suspicous"class="col-md-3"
+                                                        formControlName="suspicious"(selectionChange)="approvalChange(t.value,i)" [disabled] = "isReadonly">
+                                                            <mat-option value="Y">YES</mat-option>
+                                                        <mat-option value="N">NO</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                 </div>
+                                                <div  *ngIf="t.value == 'ASM_REJECT' || t.value === 'ASM_ROP' || t.value === 'ASM_REPUDIATE' || t.value === 'ASM_INVALID_CLM'" class="d-flex">
+                                                    <!-- <span class="col-md-2"></span> -->
+                                                    <div class="col-md-4 mx-2">
+                                                        <mat-form-field  appearance="outline">
+                                                            <mat-select (selectionChange)="approvalChange(t.value,i)" placeholder="Reason"class="col-md-3" formControlName="reason" [disabled] = "isReadonly">
+                                                                <mat-option *ngFor="let data of reasonlist"
+                                                                [value]="data.lookupCd">
+                                                                {{data.shrtName}}
+                                                            </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                   <div class="col-md-4 mx-2">
+                                                    <mat-form-field  appearance="outline">
+                                                        <mat-select (selectionChange)="approvalChange(t.value,i)" placeholder="Evidence Type"class="col-md-3" formControlName="evidenceType" [disabled] = "isReadonly">
+                                                            <mat-option *ngFor="let data of evdncelist"
+                                                            [value]="data.lookupCd">
+                                                            {{data.shrtName}}
+                                                        </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                   </div>
+                                                </div>                                             
+                                                    
+                        
+                                                
+
+                                            </div>
+                                          
+
+                                        </div>
+                                 
+                                    </div>
+
+                                </div>
+
+                            </div>
+                           
+                        </div>
+                       
+                        <div class="mt-3" >
+                            <div class="row  mb-3">
+                                <div>
+                                    <mat-card>
+                                        <span class="title-1 textArea">Remarks <span class="ErrorMessage">&#42;</span></span>
+                                        <span class="underline-requirement"></span>
+                                        <mat-form-field floatLabel="always" class="col-md-10" >
+                                            <textarea matInput formControlName="remark" name="remark" cols="100" rows="5" 
+                                                required></textarea>
+                                        </mat-form-field>
+                                    </mat-card>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+                    <div *ngIf="appCode == 'AS' ||  appCode == 'AP'" class=" row mb-3 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-3 col-sm-3 row mb-3 text-center">
+                            <span class="title-1">Correspondance</span>
+                            <span class="underline-investigation"></span>
+
+                        </div>
+                        <mat-card *ngIf="deathBeforeRCD"  class="mb-3">
+                        <mat-card-title class="title-communication ">Death Before RCD</mat-card-title>
+                        <div class="text-end">
+                            <button mat-raised-button class="button-blue mx-3" (click)="previewApi('deathbeforercd')" >Preview</button>
+                            <button mat-raised-button class="button-1" *ngIf="submitDeathBeforeRCD" (click)="submitLetterToDB('deathbeforercd')" >Submit</button>
+                        </div>
+                        </mat-card>
+                        <mat-card *ngIf="medicalNonDisclosure"  class="mb-2">
+                            <mat-card-title class="title-communication ">Repudiation letter Medical Non-Disclosure</mat-card-title>
+                            <form [formGroup]="medicalNonDisclosureFrom">
+                           <div class="row mt-5">
+                            <div class="col-4 mt-1">
+                                <mat-form-field floatLabel="always">
+                                    <mat-label>Proposal Clause No.</mat-label>
+                                    <input matInput formControlName="proposalClauseNo">
+                                    <mat-error>
+                                        Please enter proposal clause no.
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        <div class="col-8 mt-1">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Relevant Clause of Proposal form and Non-Disclosure Facts to be Mentioned</mat-label>
+                                <input matInput formControlName="nonDisclosureFacts">
+                                <mat-error>
+                                    Please enter clause of proposal form and non-disclosure facts to be mentioned
+                                </mat-error>
+                            </mat-form-field>
+                    </div>
+                        <div class="col-4 mt-1">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Details of Illnesses Not Disclosed</mat-label>
+                                <input matInput formControlName="detailsOfIllnesses">
+                                <mat-error>
+                                    Please enter details of the Illnesses 
+                                </mat-error>
+                            </mat-form-field>
+                    </div>
+                    <div class="col-4 mt-1">
+                        <mat-form-field floatLabel="always">
+                            <mat-label>Details of document to be Captured</mat-label>
+                            <input matInput formControlName="documentsToBeCaptured">
+                            <mat-error>
+                                Please enter details of document
+                            </mat-error> 
+                        </mat-form-field>
+                </div>
+                       
+                    <div class="mb-2 text-end">
+                        <!-- <button mat-raised-button type="reset" class="button-clr-3"  >Clear</button>
+                        <button mat-raised-button type="submit" class="button-1" >Save</button> -->
+                        <button mat-raised-button class="button-blue mx-3" (click)="previewApi('medicalNonDisclosure')" >Preview</button>
+                        <button mat-raised-button class="button-1" *ngIf="submitMedicalNonDisclosure"  (click)="submitLetterToDB('medicalNonDisclosure')" >Submit</button>
+                    </div>
+                    
+                        </div>
+                    </form>
+                        </mat-card>
+                        <mat-card *ngIf="previousInsuranceNonDisclosure"  class="mb-2">
+                            <mat-card-title class="title-communication ">Repudiation Letter Previous Insurance Non-Disclosue</mat-card-title>
+                            <form [formGroup]="previousInsuranceNonDisclosureFrom">
+                           <div class="row mt-5">
+                            <div class="col-4 ">
+                                <mat-form-field floatLabel="always">
+                                    <mat-label>Proposal Clause No.</mat-label>
+                                    <input matInput formControlName="proposalClauseNo">
+                                    <mat-error>
+                                        please Enter proposal clause no
+                                    </mat-error>
+                                </mat-form-field>
+                        </div>
+                        <div class="col-8">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Relevant Clause of Proposal form and Non-Disclosure Facts to be Mentioned</mat-label>
+                                <input matInput formControlName="nonDisclosureFacts">
+                                <mat-error>
+                                    Please enter clause of proposal form and non-disclosure facts to be mentioned
+                                </mat-error>
+                            </mat-form-field>
+                    </div>
+                        <div class="col-4 ">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Details of facts to be captured</mat-label>
+                                <input matInput formControlName="factsToBeCaptured">
+                                <mat-error>
+                                    please enter facts to be captured
+                                </mat-error>
+                            </mat-form-field>
+                    </div>
+                    <div class="mb-2 text-end">
+                        <!-- <button mat-raised-button type="reset" class="button-clr-3"  >Clear</button>
+                        <button mat-raised-button type="submit" class="button-1" >Save</button> -->
+                        <button mat-raised-button class="button-blue mx-3" (click)="previewApi('previousInsuranceNonDisclosure')" >Preview</button>
+                        <button mat-raised-button class="button-1" *ngIf="submitPreviousInsuranceNonDisclosure"  (click)="submitLetterToDB('previousInsuranceNonDisclosure')" >Submit</button>
+                    </div>
+                        </div>
+                    </form>
+                        </mat-card>
+                        <mat-card *ngIf="paymentGracePeriod"  class="mb-2">
+                            <mat-card-title class="title-communication ">Payment Letter Non-ULIP Grace Period</mat-card-title>
+                            <div class="text-end">
+                                <button mat-raised-button class="button-blue mx-3" (click)="previewApi('paymentGracePeriod')" >Preview</button>
+                                <!-- <button mat-raised-button class="button-1" >Submit</button> -->
+                            </div>
+                        </mat-card>
+                
+                        <mat-card *ngIf="paymentInForce"  class="mb-2">
+                            <mat-card-title class="title-communication ">Payment Letter Non-ULIP Inforce</mat-card-title>
+                            <div class="text-end">
+                                <button mat-raised-button class="button-blue mx-3" (click)="previewApi('paymentInForce')">Preview</button>
+                                <!-- <button mat-raised-button class="button-1" >Submit</button> -->
+                            </div>
+                        </mat-card>
+                
+                        <mat-card *ngIf="paymentRPU"  class="mb-2">
+                            <mat-card-title class="title-communication ">Payment Letter Reduced Paid Up</mat-card-title>
+                            <div class="text-end">
+                                <button mat-raised-button class="button-blue mx-3" (click)="previewApi('paymentRPU')">Preview</button>
+                                <!-- <button mat-raised-button class="button-1" (click)="" >Submit</button> -->
+                            </div>
+                        </mat-card>
+                
+                        <mat-card *ngIf="paymentCI"  class="mb-2">
+                            <mat-card-title class="title-communication ">Payment Letter Rider CI Disability</mat-card-title>
+                            <div class="text-end">
+                                <button mat-raised-button class="button-blue mx-3" (click)="previewApi('paymentCI')" >Preview</button>
+                                <!-- <button mat-raised-button class="button-1" >Submit</button> -->
+                            </div>
+                        </mat-card>
+                
+                        <mat-card *ngIf="paymentULIP"  class="mb-2">
+                            <mat-card-title class="title-communication ">Payment Letter ULIP</mat-card-title>
+                            <div class="text-end">
+                                <button mat-raised-button class="button-blue mx-3" (click)="previewApi('paymentULIP')" >Preview</button>
+                                <!-- <button mat-raised-button class="button-1" >Submit</button> -->
+                            </div>
+                        </mat-card>
+
+                        <mat-card *ngIf="paymentSuicide" class="mb-2">
+                            <mat-card-title class="title-communication ">Suicide Letter</mat-card-title>
+                            <form [formGroup]="suicideLetterForm">
+                            <div class="row mt-5">
+                                <div class="col-6 ">
+                                    <mat-form-field floatLabel="always">
+                                        <mat-label>Extract as per Policy Bond will be Captured</mat-label>
+                                        <input matInput formControlName="extractAsPerPolicy">
+                                        <mat-error>
+                                            Please enter extract as per policy Bond
+                                        </mat-error>
+                                    </mat-form-field>
+                            </div>  
+                        <div class="mb-2 text-end">
+                            <!-- <button mat-raised-button type="reset" class="button-clr-3"  >Clear</button>
+                            <button mat-raised-button type="submit" class="button-1" >Save</button> -->
+                            <button mat-raised-button class="button-blue mx-3" (click)="previewApi('paymentSuicide')" >Preview</button>
+                            <button mat-raised-button class="button-1" *ngIf="submitSucidePreview" (click)="submitLetterToDB('paymentSuicide')" >Submit</button>
+                        </div>
+                            </div>
+                        </form>
+                        </mat-card>
+                        <mat-card *ngIf="lapsedWOPay"  class="mb-2">
+                            <mat-card-title class="title-communication ">Lapsed Without Pay Letter</mat-card-title>
+                            <div class="text-end">
+                                <button mat-raised-button class="button-blue mx-3" (click)="previewApi('lapsedWOPay')" >Preview</button>
+                                <button mat-raised-button class="button-1" *ngIf="submitLapsedWOPay" (click)="submitLetterToDB('lapsedWOPay')" >Submit</button>
+                            </div>
+                        </mat-card>
+                        <mat-card *ngIf="lapsedWithPay"  class="mb-2">
+                            <mat-card-title class="title-communication ">Lapsed with Pay Letter</mat-card-title>
+                            <div class="text-end">
+                                <button mat-raised-button class="button-blue mx-3" (click)="previewApi('lapsedWithPay')" >Preview</button>
+                                <!-- <button mat-raised-button class="button-1" >Submit</button> -->
+                            </div>
+                        </mat-card>
+                        <mat-card *ngIf="waitingPeriodForCI"  class="mb-2">
+                            <mat-card-title class="title-communication ">Waiting Period CI</mat-card-title>
+                            <!-- <form [formGroup]=""> --> <form>
+                            <div class="row mt-5">
+                                <div class="col-4 ">
+                                    <mat-form-field floatLabel="always">
+                                        <mat-label>Illness Name to be Cptured</mat-label>
+                                        <input matInput formControlName="">
+                                    </mat-form-field>
+                            </div>
+                            <div class="col-4">
+                                <mat-form-field floatLabel="always">
+                                    <mat-label>Waiting Period Timelines</mat-label>
+                                    <input matInput formControlName="">
+                                </mat-form-field>
+                        </div>
+                            <div class="col-4">
+                                <mat-form-field floatLabel="always">
+                                    <mat-label>Waiting Period Clause to be Captured</mat-label>
+                                    <input matInput formControlName="">
+                                </mat-form-field>
+                        </div>
+                           
+                        <div class="mb-2 text-end">
+                            <button mat-raised-button type="reset" class="button-clr-3"  >Clear</button>
+                            <button mat-raised-button type="submit" class="button-1" >Save</button>
+                            <button mat-raised-button class="button-blue mx-3" >Preview</button>
+                            <button mat-raised-button class="button-1" >Submit</button>
+                        </div>
+                            </div>
+                        </form>
+                        </mat-card>
+                        <mat-card *ngIf="waitingPeriodForDisability" class="mb-2">
+                            <mat-card-title class="title-communication ">Waiting Period Disability</mat-card-title>
+                            <form [formGroup]="waitingPeriodDisabilityForm">
+                            <div class="row mt-5">
+                                <div class="col-4 ">
+                                    <mat-form-field floatLabel="always">
+                                        <mat-label>Illness Name to be Captured</mat-label>
+                                        <input matInput formControlName="illnessName">
+                                        <mat-error>
+                                            Please Enter Illness Name to be Captured
+                                        </mat-error>
+                                    </mat-form-field>
+                            </div>
+                            <div class="col-4">
+                                <mat-form-field floatLabel="always">
+                                    <mat-label>Waiting Period Timelines</mat-label>
+                                    <input matInput formControlName="waitingPeriodTimeline">
+                                    <mat-error>
+                                        Please Enter Waiting Period Timelines
+                                    </mat-error>
+                                </mat-form-field>
+                        </div>
+                            <div class="col-4">
+                                <mat-form-field floatLabel="always">
+                                    <mat-label>Waiting Period Clause to be Captured</mat-label>
+                                    <input matInput formControlName="waitingPeriodClause">
+                                    <mat-error>
+                                        Please Enter Period Clause to be Captured
+                                    </mat-error>
+                                </mat-form-field>
+                        </div>
+                           
+                        <div class="mb-2 text-end">
+                            <button mat-raised-button class="button-blue mx-3" >Preview</button>
+                            <button mat-raised-button class="button-1" >Submit</button>
+                        </div>
+                            </div>
+                        </form>
+                        </mat-card>
+                        <mat-card *ngIf="showNDALetter" class="mb-2">
+                            <mat-card-title class="title-communication ">NDA Letter</mat-card-title>
+                            <div class="text-end">
+                                <button mat-raised-button class="button-blue mx-3" (click)="previewApi('showNDALetter')" >Preview</button>
+                                <button mat-raised-button class="button-1" *ngIf="submitNDAletter" (click)="submitLetterToDB('ndaletter')"  >Submit</button>
+                            </div>
+                        </mat-card>
+
+
+                    </div>
+                </div>
+
+                <div *ngIf="decisionRequirementShow">
+                    <div class="col-md-12 px-5 mt-3">
+                        <form [formGroup]="decisionRequirementForm">
+                            <div class="col-md-12">
+                                
+                               <div class="row">
+                                <div class="col-md-1 mt-3">
+                                        <mat-label>Action</mat-label>
+                                </div>
+                                 <div class="col-md-3">
+                                    <mat-form-field  appearance="outline">
+                                        <mat-select placeholder="--select--" class="col-md-3" #actionForm (selectionChange)="onSelectAction(actionForm.value)"
+                                          formControlName="decisionRequirement" required>
+                                            <mat-option *ngFor="let data of decisionReList" [value]="data.lookupCd">{{data.shrtName}}</mat-option>
+                                           
+                                        </mat-select>
+
+                                        <mat-error>
+                                            <div *ngIf="(decisionRequirementForm.get('decisionRequirement')?.touched || decisionRequirementForm.get('decisionRequirement')?.dirty)" >
+                                                <div *ngIf="decisionRequirementForm.get('decisionRequirement')?.errors?.['required']"> Please Select Action</div>
+                                            </div>
+                                            </mat-error>
+                                    </mat-form-field>
+                                 </div>
+                               </div>
+                                    <div>
+                                        <div class="row mb-3">
+                                            <div>
+                                                <mat-card>
+                                                    <span class="title-1 textArea">Remarks <span class="ErrorMessage">&#42;</span></span>
+                                                    <span class="underline-requirement"></span>
+                                                    <mat-form-field floatLabel="always" class="col-md-10">
+                                                        <textarea matInput formControlName="decisionrequirementRemark" name="remark"
+                                                            cols="100" rows="5" required [readonly]="isReadonly"></textarea>
+                                                            <mat-error>
+                                                                <div
+                                                                    *ngIf="decisionRequirementForm.get('decisionrequirementRemark')?.errors?.['required']">
+                                                                    Please enter remark</div>
+                                                            </mat-error>
+                                                    </mat-form-field>
+                                                </mat-card>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </form>
+                    </div>
+                    <mat-card *ngIf="showClaimRequirementLetter" class="mb-2">
+                        <mat-card-title class="title-communication ">Claims Requirement Letter</mat-card-title>
+                        <div class="text-end">
+                            <button mat-raised-button class="button-blue mx-3" (click)="previewApi('showClaimRequirementLetter')" >Preview</button>
+                            <button mat-raised-button class="button-1" (click)="submitLetterToDB('showClaimRequirementLetter')" >Submit</button>
+                        </div>
+                    </mat-card>
+            
+                    <mat-card *ngIf="showClaimRequirementLetterForCI"  class="mb-2">
+                        <mat-card-title class="title-communication ">Claims Requirement Letter Rider CI Disability</mat-card-title>
+                        <div class="text-end">
+                            <button mat-raised-button class="button-blue mx-3" (click)="previewApi('showClaimRequirementLetterForCI')" >Preview</button>
+                            <button mat-raised-button class="button-1" (click)="submitLetterToDB('showClaimRequirementLetterForCI')"  >Submit</button>
+                        </div>
+                    </mat-card>
+                </div>
+                
+                <div>
+                    <div class="col-md-12">
+                        <div class="col-md-12 d-flex justify-content-center" *ngIf="reRegestrationVisible">
+                            <mat-card class="col-md-8 mb-5 h-100 py-3">
+                                <div class="h-75 mb-5 text-center">
+                                    <p class="title-1 mb-5">Do you want to initiate Re-Registration of the case</p>
+                                </div>
+                                <div class="h-25 float-right text-center">
+                                    <button mat-raised-button class="mx-3" (click)="onYesClick()">YES</button>
+                                    <button mat-raised-button class="mx-3" (click)="onNoClick()">NO</button>
+                                </div>
+                           
+
+                                <div class="col-md-12 mt-5" *ngIf="reRegestrationRemark">
+                                    <form [formGroup]="reRegestrationForm">
+                                        <div>
+                                            <div class="row mb-3">
+                                                <div>
+                                                    <mat-card>
+                                                        <span class="title-1 textArea">Remarks <span class="ErrorMessage">&#42;</span></span>
+                                                        <span class="underline-requirement"></span>
+                                                        <mat-form-field floatLabel="always" class="col-md-10">
+                                                            <textarea matInput formControlName="reRegestrationRemark" name="remark"
+                                                                cols="100" rows="5" required [readonly]="isReadonly"></textarea>
+                                                                <mat-error>
+                                                                    <div
+                                                                        *ngIf="reRegestrationFormControls.get('reRegestrationRemark')?.errors?.['required']">
+                                                                        Please enter remark</div>
+                                                                </mat-error>
+                                                        </mat-form-field>
+                                                    </mat-card>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </mat-card>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 d-flex justify-content-center" *ngIf="referBackButton">
+                    <mat-card class="col-md-6 pt-3" [formGroup]="referBackDecisionForm">
+                        <div class="d-flex" *ngIf="appCode == 'PO'">
+                            <div class="col-md-6">
+                                <input type="radio" name="referBackDecision" formControlName="referBackDecision"
+                                    id="back" value="PAY_RFR_TO_ASSR">
+                                <mat-label>Refer To Assessor</mat-label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="radio" name="referBackDecision" formControlName="referBackDecision"
+                                    id="back" value="PAY_REJCT_RFR_TO_ASSR">
+                                <mat-label>Reject and Refer To Assessor</mat-label>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <div class="row">
+                                <div>
+                                    <mat-card>
+                                        <span class="title-1 textArea">Remarks <span class="ErrorMessage">&#42;</span></span>
+                                        <span class="underline-requirement"></span>
+                                        <mat-form-field floatLabel="always" class="col-md-10">
+                                            <textarea matInput formControlName="remark" name="remark" cols="100"
+                                                rows="5" required></textarea>
+                                            <mat-error>
+                                                <div
+                                                    *ngIf="referBackDecisionFromControls.get('remark')?.errors?.['required']">
+                                                    Please enter Remarks</div>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </mat-card>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="text-center m-3 mb-0">
+
+                            <button mat-raised-button class="button-1 mx-3"
+                                (click)="onCancelReferBack()">Cancel</button>
+                            <button mat-raised-button class="button-1 mx-3"
+                                (click)="onReferBackDecision()">Save</button>
+                        </div>
+                    </mat-card>
+                </div>
+                </div>
+
+                <div *ngIf="!showDetails && ((this.appCode == 'AS' && this.taskCode != 'AWAIT_ASSESSMENT_REFERRAL') || (this.appCode == 'AP' && this.taskCode == 'CRC_TSK'))">
+                    <!-- referralOpinionForm is reUsed for crc close task so the additional conditions are handled for hiding and showing purpose -->
+                    <div class="col-md-12">
+                        <div class="col-md-3 mb-4" *ngIf="!showDetails && this.appCode == 'AS' && this.taskCode != 'AWAIT_ASSESSMENT_REFERRAL'">
+                            <div class="row">
+                                <div>
+                                    <span class="radio-title">Referral Opinion</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <form [formGroup]="referralOpinionForm">
+                                <div>
+                                    <div class="row mb-3">
+                                        <div>
+                                            <mat-card>
+                                                <span class="title-1 textArea">Remarks <span class="ErrorMessage">&#42;</span> </span>
+                                                <span class="underline-requirement"></span>
+                                                <mat-form-field floatLabel="always" class="col-md-10">
+                                                    <textarea matInput formControlName="referralRemark" name="remark"
+                                                        cols="100" rows="5" required [readonly]="isReadonly"></textarea>
+                                                        <mat-error>
+                                                            <!-- <div *ngIf="(referFormGroups.controls[i].get('user')?.touched || referFormGroups.controls[i].get('user')?.dirty)" > -->
+                                                            <div
+                                                                *ngIf="referralOpinionFormControls.get('referralRemark')?.errors?.['required']">
+                                                                Please enter remark</div>
+                                                            <!-- </div> -->
+                                                        </mat-error>
+                                                </mat-form-field>
+                                            </mat-card>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" *ngIf="this.taskCode == 'AWAIT_ASSESSMENT_REFERRAL'">
+                    <h6 class="text-center">{{commonMessageForAwait}}</h6>
+                </div>
+            </mat-card>
+            <div class="row text-center" >
+                <div class="col-md-12" *ngIf="!trackClaim">
+                    <button mat-raised-button class="button-1 mx-3" type="submit" *ngIf="(appCode == 'AP' && taskCode != 'CRC_TSK') || appCode == 'PO'"
+                        (click)="referBack()" [disabled]="coverageForm.get('approval')?.invalid">REFER BACK</button>
+
+                    <!-- <button mat-raised-button class="button-1 mx-3" type="submit"
+                        (click)="onCloseTask(coverageForm.value)" [disabled]="coverageForm.get('approval')?.invalid">SUBMIT</button> -->
+<!-- {{taskCode}}{{appCode}} -->
+                        <button mat-raised-button class="button-1 mx-3" *ngIf="taskCode == 'CRC_TSK'" (click)="beforeSubmitAPICall(coverageForm.value,referralForm.value, 'REJECT')">Reject</button>
+                        <button mat-raised-button class="button-1 mx-3" (click)="onCancelButton()">Cancel</button>
+                        <button mat-raised-button class="button-1 mx-3" *ngIf="taskCode == 'CRC_TSK'" (click)="beforeSubmitAPICall(coverageForm.value,referralForm.value, 'APPROVE')">Accept</button>
+                        <!-- <button mat-raised-button class="button-1 mx-3" *ngIf="(appCode == 'AS' && taskCode == 'ASSESSMENT_TSK')" (click)="beforeSubmitAPICall(coverageForm.value,referralForm.value, 'SEND_TO_AWAIT')">SEND TO AWAIT</button> -->
+
+
+                        <button mat-raised-button class="button-1 mx-3" type="submit" form="referalform" *ngIf="(this.taskCode != 'AWAIT_ASSESSMENT_REFERRAL' && this.taskCode != 'CRC_TSK')"
+                             (click)="beforeSubmitAPICall(coverageForm.value,referralForm.value)">SUBMIT</button>
+
+                    <!-- <button mat-raised-button class="button-1" [routerLink]="['/claims-assessment']"  *ngIf="this.taskCode == 'AWAIT_ASSESSMENT_REFERRAL'">Cancel</button> -->
+                </div>
+            </div>
+
+
+        </div>

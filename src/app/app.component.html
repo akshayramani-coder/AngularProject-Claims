@@ -1,0 +1,20 @@
+<app-header (toggleSidebarForMe)="sideBarToggler()" *ngIf="!(router.url === '/login' || router.url === '/startpage')">
+</app-header>
+<mat-drawer-container>
+  <mat-drawer mode="side" [opened]="sideBarOpen" *ngIf="!(router.url === '/login' || router.url === '/claims-intimation/claim-profile' || router.url === '/claims-intimation/role-details'  || router.url === '/claims-intimation/policy-details' || router.url === '/claims-intimation/upload-document' || router.url === '/claims-intimation/add-nominee' || router.url === '/claims-intimation/claim-profile' || router.url === '/claims-intimation/nominee-details' || router.url === '/claims-registration/claim-profile' || router.url === '/claims-registration/role-details'  || router.url === '/claims-registration/policy-details' || router.url === '/claims-registration/upload-document' || router.url === '/claims-registration/add-nominee' || router.url === '/claims-registration/claim-profile' || router.url === '/claims-registration/nominee-details' || router.url === '/claims-assessment/claim-profile' || router.url === '/claims-assessment/role-details' ||
+    router.url === '/claims-assessment/policy-details' || router.url === '/claims-assessment/upload-document' ||
+    router.url === '/claims-assessment/add-nominee' || router.url === '/claims-assessment/claim-profile' || router.url
+    === '/claims-assessment/nominee-details' || router.url === '/claims-approval/claim-profile' || router.url === '/claims-approval/role-details' ||
+    router.url === '/claims-approval/policy-details' || router.url === '/claims-approval/upload-document' ||
+    router.url === '/claims-approval/add-nominee' || router.url === '/claims-approval/claim-profile' || router.url
+    === '/claims-approval/nominee-details' || router.url === '/claims-payout/claim-profile' || router.url === '/claims-payout/role-details' ||
+    router.url === '/claims-payout/policy-details' || router.url === '/claims-payout/upload-document' ||
+    router.url === '/claims-payout/add-nominee' || router.url === '/claims-payout/claim-profile' || router.url
+    === '/claims-payout/nominee-details')">
+    <app-sidebar></app-sidebar>
+  </mat-drawer>
+  <mat-drawer-content>
+    <app-spinner></app-spinner>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

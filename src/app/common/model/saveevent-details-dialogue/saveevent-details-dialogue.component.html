@@ -1,0 +1,95 @@
+<div class="container-fluid">
+    <div class="text-end mb-2">
+        <button class="margin-right btn-height" mat-raised-button mat-dialog-close type="submit" (click)="raisedRequirements()">
+            <mat-icon class="font" >close</mat-icon>
+        </button>
+    </div>
+    <!-- {{data | json}}   -->
+    <form>
+        <div class="title-1 text-center mb-2"><h3> Saved Successfully<br></h3></div>
+        <mat-card class="px-5">
+            
+            <div class="row">
+
+                <!-- <div>
+                    <h6>Product Code</h6>
+                    <p>{{data.productCode}}</p>
+                </div> -->
+
+                
+
+                <!-- <div *ngFor="let riderDetail of data.riderDetails">
+                    <h6>Rider Name</h6>
+                    <p>{{riderDetail.riderName}}</p>
+                    <h6>Rider Code</h6>
+                    <p>{{riderDetail.riderCode}}</p>
+                    <h6>Claimed Allowed</h6>
+                    <p>{{riderDetail.claimAllowed}}</p>
+                    <h6>Claimed Allowed Reason</h6>
+                    <p>{{riderDetail.claimAllowedReason}}</p>
+                </div> -->
+
+                <div class="row col-12">
+                    <div class="col-md-3">
+                        <h6 >Product Code</h6>
+                        <p>{{data.productCode}}</p>
+
+                        
+                    </div>
+                    <div class="col-md-3">
+                        <h6 >Claimed Allowed</h6>
+                        <p *ngIf="data.claimAllowed==false"><mat-icon class="red">clear</mat-icon></p>
+                        <p *ngIf="data.claimAllowed==true"><mat-icon class="green">check_circle_outline</mat-icon></p>
+                    </div>
+
+                    <div class="col-md-3">
+                        <h6>Claimed Allowed Reason</h6>
+                        <p>{{data.claimAllowedReason}}</p>
+                    </div>
+
+                </div>
+                <hr>
+                <div class="row col-12" *ngFor="let riderDetail of data.riderDetails">
+                    <div class="col-md-3">
+                        <h6>Rider Name</h6>
+                        <p>{{riderDetail.riderName}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <h6>Rider Code</h6>
+                        <p>{{riderDetail.riderCode}}</p>
+                    </div>
+                    <div class="col-md-3" >
+                        <h6>Claimed Allowed</h6>
+                        <p *ngIf="riderDetail.claimAllowed==false"><mat-icon class="red">clear</mat-icon></p>
+                        <p *ngIf="riderDetail.claimAllowed==true"><mat-icon class="green">check_circle_outline</mat-icon></p>
+                    </div>
+                    <div class="col-md-3">
+                        <h6>Claimed Allowed Reason</h6>
+                        <p>{{riderDetail.claimAllowedReason}}</p>
+                    </div>
+                </div>
+                <!-- <div>
+                    <h6>Claimed Allowd</h6>
+                    <p>{{data.claimAllowed}}</p>
+                </div>
+                <div>
+                    <h6>Claim Allowed Reason</h6>
+                    
+                        <p>{{data.claimAllowedReason}}</p>
+                   
+                </div> -->
+
+
+            </div>
+
+
+
+        </mat-card>
+        <!-- <mat-card class="mt-2 mb-2">
+            <div class="col-sm-12 text-end">
+                <button mat-raised-button type="reset" class="button-clr-3">Cancel</button>
+                <button mat-raised-button type="submit" class="button-1">Ok</button>
+            </div>
+        </mat-card> -->
+    </form>
+</div>

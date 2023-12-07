@@ -1,0 +1,67 @@
+
+.ErrorMessage {
+    font-size: 14px;
+    color: red;
+}
+
+.ridername {
+    width: 200px;
+}
+
+.matcell {
+    font-size: 100%;
+    letter-spacing: 0.14px;
+    color: black;
+    opacity: 1;
+}
+
+mat-table {
+    width: 100%;
+}
+
+.title-heading-matcell {
+    letter-spacing: 0px;
+    color: black !important;
+    font-weight: 600;
+    font-size: 110%;
+}
+
+.ridername {
+    text-align: left !important;
+    justify-content: flex-start;
+}
+
+.underlinePlanDetails {
+    border-bottom: 5px solid #FB4E60 !important;
+    margin-top: 0px;
+    width: 16%;
+    margin-left: 14px;
+}
+
+.underlineProposalDetails {
+    border-bottom: 5px solid #FB4E60 !important;
+    margin-top: 0px;
+    width: 20%;
+    margin-left: 14px;
+}
+
+.underlineAgentDetails {
+    border-bottom: 5px solid #FB4E60 !important;
+    margin-top: 0px;
+    width: 17%;
+    margin-left: 14px;
+}
+
+.underlineRiderDetails {
+    border-bottom: 5px solid #FB4E60 !important;
+    margin-top: 0px;
+    width: 17%;
+    margin-left: 14px;
+}
+.underlineFundDetails {
+    border-bottom: 5px solid #FB4E60 !important;
+    margin-top: 0px;
+    width: 17%;
+    margin-left: 14px;
+
+}

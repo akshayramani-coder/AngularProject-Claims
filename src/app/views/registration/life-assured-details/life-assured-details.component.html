@@ -1,0 +1,176 @@
+<!-- <div class=" row rightsideJobNotes " [ngClass]="{'jobNotesClose': !sideNav,'jobNotesOpen': sideNav}"> -->
+<!-- <button type="button" *ngIf="!sideNav" class="sidenav-btn" (click)="openNav()">
+        <i class="material-icons">keyboard_arrow_left</i></button>
+    <button type="button" *ngIf="sideNav" class="sidenav-btn" (click)="closeNav()">
+        <i class="material-icons">keyboard_arrow_right</i>
+    </button> -->
+
+
+
+
+
+<!-- <div class="box">
+        <div class="row">
+            <div class="col-md-2">
+            <mat-card class="top-margin mx-1 ">
+            <div class="row d-flex justify-content-center scrollbar scrollbar-primary">
+                <mat-card class="bck-round col-md-3 mx-5">
+                    <p class="text-center">Life Assured Details</p>
+                    <ul>
+                        <li>
+                            <p class="life-tag col-md-3">Name :</p> <span class="col-md-9">Sachin Anil Manjrekar</span>
+                        </li>
+                        <li>
+                            <p class="life-tag col-md-3">PAN :</p><span class="col-md-9">BCCPJ8584K</span>
+
+                        </li>
+                        <li>
+
+                            <p class="life-tag col-md-3">Contact No :</p><span class="col-md-9">9604728888</span>
+                        </li>
+                        <li>
+                            <p class="life-tag col-md-3">Email ID :</p> <span class="col-md-9">Sachin@gmail.com</span>
+                        </li>
+                        <li>
+                            <p class="life-tag col-md-3">DOB :</p><span class="col-md-9">12/12/2020</span>
+
+                        </li>
+                    </ul>
+                </mat-card>
+               
+                <mat-card class="col-md-3 mx-5 claimDetails">
+                    <p class="text-center life-title">Claim Details</p>
+                    <ul>
+                        <li class="life-claim">
+
+                            <p class="life-tag col-md-5">Claim Type :</p> <span class="col-md-8">Death</span>
+                        </li>
+                        <li class="life-claim">
+                            <p class="life-tag col-md-5">DOI :</p> <span class="col-md-8">00/00/0000</span>
+
+                        </li>
+                        <li class="life-claim">
+
+                            <p class="life-tag col-md-5">Time of Intimation :</p> <span class="col-md-8">00:00:00</span>
+                        </li>
+                        <li class="life-claim">
+                            <p class="life-tag col-md-5">Intimated By :</p> <span class="col-md-8">sachin</span>
+                        </li>
+                        <li class="life-claim">
+                            <p class="life-tag col-md-5">Relation with LA :</p> <span class="col-md-8">Spouse</span>
+
+                        </li>
+                        <li class="life-claim">
+                            <p class="life-tag col-md-5">Relation with LA :</p> <span class="col-md-8">Text</span>
+
+                        </li>
+                    </ul>
+                </mat-card>
+                <mat-card class="col-md-3 mx-5">
+                    <p class="text-center life-title">Event Details</p>
+                    <ul>
+                        <li class="life-claim">
+
+                            <p class="life-tag col-md-5">Cause of Event :</p> <span class="col-md-8">Accident</span>
+                        </li>
+                        <li class="life-claim">
+                            <p class="life-tag col-md-5">DOE :</p> <span class="col-md-8">00/00/0000</span>
+
+                        </li>
+                        <li class="life-claim">
+
+                            <p class="life-tag col-md-5">Secondary Cause :</p><span class="col-md-8">XYZ</span>
+                        </li>
+                        <li class="life-claim">
+                            <p class="life-tag col-md-5 ">Organ Impacted :</p> <span class="col-md-8">XYZ</span>
+                        </li>
+                        <li class="life-claim">
+                            <p class="life-tag col-md-5">Place of Death :</p> <span class="col-md-9">XYZ</span>
+
+                        </li>
+                        <li class="life-claim">
+                            <p class="life-tag col-md-5">Name of Hospital :</p> <span class="col-md-9">XYZ</span>
+
+                        </li>
+                        <li class="life-claim justify-content-end">
+                            <button mat-raised-button class="button-1" (click)="onViewClick()" >View</button>
+                        </li>
+                    </ul>
+                </mat-card>
+            </div>
+        </mat-card>
+            </div>
+        </div>
+        
+    </div>
+    </div> -->
+
+
+
+
+<div class="top-margin mx-1" *ngIf="appCode != 'CI'"> <!--  CR TO NOT CI -->
+    <mat-card class="px-0">
+        <div class="col-md-12">
+            <div class="row text-center">
+
+                <div class="col-md-2">
+                    <p class="title-heading my-0">Claim No.</p>
+                    <span class="data mt-2">{{claimNo}}</span>
+                </div>
+                <div class="col-md-1">
+                    <p class="title-heading my-0">Client ID</p>
+                    <span class="data mt-2">{{clientId}}</span>
+                </div>
+                <div class="col-md-1">
+                    <p class="title-heading my-0">Policy No.</p>
+                    <span class="data mt-2">{{policyId}}</span>
+                </div>
+                <div class="col-md-2">
+                    <p class="title-heading my-0">Product Code</p>
+                    <span class="data mt-2">{{productCode?productCode:'-'}}</span>
+                </div>
+                <div class="col-md-2" *ngIf="content==''">
+                    <p class="title-heading my-0">Early/Non-Early</p>
+                    <span class="data mt-2" *ngIf="earlyNonEarlyCR">{{earlyNonEarlyCR?earlyNonEarlyCR:'-'}}</span>
+                    <span class="data mt-2" *ngIf="!earlyNonEarlyCR">{{claimDuration?claimDuration:'-'}}</span>
+                </div>
+                <div class="col-md-2" *ngIf="content!=''">
+                    <p class="title-heading my-0">Early/Non-Early</p>
+                    <span class="data mt-2">{{content}}</span>
+                </div>
+                <div class="col-md-2">
+                    <p class="title-heading my-0">Policy Status at DOE</p>
+                    <span class="data mt-2">{{policyStatusAtDoe?policyStatusAtDoe:'-'}}</span>
+                </div>
+                <div class="col-md-2">
+                    <p class="title-heading my-0">Claim Status</p>
+                    <span class="data mt-2" *ngIf="claimStatusDesc">{{claimStatusDesc?claimStatusDesc:'-'}}</span>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+</div>
+<div class="top-margin mx-1" *ngIf="appCode == 'CI'"> <!--  NOT CR TO CI -->
+    <mat-card class="px-0">
+        <div class="col-md-12">
+            <div class="row text-center">               
+                <div class="col-md-3">
+                    <p class="title-heading my-0">Policy No.</p>
+                    <span class="data mt-2">{{policyNo}}</span>
+                </div>
+                <div class="col-md-3">
+                    <p class="title-heading my-0">Product Code</p>
+                    <span class="data mt-2">{{productCode?productCode:'-'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <p class="title-heading my-0">Early/Non-Early</p>
+                    <span class="data mt-2">{{earlyNonEarly?earlyNonEarly:'-'}}</span>
+                </div>
+                <div class="col-md-3">
+                    <p class="title-heading my-0">Policy Status at DOE</p>
+                    <span class="data mt-2">{{policyStatusOnEvent?policyStatusOnEvent:'-'}}</span>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+</div>

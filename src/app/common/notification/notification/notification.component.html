@@ -1,0 +1,71 @@
+<div class="title-header container-fluid">
+
+    <!-- <div class="header">
+        <h1>Notification</h1>
+    
+        <div class="text-end mb-2">
+             <button class="margin-right btn-height font" id="btn" mat-raised-button mat-dialog-close> 
+            <mat-icon class="font" mat-dialog-close>close</mat-icon>
+            </button> 
+        </div>
+        <div>
+            <p *ngFor="let data of dataOfY">
+                <mat-card (click)="onNotify()">{{data.heading}}</mat-card>
+    
+                <mat-card *ngIf="descriptionOpen">
+                    {{data.description}}
+                </mat-card>
+            </p>
+    
+        </div>
+    </div> -->
+    <mat-card >
+        <h4 class="title-work text-center">Notifications</h4>
+        <!-- <p *ngIf="dataOfN.length!=[]">Please read below notifications</p>
+        <p *ngIf="dataOfN.length==[]">Not receive new notification</p> -->
+        <div class="row">
+            <div class="col-12" id="header">
+                <label class="header-data">Claim No.</label>
+            </div>
+            
+        </div>
+        <hr>
+        <div class="row" *ngFor="let data of allNotification,let i=index">
+            <mat-card class="py-0 mb-2" (click)="onsubmitNotification(data)" >
+                <!-- (click)="onsubmitNotification(data)" -->
+                <div class="row mt-2">
+                    <div class="col-12 py-0" (click)="onNotify(i)">
+                        <a>{{data.status}}</a>
+                    </div>
+                </div>
+
+                <div *ngIf="indextoOpen == i">
+                    <table>
+                        <tr id="header">
+                            <th class="col-md-1">Date</th>
+                            <th class="col-md-2">Heading</th>
+                            <th class="col-md-2">Sub-Heading</th>
+                            <th class="col-md-3">Description</th>
+                            
+                        </tr>
+                        <tr class="mt-1" *ngFor="let dataList of data.objList" [ngClass]="{'my_class':dataList.readYn =='Y'}">
+                            <td>{{dataList.ntfcnDt}}</td>
+                            <td>{{dataList.heading}}</td>
+                            <td>{{dataList.subHeading}}</td>
+                            <td>{{dataList.description}}</td>
+                           
+                        </tr>
+                    </table>
+                </div>
+
+                
+            </mat-card>
+
+
+
+        </div>
+  
+        
+    </mat-card>
+
+</div>

@@ -1,0 +1,60 @@
+<div class="title-header">
+    <mat-card>
+        <mat-card-title>New Claim Intimation</mat-card-title>
+    </mat-card>
+</div>
+<div class="container-fluid text-center">
+    <div class="mt-4 col-md-12 d-flex justify-content-center">
+        <div class="col-md-12">
+            <mat-card>
+                <form >
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <div class="col-md-3" [formGroup]="formGroup">
+                            <mat-form-field class="" floatLabel="always">
+                                <mat-label>Policy No.</mat-label>
+                                <input matInput placeholder="xxxxxxxxxx"  [ngClass]="{ 'is-invalid': submitted && f['policyNo'].errors }"
+                                formControlName="policyNo" required [errorStateMatcher]="errorMatcherNew">
+                                <mat-error>
+                                    <div *ngIf="(formGroup.get('policyNo')?.touched || formGroup.get('policyNo')?.dirty)" >
+                                        <div *ngIf="formGroup.get('policyNo')?.errors?.['required']">  Please enter policy number</div>
+                                        <div *ngIf="formGroup.get('policyNo')?.errors?.['pattern']">special characters not allowed</div>
+                                        <div *ngIf="(formGroup.get('policyNo')?.errors?.['maxlength']) && !formGroup.get('policyNo')?.errors?.['pattern']" >Policy Number should be less than 8 digits</div>
+                                    </div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-1">
+                            <p class="or mt-3">Or</p>
+                        </div>
+                        <div class="col-md-3" [formGroup]="clientForm">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Client ID</mat-label>
+                                <input matInput placeholder="xxxxxxxxxx" [ngClass]="{ 'is-invalid': submitted && c['clientID'].errors }"
+                                formControlName="clientID" required [errorStateMatcher]="errorMatcherNew">
+                                <mat-error>
+                                    <div *ngIf="(clientForm.get('clientID')?.touched || clientForm.get('clientID')?.dirty)" >
+                                        <div *ngIf="clientForm.get('clientID')?.errors?.['required']">  Please enter client id</div>
+                                        <div *ngIf="clientForm.get('clientID')?.errors?.['pattern']">only numbers are allowed</div>
+                                        <div *ngIf="(clientForm.get('clientID')?.errors?.['maxlength']) && !clientForm.get('clientID')?.errors?.['pattern']" >Client Id should be less than 8 digits</div>
+                                    </div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="d-flex justify-content-center">
+                                <div class="m-3">
+                                    <button mat-raised-button class="button-1" type="submit"
+                                        (click)="searchIntimation()">Search</button>
+                                </div>
+                                <div class="m-3">
+                                    <button mat-raised-button class="button-1" type="reset" (click)="cancel()">Clear</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+
+    </div>
+</div>

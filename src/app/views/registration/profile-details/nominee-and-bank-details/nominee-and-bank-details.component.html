@@ -1,0 +1,937 @@
+<div >
+    <div class="container-fluid  px-0 ">
+        <div class="col-lg-12">
+            <mat-card class="scrollbar scrollbar-primary m-1">
+                
+                <div *ngIf="nomineeData.length!=0">
+                    <mat-card class="mt-2 mb-2">
+                        <mat-tab-group >
+                        <form [formGroup]="formGroup">
+                            <div formArrayName="arr">
+                                <mat-tab iv *ngFor="let data of nomineeData.controls; let i = index" >
+                                    <div [formGroupName]="i">
+                                      
+                                        <ng-template mat-tab-label><button  mat-raised-button class="button-nominee">
+                                            <span class="tab-title" *ngIf="data.get('clientRole')?.value" >{{i+1}}. {{data.get('clientRole')?.value}}</span>
+                                            <span class="tab-title"  *ngIf="!data.get('clientRole')?.value && !visibleAppointee" >{{i+1}}. Nominee</span>
+                                            <span class="tab-title"  *ngIf="!data.get('clientRole')?.value && visibleAppointee" >{{i+1}}. Appointee</span>
+                                          </button>
+                                          
+                                        </ng-template>
+                                        <div class="row">
+                                            <div class="col-md-12  d-flex justify-content-end">
+                                            <div class="mx-2" *ngIf="appCode === 'CR'|| (appCode === 'AS' && (this.taskCode == 'ASSESSMENT_TSK' || this.taskCode == 'AWAIT_ASSESSMENT_REQ')) && !trackClaim"> 
+                                                <!-- <button type="submit" (click)="editForm(formGroup.value,i)" *ngIf="i < lengthData"
+                                                    class="btn button-outline text-end"> -->
+                                                    <!-- <i class="fa fa-edit" style="font-size: 18px;"
+                                                        aria-hidden="true"></i> -->
+                                                        <a type="submit" (click)="editForm(formGroup.value,i)" *ngIf="i < lengthData">Edit</a>
+                                                <!-- </button> -->
+
+                                            </div>
+                                            <div *ngIf="i > 0 && ( appCode === 'CI' || appCode === 'CR' || (appCode === 'AS' && (this.taskCode == 'ASSESSMENT_TSK' || this.taskCode == 'AWAIT_ASSESSMENT_REQ'))) && data.get('roleCode')?.value === 'BN' &&  data.get('clientId')?.value == '0'"> 
+                                                <!-- <button type="submit" (click)="removeNomineeDetails(i)" 
+                                                    class="btn button-outline text-end" *ngIf="!trackClaim"> -->
+                                                    <!-- <i class="fa fa-remove" style="font-size: 18px;"
+                                                        aria-hidden="true"></i> -->
+                                                       
+                                                        <a type="submit" (click)="removeNomineeDetails(i)"  *ngIf="!trackClaim">Delete</a>
+                                                <!-- </button> -->
+
+                                            </div>
+                                          </div>
+                                     
+                                            <div *ngIf="claimType">
+                                            <div> 
+                                                <div *ngIf="data.get('clientId')?.value !== 0 && appCode === 'CI'">
+                                                <mat-icon class="nominee-icons">account_box</mat-icon>
+                                                <span class="title-nominee"><span *ngIf="data.get('clientRole')?.value">{{i + 1}}. {{data.get('clientRole')?.value}}</span></span>
+                                                <span class="title-nominee"><span  *ngIf="!data.get('clientRole')?.value  && !visibleAppointee">{{i + 1}}. Nominee</span></span>
+                                                <span class="title-nominee"><span  *ngIf="visibleAppointee">{{i + 1}}. Appointee</span></span>
+                                                <div class="underline-nominee"></div>
+                                                </div>
+                                                <div *ngIf="data.get('intimationSource')?.value === 'INT_SRC_BRNCH'">
+                                                    <mat-icon class="nominee-icons">account_box</mat-icon>
+                                                <span class="title-nominee"><span *ngIf="data.get('clientRole')?.value">{{i + 1}}. {{data.get('clientRole')?.value}}</span></span>
+                                                <span class="title-nominee"><span  *ngIf="!data.get('clientRole')?.value  && !visibleAppointee">{{i + 1}}. Nominee</span></span>
+                                                <span class="title-nominee"><span  *ngIf="visibleAppointee">{{i + 1}}. Appointee</span></span>
+                                                <div class="underline-nominee"></div>
+                                                </div>
+                                                <div *ngIf="data.get('intimationSource')?.value === 'INT_SRC_OCM'">
+                                                    <mat-icon class="nominee-icons">account_box</mat-icon>
+                                                    <span class="title-nominee"><span *ngIf="data.get('clientRole')?.value === 'Beneficiary' && data.get('ocmMatchYn')?.value === 'Y'">{{i + 1}}.{{data.get('clientRole')?.value}}  <span style="color:green">(Match Found: Yes)</span></span></span>
+                                                    <span class="title-nominee"><span *ngIf="data.get('clientRole')?.value === 'Beneficiary' && data.get('ocmMatchYn')?.value === 'N'">{{i + 1}}.{{data.get('clientRole')?.value}} <span style="color:red">(Match Found: No)</span></span></span>
+                                                    <span class="title-nominee"><span *ngIf="data.get('clientRole')?.value === 'Beneficiary(OCM)'">{{i + 1}}. {{data.get('clientRole')?.value}}</span></span>
+                                                    <span class="title-nominee"><span *ngIf="data.get('clientRole')?.value === 'Beneficiary' && data.get('clientId')?.value === 0">{{i + 1}}.Beneficiary</span></span>
+                                                    <span class="title-nominee"><span  *ngIf="!data.get('clientRole')?.value  && !visibleAppointee">{{i + 1}}. Nominee</span></span>
+                                                    <span class="title-nominee"><span  *ngIf="visibleAppointee">{{i + 1}}. Appointee</span></span>
+                                                    <div class="underline-nominee"></div>
+                                                </div>
+                                            </div>
+                                        
+                                            <mat-card-actions class="mt-2">
+                                                <div class="row" *ngIf="data.get('intimationSource')?.value === 'INT_SRC_OCM' && data.get('ocmMatchYn')?.value === 'N' && data.get('clientLaYn')?.value === 'N'" >
+                                                    <div class="col-md-4 mt-2 mb-2" *ngIf="data.get('clientRole')?.value === 'Beneficiary(OCM)'">
+                                                        <div>
+
+                                                            <mat-radio-group aria-label="Select an option" formControlName="aprvdLaUpdt" 
+                                                            class="d-flex justify-content-between" [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('aprvdLaUpdt')?.errors }"
+                                                            required>
+                                                                <mat-label classimpsStatus="label">Approve For LA Update</mat-label>
+
+                                                                <mat-radio-button value="Y">Yes</mat-radio-button>
+                                                                <mat-radio-button value="N">No</mat-radio-button>
+                                                              </mat-radio-group>
+                                                              <mat-error>
+                                                                <div
+                                                                    *ngIf="(submitted && userFormGroups.controls[i].get('aprvdLaUpdt')?.errors) || !userFormGroups.controls[i].get('aprvdLaUpdt')?.valid && userFormGroups.controls[i].get('aprvdLaUpdt')?.touched">
+                                                                    Please Select Approve For LA Update</div>
+                                                            </mat-error>
+                                                        </div>
+                                                    </div>
+                                                        
+                                                </div>
+
+                                                <div class="row">
+                                                    <!-- <div class="col-md-3 mt-3">
+                                                        <mat-form-field floatLabel="always" class="col-md-10">
+                                                            <mat-label classimpsStatus="label">client ID</mat-label>
+                                                            <input  matInput placeholder formControlName="clientId" readonly>
+                                                        </mat-form-field>]
+                                                    </div> -->
+                                                    <!-- <div class="col-md-3 mt-3" >
+                                                        <mat-form-field floatLabel="always" class="col-md-10">
+                                                            <mat-label classimpsStatus="label">Role Code</mat-label>
+                                                            <input matInput placeholder formControlName="roleCode">
+                                                        </mat-form-field> 
+                                                    </div> -->
+                                                    <!-- <div class="col-md-3 mt-3">
+                                                        <mat-form-field floatLabel="always" class="col-md-10">
+                                                            <mat-label classimpsStatus="label">Role Code</mat-label>
+                                                            <input matInput placeholder formControlName="isPnaValidated">
+                                                        </mat-form-field>
+                                                    </div> -->
+                                                    <div class="col-md-3 mt-3">
+                                                        <mat-form-field floatLabel="always" class="col-md-10">
+                                                            <mat-label class="label">Prefix</mat-label>
+                                                            <mat-select  placeholder formControlName="prefix" [disabled] = "isReadonly"
+                                                                aria-label="prefix" id="prefix" 
+                                                                [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('prefix')?.errors }"
+                                                                required>
+                                                                <mat-option *ngFor="let data of prefix"
+                                                                    [value]="data.lookupCd">
+                                                                    {{data.shrtName}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                            <mat-error>
+                                                                <div
+                                                                    *ngIf="(submitted && userFormGroups.controls[i].get('prefix')?.errors) || !userFormGroups.controls[i].get('prefix')?.valid && userFormGroups.controls[i].get('prefix')?.touched">
+                                                                    Please Select Prefix</div>
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+
+
+                                                    <div class="col-md-3 mt-3">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">First Name</mat-label>
+                                                        
+                                                                <input matInput placeholder="" [readonly]="isReadonly" 
+                                                                    formControlName="firstName" aria-label="firstName"
+                                                                    id="firstName" 
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('firstName')?.errors }"
+                                                                    required>
+                                                                <mat-error>
+                                                                    <div
+                                                                        *ngIf="(submitted && userFormGroups.controls[i].get('firstName')?.errors) || !userFormGroups.controls[i].get('firstName')?.valid && userFormGroups.controls[i].get('firstName')?.touched">
+                                                                        Please Enter First Name</div>
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="col-md-3 mt-3">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">Last Name</mat-label>
+                                                                <input matInput placeholder=""
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('lastName')?.errors }"
+                                                                    required formControlName="lastName"  [readonly]="isReadonly">
+                                                                <mat-error>
+                                                                    <div
+                                                                        *ngIf="(submitted && userFormGroups.controls[i].get('lastName')?.errors) || !userFormGroups.controls[i].get('lastName')?.valid && userFormGroups.controls[i].get('lastName')?.touched">
+                                                                        Please Enter Last Name</div>
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">Email Id</mat-label>
+                                                                <input matInput placeholder type="email" [errorStateMatcher]="errorMatcherNew"
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('emailid')?.errors }"
+                                                                    required formControlName="emailid"  [readonly]="isReadonly">
+                                                                    <!-- <mat-error>
+                                                                        <div *ngIf="!userFormGroups.controls[i].get('emailid')?.valid && userFormGroups.controls[i].get('emailid')?.touched" >
+                                                                            <div
+                                                                            *ngIf="userFormGroups.controls[i].get('emailid')?.errors?.['required']">
+                                                                            Please Enter Email Id</div>
+                                                                            <div 
+                                                                            *ngIf="userFormGroups.controls[i].get('emailid')?.errors?.['pattern']">Please Enter valid Email id</div>
+                                                                        </div>
+                                                                    </mat-error> -->
+                                                                    <mat-error>
+                                                                    <div *ngIf="(userFormGroups.controls[i].get('emailid')?.touched || userFormGroups.controls[i].get('emailid')?.dirty)" >
+                                                                        <div *ngIf="userFormGroups.controls[i].get('emailid')?.errors?.['required']">  Please enter email id</div>
+                                                                        <div *ngIf="userFormGroups.controls[i].get('emailid')?.errors?.['pattern']">Please enter valid email id</div>
+                                                                    </div>
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+
+
+                                                    <div class="col-md-3 mt-3"  *ngIf="data.get('roleCode')?.value === 'BN'">
+                                                        <mat-form-field floatLabel="always" class="col-md-10">
+                                                            <mat-label class="label">Date of Birth</mat-label>
+                                                            <input matInput [matDatepicker]="picker" (keydown)="false"
+                                                                placeholder="dd/mm/yyyy"
+                                                                [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('dob')?.errors }"
+                                                                required formControlName="dob"    [disabled] = "isReadonly" (dateChange)="addEvent('change', $event,i,formGroup)"
+                                                                matInput [max]="max_Date">
+                                                            <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                                                            <mat-datepicker-toggle matSuffix [for]="picker">
+                                                            </mat-datepicker-toggle>
+                                                            <mat-datepicker #picker></mat-datepicker>
+                                                            <mat-error>
+                                                                <div
+                                                                    *ngIf="(submitted && userFormGroups.controls[i].get('dob')?.errors) || !userFormGroups.controls[i].get('dob')?.valid && userFormGroups.controls[i].get('dob')?.touched">
+                                                                    Please Enter Date of Birth</div>
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3"  *ngIf="data.get('roleCode')?.value === 'AP'">
+                                                        <mat-form-field floatLabel="always" class="col-md-10">
+                                                            <mat-label class="label">Date of Birth</mat-label>
+                                                            <input matInput [matDatepicker]="picker" (keydown)="false"
+                                                                placeholder="dd/mm/yyyy"
+                                                                [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('dob')?.errors }"
+                                                                required formControlName="dob"    [disabled] = "isReadonly" (dateChange)="addEvent('change', $event,i,formGroup)"
+                                                                matInput [max]="maxDob">
+                                                            <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                                                            <mat-datepicker-toggle matSuffix [for]="picker">
+                                                            </mat-datepicker-toggle>
+                                                            <mat-datepicker #picker></mat-datepicker>
+                                                            <mat-error>
+                                                                <div
+                                                                    *ngIf="(submitted && userFormGroups.controls[i].get('dob')?.errors) || !userFormGroups.controls[i].get('dob')?.valid && userFormGroups.controls[i].get('dob')?.touched">
+                                                                    Please Enter Date of Birth</div>
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+
+                                                    <div class="col-md-3 mt-3">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">Age
+                                                                </mat-label>
+                                                                <input matInput placeholder=""
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('dateOfEvent')?.errors }"
+                                                                    required formControlName="dateOfEvent"  readonly="true">
+                                                                <mat-error>
+                                                                    <div
+                                                                        *ngIf="(submitted && userFormGroups.controls[i].get('dateOfEvent')?.errors) || !userFormGroups.controls[i].get('dateOfEvent')?.valid && userFormGroups.controls[i].get('dateOfEvent')?.touched">
+                                                                        Please Enter Age </div>
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="col-md-3 mt-3">
+                                                        <mat-form-field floatLabel="always" class="col-md-10">
+                                                            <mat-label class="label">Gender</mat-label>
+                                                                <mat-select placeholder formControlName="gender"   [disabled] = "isReadonly"
+                                                                aria-label="gender" id="gender"
+                                                                [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('gender')?.errors }"
+                                                                required>
+                                                                    
+                                                                    <mat-option *ngFor="let data of genderlist"
+                                                                        [value]="data.lookupCd">
+                                                                        {{data.shrtName}}
+                                                                    </mat-option>
+
+                                                                </mat-select>
+                                                            <mat-error>
+                                                                <div
+                                                                    *ngIf="(submitted && userFormGroups.controls[i].get('gender')?.errors) || !userFormGroups.controls[i].get('gender')?.valid && userFormGroups.controls[i].get('gender')?.touched">
+                                                                    Please Select Gender</div>
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">Mobile Number</mat-label>
+                                                                <input matInput placeholder 
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('mobileNo')?.errors }" maxlength="10" [errorStateMatcher]="errorMatcherNew"
+                                                                    required formControlName="mobileNo"  [readonly]="isReadonly" >
+                                                                    <!-- [errorStateMatcher]="errorMatcher" -->
+                                                                <!-- <mat-error>
+                                                                    <div *ngIf="userFormGroups.controls[i].hasError('valid_mobile_Number') && !userFormGroups.controls[i].get('mobileNo')?.errors?.['required']">
+                                                                        Please Enter Numbers only 
+                                                                    </div>
+                                                                    <div
+                                                                        *ngIf="((submitted && userFormGroups.controls[i].get('mobileNo')?.errors?.['required']) || !userFormGroups.controls[i].get('mobileNo')?.valid && userFormGroups.controls[i].get('mobileNo')?.touched)">
+                                                                        Please Enter Mobile Number</div>
+                                                                </mat-error> -->
+                                                                <mat-error>
+                                                                    
+                                                                    <!-- <div *ngIf="(userFormGroups.controls[i].get('mobileNo')?.touched || userFormGroups.controls[i].get('mobileNo')?.dirty)" > -->
+                                                                        <div *ngIf="userFormGroups.controls[i].get('mobileNo')?.errors?.['required']">  Please enter mobile number</div>
+                                                                        <div *ngIf="userFormGroups.controls[i].get('mobileNo')?.errors?.['pattern']">Please enter numbers only</div>
+                                                                        <div *ngIf="(userFormGroups.controls[i].get('mobileNo')?.errors?.['minlength'] || userFormGroups.controls[i].get('mobileNo')?.errors?.['maxlength']) && !userFormGroups.controls[i].get('mobileNo')?.errors?.['pattern']" >Kindly Enter your 10 digit mobile number</div>
+                                                                    <!-- </div> -->
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">Telephone Number</mat-label>
+                                                                <input matInput placeholder maxlength="8"
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('landlineno')?.errors }"
+                                                                    required formControlName="landlineno"  [readonly]="isReadonly" [errorStateMatcher]="errorMatcherNew">
+                                                                    <mat-error>
+                                                                    
+                                                                        <div *ngIf="(userFormGroups.controls[i].get('landlineno')?.touched || userFormGroups.controls[i].get('landlineno')?.dirty)" >
+                                                                            <div *ngIf="userFormGroups.controls[i].get('landlineno')?.errors?.['required']">  Please enter telephone number</div>
+                                                                            <div *ngIf="userFormGroups.controls[i].get('landlineno')?.errors?.['pattern']">Please enter numbers only</div>
+                                                                            <div *ngIf="(userFormGroups.controls[i].get('landlineno')?.errors?.['minlength'] || userFormGroups.controls[i].get('landlineno')?.errors?.['maxlength']) && !userFormGroups.controls[i].get('landlineno')?.errors?.['pattern']" >Kindly Enter your 8 digit telephone number</div>
+                                                                        </div>
+                                                                    </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="col-md-3 mt-3">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">Address 1</mat-label>
+                                                                <input matInput placeholder=""
+                                                                    formControlName="address1"  [readonly]="isReadonly"
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('address1')?.errors }"
+                                                                    required>
+                                                                <mat-error>
+                                                                    <div
+                                                                        *ngIf="(submitted && userFormGroups.controls[i].get('address1')?.errors) || !userFormGroups.controls[i].get('address1')?.valid && userFormGroups.controls[i].get('address1')?.touched">
+                                                                        Please Enter Address</div>
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="col-md-3 mt-3">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">Address 2</mat-label>
+                                                                <input matInput placeholder=""
+                                                                    formControlName="address2"  [readonly]="isReadonly"
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('address2')?.errors }"
+                                                                    required>
+                                                                <mat-error>
+                                                                    <div
+                                                                        *ngIf="(submitted && userFormGroups.controls[i].get('address2')?.errors) || !userFormGroups.controls[i].get('address2')?.valid && userFormGroups.controls[i].get('address2')?.touched">
+                                                                        Please Enter Address</div>
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">NRI Flag</mat-label>
+                                                                <mat-select placeholder    [disabled] = "true"  formControlName="nriFlag">
+                                                                    <mat-option value="Y">Yes</mat-option>
+                                                                    <mat-option value="N">No</mat-option>
+                                                                </mat-select>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+
+
+                                                    <div class="col-md-3 mt-3">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">Nationality</mat-label>
+                                                                <mat-select placeholder formControlName="Nationality"   [disabled] = "isReadonly"  id="Nationality"  #t (selectionChange)="nationalityFlag(t.value,i)"                                                                
+                                                                [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('Nationality')?.errors }"
+                                                                required>
+                                                                    <mat-option *ngFor="let data of nationalist"
+                                                                        [value]="data.lookupCd">
+                                                                        {{data.shrtName}}
+                                                                    </mat-option>
+
+                                                                </mat-select>
+                                                                <mat-error>
+                                                                        <div
+                                                                            *ngIf="(submitted && userFormGroups.controls[i].get('Nationality')?.errors) || !userFormGroups.controls[i].get('Nationality')?.valid && userFormGroups.controls[i].get('Nationality')?.touched">
+                                                                            Please Select Nationality</div>
+                                                                    </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+
+
+                                                    <div class="col-md-3 mt-3">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">Country</mat-label>
+                                                                <mat-select matInput placeholder id="country"
+                                                                placeholder 
+                                                                formControlName="country"   [disabled] = "isReadonly"  
+                                                                [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('country')?.errors }"
+                                                                required >
+                                                                    <mat-option *ngFor="let data of nationalist"
+                                                                        [value]="data.lookupCd">
+                                                                        {{data.shrtName}}
+                                                                    </mat-option>
+
+                                                                </mat-select>
+                                                                <mat-error>
+                                                                        <div
+                                                                            *ngIf="(submitted && userFormGroups.controls[i].get('country')?.errors) || !userFormGroups.controls[i].get('country')?.valid && userFormGroups.controls[i].get('country')?.touched">
+                                                                            Please Enter Country</div>
+                                                                    </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">State </mat-label>
+                                                                    <mat-select matInput placeholder   placeholder="" formControlName="state"   [disabled] = "isReadonly"
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('state')?.errors }"
+                                                                    required>
+                                                                        <mat-option *ngFor="let data of statelist"
+                                                                            [value]="data.lookupCd">
+                                                                            {{data.shrtName}}
+                                                                        </mat-option>
+    
+                                                                    </mat-select>
+                                                                <mat-error>
+                                                                    <div
+                                                                        *ngIf="(submitted && userFormGroups.controls[i].get('state')?.errors) || !userFormGroups.controls[i].get('state')?.valid && userFormGroups.controls[i].get('state')?.touched">
+                                                                        Please Enter State</div>
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+
+
+                                                    <div class="col-md-3 mt-3">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">City</mat-label>
+                                                                 <input matInput placeholder="" formControlName="city"  [readonly] = "isReadonly" [errorStateMatcher]="errorMatcherNew"
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('city')?.errors }"
+                                                                    required>
+                                                                     <!-- oninput="this.value = this.value.replace(/[^A-Za-z]/g, '').replace(/(\..*?)\..*/g, '$1');" -->
+                                                                <mat-error>
+                                                                    <div *ngIf="userFormGroups.controls[i].get('city')?.touched || userFormGroups.controls[i].get('city')?.dirty">
+                                                                        <div *ngIf="userFormGroups.controls[i].get('city')?.errors?.['required']">Please Enter City</div>
+                                                                        <div *ngIf="userFormGroups.controls[i].get('city')?.errors?.['pattern']">Special characters and numbers are not allowed</div>
+                                                                    </div>
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+
+                                                        
+                                                    <div class="col-md-3 mt-3">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">Pin Code </mat-label>
+                                                                <input matInput placeholder="" [readonly] = "isReadonly" id="pincode"
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('pincode')?.errors }"
+                                                                    required formControlName="pincode" maxlength="6"  [errorStateMatcher]="errorMatcherNew">
+                                                                <mat-error>
+                                                                    <div *ngIf="userFormGroups.controls[i].get('pincode')?.touched || userFormGroups.controls[i].get('pincode')?.dirty">
+                                                                        <div *ngIf="userFormGroups.controls[i].get('pincode')?.errors?.['required']">Please enter pincode</div>
+                                                                        <div *ngIf="userFormGroups.controls[i].get('pincode')?.errors?.['pattern']">Only Numbers are allowed</div>
+                                                                        <div *ngIf="(userFormGroups.controls[i].get('pincode')?.errors?.['minlength'] || userFormGroups.controls[i].get('pincode')?.errors?.['maxlength']) && !userFormGroups.controls[i].get('pincode')?.errors?.['pattern']" >Kindly enter 6 digit pincode</div>
+                                                                    </div>
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+
+
+                                                    <div class="col-md-3 mt-3">
+                                                        <mat-form-field floatLabel="always" class="col-md-10">
+                                                            <mat-label class="label">Relationship With Life Insured
+                                                            </mat-label>
+                                                            <mat-select matInput placeholder
+                                                                formControlName="relationWithLife"   [disabled] = "isReadonly"
+                                                                aria-label="relationWithLife" id="relationWithLife"
+                                                                [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('relationWithLife')?.errors }"
+                                                                required>
+                                                                <mat-option *ngFor="let data of realationLifeAssured"
+                                                                    [value]="data.lookupCd">
+                                                                    {{data.shrtName}}
+                                                                </mat-option>
+                                                            </mat-select>
+
+
+                                                            <mat-error>
+                                                                <div
+                                                                    *ngIf="(submitted && userFormGroups.controls[i].get('relationWithLife')?.errors) || !userFormGroups.controls[i].get('relationWithLife')?.valid && userFormGroups.controls[i].get('relationWithLife')?.touched">
+                                                                    Please Select Relationship With Life Insured
+                                                                </div>
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3" *ngIf="data.get('roleCode')?.value === 'BN'">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">Nominee Percentage</mat-label>
+                                                                <input matInput placeholder="" maxlength="3" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('nimineePercentage')?.errors }"
+                                                                    required formControlName="nimineePercentage"  [readonly]="isReadonly" [errorStateMatcher]="errorMatcherNominee">
+                                                                    <mat-error>
+                                                                        <div *ngIf="(userFormGroups.controls[i].get('nimineePercentage')?.touched || userFormGroups.controls[i].get('nimineePercentage')?.dirty)" >
+                                                                            <div *ngIf="userFormGroups.controls[i].get('nimineePercentage')?.errors?.['required']">  Please enter nominee Percentage</div>
+                                                                            <!-- <div *ngIf="userFormGroups.controls[i].get('nimineePercentage')?.errors?.['pattern']">Kindly Enter value less than or equal to 100</div> -->
+                                                                            <div *ngIf="formGroup.hasError('invalid_percentage')">Total sum should be equal to 100 </div>
+                                                                        </div>
+                                                                    </mat-error>
+                                                                
+                                                            </mat-form-field>
+                                                        </p>
+
+                                                    </div>
+                                                    <div class="col-md-3 mt-3 ">
+                                                        <mat-form-field floatLabel="always" class="col-md-10">
+                                                            <mat-label class="label">Legal Heir Category</mat-label>
+                                                            <mat-select placeholder aria-label="payoutOption"   formControlName="legalCategory"   [disabled] = "isReadonly"
+                                                            [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('legalCategory')?.errors }"
+                                                            required >
+                                                                <mat-option *ngFor="let data of legalhairlist"
+                                                                    [value]="data.lookupCd">
+                                                                    {{data.shrtName}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                            <mat-error>
+                                                                    <div
+                                                                        *ngIf="(submitted && userFormGroups.controls[i].get('legalCategory')?.errors) || !userFormGroups.controls[i].get('legalCategory')?.valid && userFormGroups.controls[i].get('legalCategory')?.touched">
+                                                                        Please Select Legal Heir Category</div>
+                                                                </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3 " *ngIf="data.get('roleCode')?.value == 'BN'">
+                                                        <mat-form-field floatLabel="always" class="col-md-10">
+                                                            <mat-label class="label">Same as Proposer</mat-label>
+                                                            <mat-select matInput placeholder  id="sameAsProposer"
+                                                            formControlName="sameAsProposer"   [disabled] = "isReadonly"
+                                                            [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('sameAsProposer')?.errors }"
+                                                            required>
+                                                            <mat-option value="Y">Yes</mat-option>
+                                                            <mat-option value="N">No</mat-option>
+                                                            </mat-select>
+                                                            <mat-error>
+                                                                    <div
+                                                                        *ngIf="(submitted && userFormGroups.controls[i].get('sameAsProposer')?.errors) || !userFormGroups.controls[i].get('sameAsProposer')?.valid && userFormGroups.controls[i].get('sameAsProposer')?.touched">
+                                                                        Please Select Same as Proposer</div>
+                                                                </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">Payout Option</mat-label>
+                                                                <mat-select formControlName="payoutOption" [disabled] = "isReadonly" 
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('payoutOption')?.errors }"
+                                                                    required>
+
+                                                                    <mat-option *ngFor="let data of payoutoptionelist"
+                                                                        [value]="data.lookupCd">
+                                                                        {{data.shrtName}}
+                                                                    </mat-option>
+
+                                                                </mat-select>
+                                                                <mat-error>
+                                                                    <div
+                                                                        *ngIf="(submitted && userFormGroups.controls[i].get('payoutOption')?.errors) || !userFormGroups.controls[i].get('payoutOption')?.valid && userFormGroups.controls[i].get('payoutOption')?.touched">
+                                                                        Please Select Payout Option</div>
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3">
+                                                        <mat-form-field floatLabel="always" class="col-md-10">
+                                                            <!-- <mat-label class="label"> <input type="radio"
+                                                                    name="pan" id="" value="false"
+                                                                    [checked]="form60" disabled>
+                                                                Form-60</mat-label> -->
+                                                                <mat-label>Form-60</mat-label>
+                                                            <mat-select matInput placeholder=""
+                                                            formControlName="form60Yn"   [disabled] = "isReadonly" #form (selectionChange)="form60Flag(form.value,i)"
+                                                            [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('form60Yn')?.errors }"
+                                                            required>
+                                                               <mat-option value="Y">Yes</mat-option>
+                                                               <mat-option value="N">No</mat-option>
+                                                        </mat-select>
+                                                        <mat-error>
+                                                            <div
+                                                                *ngIf="(submitted && userFormGroups.controls[i].get('form60Yn')?.errors) || !userFormGroups.controls[i].get('form60Yn')?.valid && userFormGroups.controls[i].get('form60Yn')?.touched">
+                                                                Please Select Form-60</div>
+                                                        </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+
+                                                    <div class="col-md-3 mt-3">
+                                                        <mat-form-field floatLabel="always" class="col-md-10">
+                                                            <!-- <mat-label class="label">
+                                                                 <input type="radio"
+                                                                    name="pan" id="pan" value="true"
+                                                                    checked="checked" [checked]="!form60"> Pan
+                                                                Number</mat-label> -->
+                                                                <mat-label>Pan Number</mat-label>
+                                                            <input matInput placeholder aria-label="pan"
+                                                                required formControlName="pan" maxlength="10"
+                                                                [errorStateMatcher]="errorMatcherNew"
+                                                                [readonly]="isReadonly" #input
+                                                                [value]="input.value.toUpperCase().trim()"
+                                                                (keyup)="OnPanEnteredValue(input.value)"
+                                                                (input)="sendThepanValue($event, i)"
+                                                                (change)="onchangePan($event, i)"
+                                                                [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('pan')?.errors }">
+                                                            <mat-error>
+                                                                    <!-- <div
+                                                                        *ngIf="(submitted && userFormGroups.controls[i].get('pan')?.errors) || !userFormGroups.controls[i].get('pan')?.valid && userFormGroups.controls[i].get('pan')?.touched">
+                                                                        Please Enter Pan Number</div> -->
+                                                                        <div *ngIf="userFormGroups.controls[i].get('pan')?.touched || userFormGroups.controls[i].get('pan')?.dirty" >
+                                                                            <div *ngIf="userFormGroups.controls[i].get('pan')?.errors?.['required']">  Please enter pan number</div>
+                                                                            <div *ngIf="userFormGroups.controls[i].get('pan')?.errors?.['pattern']">Incorrect Pan Number</div>
+                                                                            <div *ngIf="userFormGroups.controls[i].get('pan')?.errors?.['pattern'] && isPanContainsSpecialCharacters">Special Characters are not allowed</div>
+                                                                            
+                                                                        </div>
+                                                                </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+                                                   
+                                                    <div class="col-md-3 mt-3"  *ngIf=" appCode == 'CI' ||(appCode == 'CR' && i < lengthData ) || (appCode == 'AS' && i < lengthData ) || appCode == 'AP' || appCode == 'PO' ">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label"> Intimation Remark</mat-label>
+                                                                <input matInput placeholder=""
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('intimationRemarks')?.errors }"
+                                                                     formControlName="intimationRemarks" [readonly]="isReadonly"> <!-- I had removed [errorStateMatcher]="errorMatcher" from  intimationRemarks just because red line is comming. -->
+                                                                     <mat-error>
+                                                                        <div *ngIf="userFormGroups.controls[i].get('intimationRemarks')?.touched || userFormGroups.controls[i].get('intimationRemarks')?.dirty" >
+                                                                            <div *ngIf="userFormGroups.controls[i].get('intimationRemarks')?.errors">  Please enter intimation remark</div>  
+                                                                        </div>
+                                                                    </mat-error>
+                                                                    <!-- <mat-error>
+                                                                        <div
+                                                                            *ngIf="(submitted && userFormGroups.controls[i].get('intimationRemarks')?.errors) || !userFormGroups.controls[i].get('intimationRemarks')?.valid && userFormGroups.controls[i].get('intimationRemarks')?.touched">
+                                                                            Please enter intimation remark</div>
+                                                                    </mat-error> -->
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3"*ngIf=" appCode == 'CR' || (appCode == 'AS' && i < lengthData) || appCode == 'AP' || appCode == 'PO'  ">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label"> Registration Remark</mat-label>
+                                                                <input matInput placeholder=""
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('registrationRemarks')?.errors }"
+                                                                     formControlName="registrationRemarks" [readonly]="isReadonly"> <!-- I had removed [errorStateMatcher]="errorMatcher" from  registrationRemarks  just because red line is comming. -->
+                                                                     <mat-error>
+                                                                        <div *ngIf="userFormGroups.controls[i].get('registrationRemarks')?.touched || userFormGroups.controls[i].get('registrationRemarks')?.dirty" >
+                                                                            <div *ngIf="userFormGroups.controls[i].get('registrationRemarks')?.errors">  Please enter registration remark</div>  
+                                                                        </div>
+                                                                    </mat-error>
+                                                                    <!-- <mat-error>
+                                                                        <div
+                                                                            *ngIf="(submitted && userFormGroups.controls[i].get('registrationRemarks')?.errors) || !userFormGroups.controls[i].get('registrationRemarks')?.valid && userFormGroups.controls[i].get('registrationRemarks')?.touched">
+                                                                            Please enter registration remark</div>
+                                                                    </mat-error> -->
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3" *ngIf=" appCode == 'AS' || appCode == 'AP' || appCode == 'PO' ">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">Assessor Remark</mat-label>
+                                                                <input matInput placeholder=""
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('assessorRemarks')?.errors }"
+                                                                     formControlName="assessorRemarks" [errorStateMatcher]="errorMatcher"  [readonly]="isReadonly">
+                                                                     <mat-error>
+                                                                        <div *ngIf="userFormGroups.controls[i].get('assessorRemarks')?.touched || userFormGroups.controls[i].get('assessorRemarks')?.dirty" >
+                                                                            <div *ngIf="userFormGroups.controls[i].get('assessorRemarks')?.errors">  Please enter assessor remark</div>  
+                                                                        </div>
+                                                                    </mat-error>
+                                                                    <!-- <mat-error>
+                                                                        <div
+                                                                            *ngIf="(submitted && userFormGroups.controls[i].get('assessorRemarks')?.errors) || !userFormGroups.controls[i].get('assessorRemarks')?.valid && userFormGroups.controls[i].get('assessorRemarks')?.touched">
+                                                                            Please enter assessor remark</div>
+                                                                    </mat-error> -->
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-3 mt-2">
+                                                        <div class="mt-2">
+                                                            <button mat-raised-button class="button-validate-1" type="submit" [disabled] = "isReadonly" (click)="callPan(i)" *ngIf="(appCode != 'AS' && !trackClaim)|| (appCode =='AS' && (this.taskCode == 'ASSESSMENT_TSK' || this.taskCode == 'AWAIT_ASSESSMENT_REQ'))">
+                                                                Pan Validate
+                                                            </button>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                            </mat-card-actions>
+                                          </div>
+                                          <div>
+                                            
+                                          </div>
+                                          <div *ngIf="data.get('clientRole')?.value !='Apointee' && data.get('clientRole')?.value!='Appointee'">
+                                            <div> 
+                                                <!-- <img src="../../../assets/bank-account-icon.png"
+                                                    style="height:30px ;"> -->
+                                                    <mat-icon class="nominee-icons">account_balance</mat-icon>
+
+                                                <span class="title-nominee">Bank Details</span>
+                                                <div class="underline-nominee"></div>
+                                            </div>
+
+                                            <mat-card-actions class="mt-4">
+
+                                                <div class="row">
+                                                    <div class="col-md-3 mt-2">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">Account Holder Name</mat-label>
+                                                                <input matInput placeholder="" (input)="sendTheNewValue($event)"  (paste)="(false)"
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('accountName')?.errors }"
+                                                                    required formControlName="accountName" [errorStateMatcher]="errorMatcherNew"  [readonly]="isReadonly">
+                                                                    <mat-error>
+                                                                        <div *ngIf="(userFormGroups.controls[i].get('accountName')?.touched || userFormGroups.controls[i].get('accountName')?.dirty)" >
+                                                                            <div *ngIf="userFormGroups.controls[i].get('accountName')?.errors?.['required']">Please enter account holder name</div>
+                                                                            <div *ngIf="userFormGroups.controls[i].get('accountName')?.errors?.['pattern']">Only Characters are allowed</div>
+                                                                        </div>
+                                                                    </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="col-md-3 mt-2">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">Account Number </mat-label>
+                                                                <input matInput placeholder="" (input)="sendTheNewValue($event)"
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('accountNumber')?.errors }"  (paste)="(false)"
+                                                                    required formControlName="accountNumber" [errorStateMatcher]="errorMatcherNew"  [readonly]="isReadonly">
+                                                                    <mat-error>
+                                                                        <div *ngIf="(userFormGroups.controls[i].get('accountNumber')?.touched || userFormGroups.controls[i].get('accountNumber')?.dirty)" >
+                                                                            <div *ngIf="userFormGroups.controls[i].get('accountNumber')?.errors?.['required']">Please enter account Number</div>
+                                                                            <div *ngIf="userFormGroups.controls[i].get('accountNumber')?.errors?.['pattern']">Only numbers are allowed</div>
+                                                                        </div>
+                                                                    </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-3 mt-2">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">Re-enter Account Number
+                                                                </mat-label>
+                                                                <input matInput placeholder="" (input)="sendTheNewValue($event)"
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('reAccountNumber')?.errors }"
+                                                                    required formControlName="reAccountNumber"  [readonly]="isReadonly"  (paste)="(false)">
+                                                                <mat-error
+                                                                    *ngIf="(submitted && userFormGroups.controls[i].get('reAccountNumber')?.errors?.['required']) || !userFormGroups.controls[i].get('reAccountNumber')?.valid && userFormGroups.controls[i].get('reAccountNumber')?.touched">
+                                                                    <div
+                                                                        *ngIf="!userFormGroups.controls[i].get('reAccountNumber')?.errors?.['required']">
+                                                                        Account number must match</div>
+                                                                    <div
+                                                                        *ngIf="!userFormGroups.controls[i].get('reAccountNumber')?.errors?.['mustMatch']">
+                                                                        Please Enter re-enter account number</div>
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-3 mt-2">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">Bank Name</mat-label>
+                                                                <input matInput placeholder [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('bankName')?.errors }"  (paste)="(false)"
+                                                                (input)="sendTheNewValue($event)" required formControlName="bankName" [errorStateMatcher]="errorMatcherNew"  [readonly]="isReadonly">
+                                                                <mat-error>
+                                                                    <div *ngIf="(userFormGroups.controls[i].get('bankName')?.touched || userFormGroups.controls[i].get('bankName')?.dirty)" >
+                                                                        <div *ngIf="userFormGroups.controls[i].get('bankName')?.errors?.['required']">Please enter branch Name</div>
+                                                                        <div *ngIf="userFormGroups.controls[i].get('bankName')?.errors?.['pattern']">Only Characters are allowed</div>
+                                                                    </div>
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">Branch Name</mat-label>
+                                                                <input matInput placeholder (input)="sendTheNewValue($event)"
+                                                                [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('branchName')?.errors }"  (paste)="(false)"
+                                                                required formControlName="branchName" [errorStateMatcher]="errorMatcherNew"  [readonly]="isReadonly">
+                                                                <mat-error>
+                                                                    <div *ngIf="(userFormGroups.controls[i].get('branchName')?.touched || userFormGroups.controls[i].get('branchName')?.dirty)" >
+                                                                        <div *ngIf="userFormGroups.controls[i].get('branchName')?.errors?.['required']">Please enter branch Name</div>
+                                                                        <div *ngIf="userFormGroups.controls[i].get('branchName')?.errors?.['pattern']">Only Characters are allowed</div>
+                                                                    </div>
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">IFSC Code </mat-label>
+                                                                <input matInput placeholder="" #input (input)="sendTheNewValue($event)"
+                                                                    [value]="input.value.toUpperCase()" maxlength = "11"  (paste)="(false)"
+                                                                    [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('ifscCode')?.errors }"
+                                                                    required formControlName="ifscCode"  [readonly]="isReadonly" [errorStateMatcher]="errorMatcherNew">
+                                                                    <mat-error>
+                                                                    
+                                                                        <div *ngIf="(userFormGroups.controls[i].get('ifscCode')?.touched || userFormGroups.controls[i].get('ifscCode')?.dirty)" >
+                                                                            <div *ngIf="userFormGroups.controls[i].get('ifscCode')?.errors?.['required']">  Please enter IFSC code</div>
+                                                                            <div *ngIf="userFormGroups.controls[i].get('ifscCode')?.errors?.['pattern']">Incorrect IFSC code</div>
+                                                                        </div>
+                                                                    </mat-error>
+
+
+
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label class="label">MICR Code</mat-label>
+                                                                <input matInput placeholder  maxlength = "9" (input)="sendTheNewValue($event)"
+                                                                [errorStateMatcher]="errorMatcherNew"  (paste)="(false)"
+                                                                 formControlName="micrCode"  [readonly]="isReadonly" required>
+                                                                 <mat-error>
+                                                                    
+                                                                    <div *ngIf="(userFormGroups.controls[i].get('micrCode')?.touched || userFormGroups.controls[i].get('micrCode')?.dirty)" >
+                                                                        <div *ngIf="userFormGroups.controls[i].get('micrCode')?.errors?.['required']">  Please enter MICR code</div>
+                                                                        <div *ngIf="userFormGroups.controls[i].get('micrCode')?.errors?.['pattern']">Incorrect MICR code</div>
+                                                                    </div>
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-3 mt-3">
+                                                        <p>
+                                                            <mat-form-field floatLabel="always" class="col-md-10">
+                                                                <mat-label classimpsStatus="label">IMPS Status</mat-label>
+                                                                <input matInput placeholder formControlName="impsStatus" [ngClass]="{'my_class': userFormGroups.controls[i].get('impsStatus')?.value === 'DIRECT_MATCH', 'my_class2' : userFormGroups.controls[i].get('impsStatus')?.value === 'PARTIAL_MATCH','my_class3' : userFormGroups.controls[i].get('impsStatus')?.value === 'NO_MATCH' }" readonly >
+                                                            </mat-form-field>
+                                                        </p>
+                                                    </div>
+                                                   
+                                                </div>
+                                            </mat-card-actions>
+                                            </div>
+                                        </div>
+                                 
+                                </div>
+                                    <div>
+                                        <div class="btn-vs" *ngIf="appCode != 'AS' || (appCode =='AS' && (this.taskCode == 'ASSESSMENT_TSK' || this.taskCode == 'AWAIT_ASSESSMENT_REQ'))">
+                                            <button mat-raised-button class="button-validate-1"   *ngIf="data.get('clientRole')?.value !='Apointee' && data.get('clientRole')?.value!='Appointee' && !trackClaim"
+                                                (click)="bankValidation(data.value,formGroup.value,i)" 
+                                                [disabled]="isReadonly ||userFormGroups.controls[i].get('firstname')?.value=='' || userFormGroups.controls[i].get('accountNumber')?.value=='' || userFormGroups.controls[i].get('ifscCode')?.value==''">Validate</button>
+                                            <button mat-raised-button class="button-clr-2" type="submit" 
+                                                (click)="saveNomineeDetails(formGroup.value,i)" [disabled] = "isReadonly"
+                                                *ngIf="!trackClaim">Save</button>
+                                        </div> 
+                                        
+                                    </div>
+
+                                </mat-tab >
+                            </div>
+
+
+                            <!-- <div class="btn-vs">
+                                <button mat-raised-button class="button-validate-1">Validate</button>
+                                <button mat-raised-button class="button-clr-2" type="submit"
+                                    (click)="saveNomineeDetails(data.value)">Save</button>
+                            </div> -->
+                        </form>
+                        </mat-tab-group>
+                    </mat-card>
+                    
+                </div>
+                <div  *ngIf="nomineeData.length==0 && claimType">
+                    <mat-card class="mt-2 mb-2 nomineeError">
+                        <span>&#42;</span>
+                        <span >Nominee data is not available for this policy, if required, you can add a nominee by clicking on Add New Nominee</span>
+                    </mat-card>
+                </div>
+                <!-- <div  *ngIf="nomineeData.length==0 && !claimType">
+                    <mat-card class="mt-2 mb-2 nomineeError">
+                        <span>&#42;</span>
+                        <span >Sorry ! Nominee data is not available for this policy.</span>
+                    </mat-card>
+                </div> -->
+
+            </mat-card>
+            <div *ngIf="claimType && (appCode =='CI' || appCode == 'CR') || (appCode =='AS' && (this.taskCode == 'ASSESSMENT_TSK' || this.taskCode == 'AWAIT_ASSESSMENT_REQ'))">
+                <!-- <div> -->
+                <button  mat-button class="addbtn mt-4" type="submit"   data-bs-toggle="modal" data-bs-target="#exampleModal" *ngIf="!trackClaim && isReadonly == false"  >
+                    <mat-icon class="img-1">add_circle_outline</mat-icon>
+                    <span class="title-2">New Nominee</span>
+                </button>
+                <!-- <button *ngIf="visibleAppointee == true" mat-button class="addbtn mt-4" type="submit" (click)="addNominee()">
+                    <mat-icon class="img-1">add_circle_outline</mat-icon>
+                    <span class="title-2">Add Appointee</span>
+                </button> -->
+            </div>
+            <!-- <div class="text-center mb-2 mt-2" *ngIf="appCode == 'CR' || appCode == 'AS'">
+                <button mat-raised-button disabled class="button-1" type="submit" *ngIf="!trackClaim">Save</button>
+                <button mat-raised-button class="button-clr-2" type="" (click)="cancelCI()">Cancel</button>
+                <button mat-raised-button class="button-clr-2" type="submit"
+                    (click)="submitNomineeDetails(formGroup.value)" [disabled]="!saveEnable" *ngIf="!trackClaim" >Submit</button>
+            </div> -->
+        </div>
+    </div>
+<!-- Modal -->   
+<div class="modal" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body"  *ngIf="nomineeData.length == 0">
+            <p>Add new Nominee</p>
+        </div>
+        <div class="modal-body"  *ngIf="nomineeData.length">
+            <p>Contractual nominee already exists, do you want to add more?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addNominee()">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Model End -->
+  <div class="text-center mt-2">
+    <button mat-raised-button class="button-1" (click)="onCancelButton()">Cancel</button>
+</div>
+</div>

@@ -1,0 +1,49 @@
+///////////SIDE BAR //////////
+.mat-card {
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  position: relative;
+  padding: 16px;
+  border-radius: 0px;
+}
+ul{
+  padding-left: 0rem;
+}
+.icon{
+ cursor: pointer;
+
+}
+li{
+  display: flex;
+  font: normal normal normal 12px/12px Arial;
+  color: #FFFFFF;
+}
+.bck-round{
+  background: #1E4679 0% 0% no-repeat padding-box;
+}
+.text-center{
+  color: #FFFFFF;
+  font: normal normal normal 14px/12px Arial;
+  
+}
+
+.life-assured{
+  font: normal normal bold 14px/12px Arial !important;
+
+}
+.life-title{
+  font: normal normal bold 14px/12px Arial;
+  letter-spacing: 0px;
+  color: #1E4679;
+  opacity: 1;
+}
+.life-claim{
+  // display: flex;
+  // font: normal normal normal 13px/13px Arial;
+  // color: #AEA3A3;
+  color: #6c757d;
+}
+.life-tag{
+  // margin-top: 0;
+  margin-bottom: 0.4rem;
+}

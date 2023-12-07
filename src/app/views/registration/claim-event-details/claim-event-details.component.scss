@@ -1,0 +1,31 @@
+
+.mat-card {
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    display: block;
+    position: relative;
+    padding: 16px;
+    border-radius: 0px;
+}
+
+.title1 {
+    text-align: left;
+    font: normal normal bold 18px/24px Arial;
+    letter-spacing: 0.15px;
+    color: #EC3137;
+    opacity: 1;
+}
+
+::ng-deep .mat-form-field {
+    .mat-select-value{
+        overflow: auto;
+        text-overflow: unset;
+    }
+}
+::ng-deep .mat-option-text {
+    overflow: unset !important;
+    text-overflow: unset !important;
+} 
+::ng-deep .mat-option {
+    overflow: unset !important;
+    text-overflow: unset !important;
+} 

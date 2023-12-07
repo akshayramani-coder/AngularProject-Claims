@@ -1,0 +1,57 @@
+<div class="container-fluid">
+    <div class="">
+        <button class="close-dialogue" mat-raised-button mat-dialog-close> <mat-icon class="close-btn">close</mat-icon></button>
+        <div>
+            <h6 class="title-work text-center">Audit History</h6>
+
+        </div>
+        
+        <mat-card class="scrollbar scrollbar-primary">
+            
+   
+
+            <mat-table #table [dataSource]="dataSource" class="" matSort>
+
+                <ng-container matColumnDef="createdOn">
+                    <mat-header-cell *matHeaderCellDef  mat-sort-header> Created On</mat-header-cell>
+                    
+                    
+                     <mat-cell *matCellDef="let element">{{element.createdOn | date:'medium' }} 
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="user">
+                    <mat-header-cell *matHeaderCellDef  mat-sort-header> User </mat-header-cell> -->
+                  
+                     <mat-cell *matCellDef="let element"> {{element.usrName}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="subjectName">
+                    <mat-header-cell *matHeaderCellDef  mat-sort-header>Subject Name</mat-header-cell> 
+                    
+                     <mat-cell *matCellDef="let element"> {{element.sbjctName}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="description">
+                    <mat-header-cell *matHeaderCellDef  mat-sort-header>Description</mat-header-cell> 
+                 
+                     <mat-cell *matCellDef="let element">{{element.dscrptn}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="decisionName">
+                    <mat-header-cell *matHeaderCellDef  mat-sort-header> Decision Name</mat-header-cell> -->
+              
+                    <mat-cell *matCellDef="let element"> {{element.dcsnName}}</mat-cell>
+                </ng-container>
+                
+              
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table> 
+            <mat-paginator [pageSize]="5" [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
+            <!-- <p class="display-data mt-2">2 items found,
+                displaying all items</p> -->
+        </mat-card>
+
+      
+    </div>
+</div>

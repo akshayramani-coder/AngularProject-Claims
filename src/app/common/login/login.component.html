@@ -1,0 +1,70 @@
+<div class=" login-page">
+
+
+    <div class="bg d-flex align-items-center justify-content-center">
+
+        <mat-card class="container p-0 logincard">
+            <div class="row m-0 d-flex">
+                <div class="col-md-8 col-sm-8 col-xs-8 px-0 ">
+                    <img class=" " src="../../../assets/Kotak-Life-Insurance.png" alt="Kotak-Life-Insurance"
+                        class="img-kotak ">
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4 px-5 container">
+                    <h1 class="mt-3 heading-1"><b>LifeClaims Portal</b></h1>
+                    <h3 class="heading-2"><b>Login</b></h3>
+
+                    <form class="example-form" [formGroup]="loginForm" >
+
+                        <div class="row m-0">
+                            <div class="col-md-2 col-sm-2 col-xs-2 p-0">
+                                <div class="icon-parent col-md-12 position-relative">
+                                    <mat-icon class="text-center position-absolute top-50 start-50 translate-middle">account_circle</mat-icon>
+                                </div>
+                            </div>
+                            <div class="col-md-10 col-sm-10 col-xs-10 p-0">
+                                <mat-form-field class="example-full-width" appearance="fill">
+                                    <mat-label>Username</mat-label>
+                                    <input type="text" matInput placeholder="LE12345" formControlName="username" required [ngClass]="{ 'is-invalid': submitted && f['username'].errors }"  autocomplete="off">
+                                    <!-- <mat-hint class="errorLabel" *ngIf="loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched">
+                                        User name is required</mat-hint> -->
+                                        <mat-error>
+                                            <p class="text-start" *ngIf="(submitted && f['username'].errors) || !f['username'].valid && f['username'].touched">
+                                                Username is required </p>
+                                        </mat-error>
+                                    
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row m-0 mt-3">
+                            <div class="col-md-2 col-sm-2 col-xs-2 p-0">
+                                <div class="icon-parent position-relative">
+                                    <mat-icon class="text-center position-absolute top-50 start-50 translate-middle">lock</mat-icon>
+                                </div>
+                            </div>   
+                            <div class="col-md-10 col-sm-10 col-xs-10 p-0">
+                                <mat-form-field class="example-full-width" appearance="fill">
+                                    <mat-label>Password</mat-label>
+                                    <input type="password" matInput placeholder="***" formControlName="password" required [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" autocomplete="off">
+                                    <!-- <mat-hint class="errorLabel" *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+                                        Password is required</mat-hint> -->
+                                        <mat-error>
+                                            <p class="text-start" *ngIf="(submitted && f['password'].errors) || !f['password'].valid && f['password'].touched">
+                                                Password is required </p>
+                                        </mat-error>
+                                </mat-form-field> 
+                            </div>
+                        </div>
+
+                        <button mat-button type="submit" (click)="onSubmit()" class="login-btn mt-3">Login</button>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </mat-card>
+    </div>
+
+</div>

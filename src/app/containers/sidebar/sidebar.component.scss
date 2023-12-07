@@ -1,0 +1,84 @@
+:host {
+    .mat-icon {
+      vertical-align: middle;
+      margin-right: 1rem;
+    }
+  }
+  .logo {
+    text-align: center;
+    padding: 2.6rem 1rem;
+    img {
+      width: 200px;
+    }
+  }
+  .mat-divider {
+    border-top-width: 2px;
+    border-color: white;
+  }
+  .mat-list-item {
+    color: #94a3b8 !important;
+    font-size: 0.8rem;
+    height: 90px !important;
+    margin-bottom: 4px;
+    left: 0px;
+    width: 37px;
+    height: 0px;
+    text-align: center;
+    font: normal normal normal 14px/12px Arial;
+    letter-spacing: 0px;
+    color: #1E4679;
+    opacity: 1;
+    &:hover {
+      color: #f2f5f7 !important;
+    }
+    ::ng-deep {
+      .mat-list-item-content {
+        border-radius: 0px;
+        margin: 0 0px;
+        &:hover {
+          background: #1E4679 0% 0% no-repeat padding-box;
+        opacity: 0.31;
+  
+        }
+      }
+    }
+  }
+  .list-item-active {  
+    color: #00000029 !important;
+    ::ng-deep {
+      .mat-list-item-content {
+        background: #2c3344 !important;
+        &:hover {
+          background: #2c3344 !important;
+        }
+      }
+    }
+  }
+  .mat-subheader {
+    color: #818cf8;
+    font-size: 0.6rem;
+    font-weight: 100;
+    letter-spacing: 1px;
+  }
+  .title-1{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 22px;
+    position: relative;
+    height: inherit;
+  }
+  .mat-icon {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-repeat: no-repeat;
+    display: inline-block;
+    // fill: currentColor;
+    height: 30px; 
+    width: 40px;
+    margin-left: 35%;
+  }
+  

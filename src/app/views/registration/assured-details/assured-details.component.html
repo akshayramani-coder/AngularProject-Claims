@@ -1,0 +1,250 @@
+<mat-card class="h-100 px-0 mx-0" *ngIf="appCode == 'CI'"> <!--  NOT CR TO CI -->
+    <div class="container pt-4 px-3 mx-0">
+    <mat-card class="bck-round h-100 mt-4">
+        <p class="text-center  life-assured"> Life Assured Details </p>
+        <ul>
+            <li>
+
+                <p class="life-tag">Name : <span *ngIf="lifeassureData.clientName">{{lifeassureData.clientName}}</span>
+                    <span *ngIf="!lifeassureData.clientName">NA</span>
+                </p>
+            </li>
+            <li>
+                <p class="life-tag">PAN : <span *ngIf="lifeassureData.pan">{{lifeassureData.pan}}</span>
+                    <span *ngIf="!lifeassureData.pan">NA</span></p>
+
+            </li>
+            <!-- <li>
+
+                <p class="life-tag">Contact No : <span *ngIf="lifeassureData.contactNo">{{lifeassureData.contactNo}}</span> 
+                    <span *ngIf="!lifeassureData.contactNo">NA</span> </p>
+            </li>
+            <li>
+                <p class="life-tag">Email ID : <span *ngIf="lifeassureData.emailAddress">{{lifeassureData.emailAddress }}</span>
+                    <span *ngIf="!lifeassureData.emailAddress">NA</span></p>
+            </li> -->
+            <li>
+                <p class="life-tag">Date of Birth : <span *ngIf="lifeassureData.dob">{{lifeassureData.dob | dateFormat1830}}</span>
+                    <span *ngIf="!lifeassureData.dob">NA</span></p>
+
+            </li>
+            
+        </ul>
+    </mat-card>
+
+    <mat-card class="mt-1">
+        <p class="text-center life-title mt-2">Policy Duration</p>
+        <ul>
+            <li class="life-claim">
+
+                <p class="life-tag">RCD-Date of Event : <span *ngIf="rcdDoe">{{rcdDoe}} <span *ngIf="rcdDoe != message"></span></span> 
+                    <span *ngIf="!rcdDoe">NA</span></p>
+            </li>
+            <li class="life-claim">
+                <p class="life-tag">RCD-Date of Intimation : <span *ngIf="rcdDoi">{{rcdDoi}} <span *ngIf="rcdDoi != message"></span></span>
+                    <span *ngIf="!rcdDoi">NA</span></p>
+
+            </li>
+            <li class="life-claim">
+
+                <p class="life-tag">Revival-Date of Event  : <span> {{(revivalDoe =="" || revivalDoe == undefined || revivalDoe == "NA") ? 
+                    "-" : revivalDoe }} </span> </p>
+            </li>
+        </ul>
+    </mat-card>
+
+    <mat-card class="mt-1">
+        <p class="text-center life-title ">Claim Details</p>
+        <ul>
+            <li class="life-claim">
+
+                <p class="life-tag">Claim Type : <span>{{ClaimDetails.claimTypeDisp}}</span></p>
+            </li>
+            <li class="life-claim">
+                <p class="life-tag">Date of Intimation : <span>{{ClaimDetails.ClaimDate | dateFormat}}</span></p>
+
+            </li>
+            <li class="life-claim">
+
+                <p class="life-tag">Time of Intimation : <span>{{ClaimDetails.ReenterIntimationTime}}</span> </p>
+            </li>
+            <li class="life-claim">
+                <p class="life-tag">Intimated By : <span>{{ClaimDetails.IntimatedByDisp}}</span></p>
+            </li>
+            <li class="life-claim">
+                <p class="life-tag">Relation with LA : <span>{{ClaimDetails.RelationDisp}}</span></p>
+
+            </li>
+            <!-- <li class="life-claim">
+                <p class="life-tag">Relation with LA : <span>{{ClaimDetails.RelationDisp}}</span></p>
+
+            </li> -->
+        </ul>
+    </mat-card>
+    <mat-card class="mt-1">
+        <p class="text-center life-title">Event Details</p>
+        <ul>
+            <li class="life-claim">
+
+                <p class="life-tag">Cause of Event : <span>{{ClaimDetails.eventCauseDisp}}</span></p>
+            </li>
+            <li class="life-claim">
+                <p class="life-tag">Date of Event : <span>{{ClaimDetails.eventDate | dateFormat}}</span></p>
+
+            </li>
+            <li class="life-claim" *ngIf="isDeath">
+
+                <p class="life-tag">Secondary Cause of Event : <span>{{ClaimDetails.secondaryeventCauseDisp}}</span> </p>
+            </li>
+            <li class="life-claim">
+                <p class="life-tag">Organ Impacted : <span>{{ClaimDetails.OrganDisp}}</span></p>
+            </li>
+            <li class="life-claim" *ngIf="isDeath">
+                <p class="life-tag">Place of Death : <span>{{ClaimDetails.PlaceDeathDisp}}</span></p>
+
+            </li>
+            <li class="life-claim" *ngIf="isDeath">
+                <p class="life-tag">Name of Hospital : <span>{{ClaimDetails.hospitalName}}</span></p>
+
+            </li>
+        </ul>
+    </mat-card>
+
+    <div class="text-center mb-2 mt-1">
+        <button mat-raised-button  class="button-1 mt-2 mb-4" routerLink="/claims-intimation/claim-details">Update</button>
+
+    </div>
+</div>
+</mat-card>
+
+<mat-card class="h-100 px-0 mx-0" *ngIf="appCode != 'CI'"> <!--   CR TO NOT CI -->
+    <div class="container pt-4 px-3 mx-0">
+        <mat-card class="bck-round h-100 mt-2">
+            <p class="text-center  life-assured"> Life Assured Details </p>
+            <ul>
+                <li>
+    
+                    <p class="life-tag">Name : <span>{{lifeassureddata.name}}</span>
+                        <span *ngIf="!lifeassureddata.name">NA</span></p>
+                </li>
+                <li>
+                    <p class="life-tag">PAN : <span>{{lifeassureddata.pan}}</span>
+                        <span *ngIf="!lifeassureddata.pan">NA</span></p>
+    
+                </li>
+                <!-- <li>
+    
+                    <p class="life-tag">Contact No : <span>{{lifeassureddata.contactNo}}</span> </p>
+                </li>
+                <li>
+                    <p class="life-tag">Email ID : <span>{{lifeassureddata.emailAddress }}</span></p>
+                </li> -->
+                <li>
+                    <p class="life-tag">Date of Birth : <span>{{lifeassureddata.dateOfBirth | dateFormat1830}}</span>
+                        <span *ngIf="!lifeassureddata.dateOfBirth">NA</span></p>
+    
+                </li>
+            </ul>
+        </mat-card>
+        <div class="text-end mt-2">
+
+            <mat-icon  class="icon mx-2" (click)="onViewClick()">visibility</mat-icon>
+        <span *ngIf="this.taskCode != 'AWAIT_ASSESSMENT_REFERRAL'">
+           <mat-icon class="icon" (click)="onEditClick()" *ngIf="appCode == 'CR' || (appCode =='AS' && (this.taskCode == 'ASSESSMENT_TSK' || this.taskCode == 'AWAIT_ASSESSMENT_REQ'))"> border_color</mat-icon>
+        </span>
+        </div>
+        <mat-card class="mt-2">
+            <p class="text-center life-title">Claim Details</p>
+            <ul>
+                <li class="life-claim">
+    
+                    <p class="life-tag">Claim Type : <span *ngIf="claimTypeDisp">{{claimTypeDisp}}</span><span  *ngIf="!claimTypeDisp">NA</span></p>
+                </li>
+                <li class="life-claim">
+                    <p class="life-tag">Date of Intimation : <span  *ngIf="claimIntimationDt">{{claimIntimationDt | date:'dd/MM/yyyy'}}</span>
+                        <span  *ngIf="!claimIntimationDt">NA</span></p>
+    
+                </li>
+                <li class="life-claim">
+    
+                    <p class="life-tag">Time of Intimation : <span  *ngIf="claimIntimationDt">{{claimIntimationDt | date:'h:mm:ss a'}}</span>
+                        <span  *ngIf="!claimIntimationDt">NA</span> </p>
+                </li>
+                <li class="life-claim">
+                    <p class="life-tag">Intimated By : <span  *ngIf="initiatedByDisp">{{initiatedByDisp}}</span>
+                        <span  *ngIf="!initiatedByDisp">NA</span></p>
+                </li>
+                <li class="life-claim">
+                    <p class="life-tag">Relation with LA : <span *ngIf="relationWithLifeAssuredDisp">{{relationWithLifeAssuredDisp}}</span>
+                        <span *ngIf="!relationWithLifeAssuredDisp">NA</span></p>
+    
+                </li>
+                <!-- <li class="life-claim">
+                    <p class="life-tag">Relation with LA : <span *ngIf="relationWithLifeAssuredDisp">{{relationWithLifeAssuredDisp}}</span>
+                        <span *ngIf="!relationWithLifeAssuredDisp">NA</span></p>
+    
+                </li> -->
+            </ul>
+        </mat-card>
+        <mat-card class="mt-2 mb-2">
+            <p class="text-center life-title">Event Details</p>
+            <ul>
+                <li class="life-claim">
+    
+                    <p class="life-tag">Cause of Event : <span *ngIf="deathCause">{{deathCause}}</span>
+                        <span *ngIf="!deathCause">NA</span></p>
+                </li>
+                <li class="life-claim">
+                    <p class="life-tag">Date of Event : <span *ngIf="eventDt">{{eventDt | date:'dd/MM/yyyy'}}</span>
+                        <span *ngIf="!eventDt">NA</span></p>
+    
+                </li>
+                <li class="life-claim">
+    
+                    <p class="life-tag">Secondary Cause of Event : <span *ngIf="secondaryEventCause">{{secondaryEventCause}}</span> 
+                        <span *ngIf="!secondaryEventCause">NA</span></p>
+                </li>
+                <li class="life-claim">
+                    <p class="life-tag">Organ Impacted : <span *ngIf="eventOrganImpacted"> {{eventOrganImpacted}}</span>
+                        <span *ngIf="!eventOrganImpacted">NA</span></p>
+                </li>
+                <li class="life-claim">
+                    <p class="life-tag">Place of Death : <span *ngIf="deathPlace">{{deathPlace}}</span>
+                        <span *ngIf="!deathPlace">NA</span></p>
+    
+                </li>
+                <li class="life-claim">
+                    <p class="life-tag">Name of Hospital : <span *ngIf="hospitalName">{{hospitalName}}</span>
+                    
+                        <span *ngIf="!hospitalName">NA</span></p>
+    
+                </li>
+            </ul>
+        </mat-card>
+    
+        <mat-card class="mt-1">
+            <p class="text-center life-title mt-2">Policy Duration</p>
+            <ul>
+                <li class="life-claim">
+    
+                    <p class="life-tag">RCD-Date of Event : <span *ngIf="rcdDoe">{{rcdDoe}} <span *ngIf="rcdDoe != message"></span></span> 
+                        <span *ngIf="!rcdDoe">NA</span></p>
+                </li>
+                <li class="life-claim">
+                    <p class="life-tag">RCD-Date of Intimation : <span *ngIf="rcdDoi">{{rcdDoi}} <span *ngIf="rcdDoi != message"></span></span>
+                        <span *ngIf="!rcdDoi">NA</span></p>
+    
+                </li>
+                <li class="life-claim">
+    
+                    <p class="life-tag">Revival-Date of Event : <span> {{(revivalDoe =="" || revivalDoe == undefined || revivalDoe == "NA") ? 
+                        "-" : revivalDoe }} </span> </p>
+                </li>
+            </ul>
+        </mat-card>
+        <!-- <div class="text-center mb-2 mt-1">
+            <button mat-raised-button  class="button-1 mt-2 mb-4" (click)="onViewClick()" >View</button>
+    
+        </div> -->
+    </div>
+</mat-card>

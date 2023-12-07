@@ -1,0 +1,203 @@
+<div class="container-fluid px-3">
+    <div class="row">
+
+        <mat-card class="scrollbar scrollbar-primary m-1 p-3">
+            <div class="d-flex mb-2">
+                <button mat-raised-button (click)="benefit()" class="button-1">Benefit Details</button>
+                <button mat-raised-button (click)="payout()" class="button-1 mx-1">Payout Details</button>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 mx-0 row mb-3 justify-content-between" *ngIf="benefitDetails">
+
+
+                <div class="col-lg-12 col-md-12 col-sm-12 mx-0 px-0 mb-3">
+                    <mat-card class="h-100">
+
+                        <div class="row mt-2 text-center">
+                            <div class="col-lg-4 col-md-4 col-sm-4">
+                                <p class="title-heading mt-2 mb-0">Product type</p>
+                                <span class="title">{{productTypeBenefit || '-'}}</span>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4">
+                                <p class="title-heading mt-2 mb-0">ULIP Policy Type</p>
+                                <span class="title">Post/Modified Post ULIP</span>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4">
+                                <p class="title-heading mt-2 mb-0">Death Benefit</p>
+                                <p  *ngIf="shortds!='CI'">{{totalValue || '-'}}</p>
+                                <p *ngIf="shortds=='CI'" >-</p>
+
+                            </div>
+                        </div>
+
+                    </mat-card>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 mx-0 px-0">
+                    <mat-card class="  h-100">
+
+
+                        <div >
+                            <table mat-table [dataSource]="dataSource" matSort class="w-100">
+
+                                <!-- Applicable Component Name Column -->
+
+                                <ng-container matColumnDef="coverageDisp">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Applicable Component Name</th>
+                                    <td mat-cell *matCellDef="let row"> {{row.shortds}} </td>
+                                </ng-container>
+
+                                <!-- Amount Column -->
+                                <ng-container matColumnDef="actvalue">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
+                                    <td mat-cell *matCellDef="let row"> {{row.actvalue}}</td>
+                                </ng-container>
+
+                                <!-- % Payable Column -->
+                                <ng-container matColumnDef="payable">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>% Payable</th>
+                                    <td mat-cell *matCellDef="let row"> {{row.payable}} </td>
+                                </ng-container>
+
+                                <!-- Decision Column -->
+                                <ng-container matColumnDef="decision">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Decision</th>
+                                    <td mat-cell *matCellDef="let row"> {{row.decision}} </td>
+                                </ng-container>
+
+                                <!-- Amount Payable column -->
+                                <ng-container matColumnDef="amountPayable">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount Payable</th>
+                                    <td mat-cell *matCellDef="let row"> {{row.amountPayable}} </td>
+                                </ng-container>
+
+
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+                            </table>
+
+                            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+                        </div>
+
+
+
+                        <div class="col-md-12 d-flex justify-content-end px-5">
+
+                            <p class="font ">Total Payable Amount</p>
+                            <span class="bg-green mx-3 py-2 px-3 mb-2 position-absolute bottom-0 end-0">{{totalValue}}</span>
+                        </div>
+
+
+                    </mat-card>
+                </div>
+
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 mx-0 row justify-content-between" *ngIf="payoutDetails">
+                <div *ngFor="let nominee of bankDetails; let i = index" class="mb-2">
+                <mat-card *ngIf="nominee.nomineeBankDetails" class="h-100 d-flex mb-4" >
+                    <div  class="col-md-12">
+                        <div class="row">
+                            <div>
+                                    <mat-icon>person_outline</mat-icon>
+                                    <span *ngIf="claimType == 'Death'" class="title-nominee">{{i+1}}. Nominee</span>
+                                    <span *ngIf="claimType != 'Death'" class="title-nominee">{{i+1}}. Life Assured</span>
+                            </div>
+                            <span class="underlineNominee"></span>
+                            <div class="col-md-12 px-0 mt-2">
+                                <div class=" d-flex">
+                                    <!-- <span class="">
+                                        <mat-checkbox class="mt-2" [disabled] = "isReadonly"></mat-checkbox>
+                                    </span> -->
+                                    <div class="col-md-4 px-4">
+                                        <p class="title-heading mt-2 mb-0">Name</p>
+                                        <span class="data" *ngIf="nominee.nomineeBankDetails">{{nominee.nomineeBankDetails.beneficiaryName }}</span>
+                                         <span class="data" *ngIf="!nominee.nomineeBankDetails">NA</span>
+                                    </div>
+                                    <div class="col-md-2 px-0">
+                                        <p class="title-heading mt-2 mb-0">Account Number</p>
+                                        <span class="data">{{nominee.nomineeBankDetails.accountNo}}</span>
+                                    </div>
+                                    <div class="col-md-2 px-0">
+                                        <p class="title-heading mt-2 mb-0"> IFSC</p>
+                                        <span class="data">{{nominee.nomineeBankDetails.ifscCode}}</span>
+                                    </div>
+                                    <div class="col-md-2 px-0">
+                                        <p class="title-heading mt-2 mb-0">Bank Name</p>
+                                        <span class="data">{{nominee.nomineeBankDetails.bankName}}</span>
+                                    </div>
+                                    <div class="col-md-1 px-0">
+                                        <p class="title-heading mt-2 mb-0">IMPS Status</p>
+                                        <span class="data">{{nominee.nomineeBankDetails.impsStatus}}</span>
+                                    </div>
+                                    <div class="col-md-1 px-0">
+                                        <p class="title-heading mt-2 mb-0">Specified Person</p>
+                                        <select name="" id="" [disabled] = "isReadonly">
+                                            <option value="yes">YES</option>
+                                            <option value="no">NO</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- <div class="col-md-1 px-0">
+                                    <button mat-raised-button class="button-1 mt-3">Approve</button>
+                                </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex">
+                            <div class="col-md-2 px-0">
+                                <p class="title-heading mt-2 mb-0">Payment #</p>
+                                <span class="data">-</span>
+                            </div>
+                            <div class="col-md-1 px-0">
+                                <p class="title-heading mt-2 mb-0">Date</p>
+                                <span class="data">-</span>
+                            </div>
+                            <div class="col-md-1 px-0">
+                                <p class="title-heading mt-2 mb-0">Amount</p>
+                                <span class="data">-</span>
+                            </div>
+                            <div class="col-md-2 px-0">
+                                <p class="title-heading mt-2 mb-0">Payment Suspense No.</p>
+                                <span class="data">-</span>
+                            </div>
+                            <div class="col-md-1 px-0">
+                                <p class="title-heading mt-2 mb-0">UTRN #</p>
+                                <span class="data">-</span>
+                            </div>
+                            <div class="col-md-2 px-0">
+                                <p class="title-heading mt-2 mb-0">NEFT Rejection</p>
+                                <span class="data">-</span>
+                            </div>
+                            <div class="col-md-3 px-0">
+                                <p></p>
+                                <span class="d-flex">
+                                    <button *ngIf="(appCode == 'AS' && (taskCode == 'ASSESSMENT_TSK' || taskCode == 'AWAIT_ASSESSMENT_REQ')) && nominee.aprvdPayoutYn== 'N'" mat-raised-button class="button-1" (click)="updateAprooveYNService(nominee.nomineeDetailId,'Y')">Approve</button>
+                                    <span class="title-1" style="color: green;"  *ngIf="((appCode == 'AS' && (taskCode == 'ASSESSMENT_TSK' || taskCode == 'AWAIT_ASSESSMENT_REQ')) || appCode == 'AP' || appCode == 'PO') && nominee.aprvdPayoutYn== 'Y'">Approved</span>
+                                    <button *ngIf="(appCode == 'AS' && (taskCode == 'ASSESSMENT_TSK' || taskCode == 'AWAIT_ASSESSMENT_REQ')) && nominee.aprvdPayoutYn == 'Y'" mat-raised-button class="button-1 mx-2" (click)="updateAprooveYNService(nominee.nomineeDetailId,'N')">Reset</button>
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </mat-card>
+                <!-- <div class="col-md-12 d-flex justify-content-center" *ngIf="(appCode =='AS' && this.taskCode == 'ASSESSMENT_TSK')">
+
+                    <button mat-raised-button class="button-1 mt-3" *ngIf="!trackClaim">Approve</button>
+                </div> -->
+            </div>
+            </div>
+        </mat-card>
+        
+
+    </div>
+    <div class="text-center mt-2">
+        <button mat-raised-button class="button-1 mx-3"  (click)="onCancelButton()">Cancel</button>
+    </div>
+</div>

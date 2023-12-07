@@ -1,0 +1,141 @@
+<div class="title-header">
+    <mat-card class="dashboardTitle d-flex">
+        <div class="w-25">
+            <mat-card-title>Re-Assignment Dashboard</mat-card-title>
+        </div>
+    </mat-card>
+</div>
+<div class="container-fluid">
+    <div class="mt-4">
+        <mat-card>
+            <div class="col-md-12">
+                <form [formGroup]="userForm">
+                    <div>
+                        <div class="row col-md-12 d-flex">
+                            <div class="row col-md-12 d-flex">
+                                <p class="col-md-3">
+                                    <label class="mt-1 col-md-4">Task Codes</label>
+                                    <mat-form-field>
+                                        <mat-select formControlName="tskCode" class="col-md-4" #task
+                                            (selectionChange)="onTaskChange(task.value)" required>
+                                            <mat-option *ngFor="let task of taskList" [value]="task.tskCode">
+                                                {{task.tskName}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error
+                                            *ngIf="userFormGroups['tskCode']?.touched || userFormGroups['tskCode']?.dirty">
+                                            <div *ngIf="userFormGroups['tskCode']?.errors?.['required']">
+                                                Please select taskcode</div>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </p>
+
+                                <p class="col-md-3">
+                                    <label class="mt-1 col-md-4">From User</label>
+                                    <mat-form-field>
+                                        <mat-select formControlName="fromUser" class="col-md-4" #fromUser
+                                            (selectionChange)="onFromUserChange(fromUser.value)" required>
+                                            <mat-option *ngFor="let user of user" [value]="user.loginId">
+                                                {{user.dispName}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error
+                                            *ngIf="userFormGroups['tskCode']?.touched || userFormGroups['tskCode']?.dirty">
+                                            <div *ngIf="userFormGroups['fromUser']?.errors?.['required']">
+                                                Please select user</div>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </p>
+
+                                <p class="col-md-3" *ngIf="dataSourcelength > 0">
+                                    <label class="mt-1 col-md-4">To User</label>
+                                    <mat-form-field>
+                                        <mat-select formControlName="toUser" class="col-md-4" #toUser
+                                            (selectionChange)="onToUserChange(toUser.value)" required>
+                                            <mat-option *ngFor="let user of user" [value]="user.loginId">
+                                                {{user.dispName}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error
+                                            *ngIf="userFormGroups['toUser']?.touched || userFormGroups['toUser']?.dirty">
+                                            <div *ngIf="userFormGroups['toUser']?.errors?.['required']">
+                                                Please select user</div>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </p>
+
+                                <div class="col-md-3 d-flex justify-content-end py-2" *ngIf="dataSourcelength > 0">
+                                    <button mat-raised-button class="button-1 h-50 mt-3 float-right"
+                                        (click)="assign(userForm.value)">Assign</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-12 title-1 text-center" *ngIf="dataSourcelength == 0">
+                Cases not available for this user.
+            </div>
+            <mat-table #table [dataSource]="dataSource" *ngIf="dataSourcelength">
+
+                <ng-container matColumnDef="checkBox">
+                    <mat-header-cell *matHeaderCellDef class="header-data col-md-1"></mat-header-cell>
+                    <mat-cell *matCellDef="let element,let i=index" class="link col-md-1">
+                        <input type="radio" name="case" id="" (change)="onSelected(element)">
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="claimNo">
+                    <mat-header-cell *matHeaderCellDef class="header-data"> Claim No.</mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element?.claimNo || '-'}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="caseStatus">
+                    <mat-header-cell *matHeaderCellDef class="header-data"> Case Status</mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element?.tskDispName || '-'}}</mat-cell>]
+                </ng-container>
+
+                <ng-container matColumnDef="policy">
+                    <mat-header-cell *matHeaderCellDef class="header-data"> Policy No.</mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element?.policyId || '-' }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="dateOfEvent">
+                    <mat-header-cell *matHeaderCellDef class="header-data"> Date of Event</mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element.eventDt | date:'dd/MM/yyyy' ||
+                        '-'}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="claimType">
+                    <mat-header-cell *matHeaderCellDef class="header-data"> Claim Type</mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element.claimType }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="intimationDate">
+                    <mat-header-cell *matHeaderCellDef class="header-data"> Date Of Intimation</mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element?.claimIntimationDt |
+                        date:'dd/MM/yyyy' || '-'}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="claimStatus">
+                    <mat-header-cell *matHeaderCellDef class="header-data"> Claim Status</mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element?.claimStatusDesc || '-'
+                        }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="intimatingBranch">
+                    <mat-header-cell *matHeaderCellDef class="header-data"> Intimating Branch</mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element?.intimatingBranch || '00'
+                        }}</mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+            <mat-paginator [pageSize]="5" [pageSizeOptions]="[5,10,20]" showFirstLastButtons
+                *ngIf="dataSourcelength"></mat-paginator>
+        </mat-card>
+
+    </div>
+</div>

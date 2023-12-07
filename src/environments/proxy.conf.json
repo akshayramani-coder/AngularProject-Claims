@@ -1,0 +1,71 @@
+{
+    "/api/user-management": {
+      "target": "http://192.168.6.99:8304/user-management",
+      "secure": false,
+      "pathRewrite": {
+        "^/api/user-management": ""
+      },
+      "logLevel": "debug"   
+       
+    },
+
+    "/api/claims-intimation": {
+      "target": "http://192.168.6.99:8305/claims-intimation",
+      "secure": false,
+      "pathRewrite": {
+        "^/api/claims-intimation": ""
+      },
+      "logLevel": "debug"   
+       
+    },
+    "/api/claims-registration": {
+      "target": "http://192.168.6.99:8306/claims-registration",
+      "secure": false,
+      "pathRewrite": {
+        "^/api/claims-registration": ""
+      },
+      "logLevel": "debug"   
+       
+    },
+    "/api/claims-third-party-calls": {
+      "target": "http://192.168.6.99:8309/claims-third-party-calls",
+      "secure": false,
+      "pathRewrite": {
+        "^/api/claims-third-party-calls": ""
+      },
+      "logLevel": "debug"   
+       
+    },
+    "/api/claims-document-service": {
+      "target": "http://192.168.6.99:8308/claims-document-service",
+      "secure": false,
+      "pathRewrite": {
+        "^/api/claims-document-service": ""
+      },
+      "logLevel": "debug"   
+       
+    },
+    "/api/claims-approval": {
+      "target": "http://10.3.252.168:8314/claims-approval",
+      "secure": false,
+      "pathRewrite": {
+        "^/api/claims-approval": ""
+      },
+      "logLevel": "debug"   
+       
+    },
+    "/api/kli-claims-communication": {
+      "target": "http://10.3.252.168:8317/kli-claims-communication",
+      "secure": false,
+      "pathRewrite": {
+        "^/api/kli-claims-communication": ""
+      },
+      "logLevel": "debug"   
+       
+    }
+    
+
+
+
+    
+  }

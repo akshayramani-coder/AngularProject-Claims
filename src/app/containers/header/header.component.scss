@@ -1,0 +1,176 @@
+// .main-header {
+//     height: 63px;
+//     z-index: 999;
+//     background-color: #fff;
+//     border-bottom: 1px solid #e9edf4;
+//     width: 100%;
+//     box-shadow: none;
+//     position: fixed !important;
+//     -webkit-box-shadow: 0 2px 10px -1px rgb(8 35 171 / 10%);
+// }
+
+// .main-header-left {
+//     align-items: center;
+//     padding: 15px 24px 15px 0;
+// }
+
+// .title-heading {
+//     font: normal normal bold 34px Bahnschrift;
+//     letter-spacing: 0px;
+//     opacity: 1;
+// }
+
+// .main-logo {
+//     margin-left: 30px;
+// }
+
+// .img-menu {
+//     height: 22px;
+//     margin: 0px;
+//     padding: 0px 30px 0px 30px;
+//     cursor: pointer;
+// }
+
+// .mat-icon {
+//     -webkit-user-select: none;
+//     -moz-user-select: none;
+//     -ms-user-select: none;
+//     user-select: none;
+//     background-repeat: no-repeat;
+//     display: inline-block;
+//     fill: currentColor;
+//     height: 28px;
+//     width: 28px;
+//     color: #142673;
+//     font-size: 27px;
+//     cursor: pointer;
+// }
+
+// .user-image {
+//     border-radius: 50%;
+//     width: 30px;
+//     height: 30px;
+//     cursor: pointer;
+
+// }
+
+// .life {
+//     color: #1E4679;
+// }
+
+// .claim {
+//     color: #EC3137;
+// }
+
+// .mat-notification {
+//     color: #EC3137;
+
+// }
+
+// .kotak-logo {
+//     height: 28px;
+// }
+.main-header {
+    height: 63px;
+    z-index: 999;
+    background-color: #fff;
+    border-bottom: 1px solid #e9edf4;
+    width: 100%;
+    box-shadow: none;
+    position: fixed !important;
+    -webkit-box-shadow: 0 2px 10px -1px rgb(8 35 171 / 10%);
+}
+
+.main-header-left {
+    align-items: center;
+    padding: 15px 24px 15px 0;
+}
+
+.title-heading {
+    font: normal normal bold 34px Bahnschrift;
+    letter-spacing: 0px;
+    opacity: 1;
+}
+
+.main-logo {
+    margin-left: 30px;
+}
+
+.img-menu {
+    height: 22px;
+    margin: 0px;
+    padding: 0px 30px 0px 30px;
+    cursor: pointer;
+}
+
+.mat-icon {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-repeat: no-repeat;
+    display: inline-block;
+    fill: currentColor;
+    height: 28px;
+    width: 28px;
+    color: #142673;
+    font-size: 30px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.user-image {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+
+}
+
+.life {
+    color: #1E4679;
+}
+
+.claim {
+    color: #EC3137;
+}
+
+.mat-notification {
+    color: #EC3137;
+
+}
+
+.kotak-logo {
+    height: 33px;
+}
+
+.loginID {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0px;
+    color: #1E4679;
+    opacity: 1;
+  }
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: bottom;
+    border-radius: 6px;
+    padding: 5px 0;
+  
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }

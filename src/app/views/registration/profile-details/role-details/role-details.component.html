@@ -1,0 +1,91 @@
+<div class="container-fluid  px-0">
+    <div class="col-lg-12 mt-1">
+        <mat-card class="mb-2 scrollbar scrollbar-primary m-1">
+            <mat-card class="mt-0 mb-3" *ngFor="let dt of roledata let i=index">
+                <div class="row ">
+                    <div>
+                        <mat-icon class="nominee-icons">person_outline</mat-icon>
+                        <span class="title-nominee">{{dt.clientRole}}</span>
+
+                    </div>
+                    <span *ngIf="dt.clientRole=='Life Assured'" class="underlineclientrole"></span>
+                    <span *ngIf="dt.clientRole=='Owner'" class="underlineownerrole"></span>
+
+                    <div class="row mt-2">
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Name</p>
+                            <span class="data">{{dt.name}}</span>
+                        </div>
+                        <div class="col-md-3 ">
+                            <p class="title-heading mt-2 mb-0">Date of Birth</p>
+                            <span class="data">{{dt.dateOfBirth | dateFormat1830 }}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Age</p>
+                            <span class="data">{{dt.age}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Gender</p>
+                            <span class="data">{{dt.genderDesc}}</span>
+                        </div>
+                        <div class="col-md-3 ">
+                            <p class="title-heading mt-2 mb-0 ">Occupation</p>
+                            <span class="data">{{dt.occupationDesc}}</span>
+                        </div>
+                        <div class="col-md-3 ">
+                            <p class="title-heading mt-2 mb-0 ">Nationality</p>
+                            <span class="data">{{dt.natlityDesc}}</span>
+                        </div>
+                        <div class="col-md-3 ">
+                            <p class="title-heading mt-2 mb-0">ID Proof</p>
+                            <span class="data">{{dt.identityProof}}</span>
+                        </div>
+                        <div class="col-md-3 ">
+                            <p class="title-heading mt-2 mb-0">Income</p>
+                            <span class="data">{{dt.income}}</span>
+                        </div>
+                        <div class="col-md-3 ">
+                            <p class="title-heading mt-2 mb-0">Income Proof</p>
+                            <span class="data">{{dt.incomeProof}}</span>
+                        </div>
+                        <div class="col-md-3 ">
+                            <p class="title-heading mt-2 mb-0">PAN</p>
+                            <span class="data">{{dt.pan}}</span>
+                        </div>
+                        <div class="col-md-3 ">
+                            <p class="title-heading mt-2 mb-0">Contact No.</p>
+                            <span class="data">{{dt.contactNo}}</span>
+                        </div>
+                        <div class="col-md-3 ">
+                            <p class="title-heading mt-2 mb-0">Email</p>
+                            <span class="title ">{{dt.emailAddress}}</span>
+                        </div>
+                        <div class="col-md-3 ">
+                            <p class="title-heading mt-2 mb-0">Address Proof</p>
+                            <span class="data">{{dt.addressProof}}</span>
+                        </div>
+                        <div class="col-md-3 ">
+                            <p class="title-heading mt-2 mb-0">Address</p>
+                            <span class="data">{{
+                                               ( dt.cltaddr01 != null ? dt.cltaddr01 : '')+
+                                               ' '+ ( dt.cltaddr02 != null ? dt.cltaddr02 : '')+
+                                               ' '+ (dt.cltaddr03 != null ? dt.cltaddr03 : '')+
+                                               ' '+ ( dt.cltaddr04 != null ? dt.cltaddr04 : '')+
+                                               ' '+ (dt.cltaddr05 != null ? dt.cltaddr05 : '')
+                                            }}</span>
+                        </div>
+                        <div class="col-md-3" *ngIf="dt.clientRolwCode == 'LF'">
+                            <p class="title-heading mt-2 mb-0">Age as on DOE</p>
+                            <span class="data">{{dt.eventdate}}</span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </mat-card>
+        </mat-card>
+    </div>
+    <div class="text-center mt-3">
+        <button mat-raised-button class="button-1" (click)="onCancelButton()">Cancel</button>
+    </div>
+</div>

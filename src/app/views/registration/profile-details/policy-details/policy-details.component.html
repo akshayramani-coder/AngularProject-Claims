@@ -1,0 +1,387 @@
+<div class="container-fluid px-0">
+
+    <div class="col-lg-12 mt-1">
+        <mat-card class=" scrollbar scrollbar-primary m-1">
+            <mat-card class="mt-0 mb-3">
+                <div class="row">
+                    <div> 
+                        <mat-icon class="nominee-icons">person_outline</mat-icon>
+                        <span class="title-nominee">Plan Details</span>
+
+                    </div>
+                    <span class="underlinePlanDetails"></span>
+                    <div class="row mt-2">
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Product Name</p>
+                            <span class="data">{{(policyData.productName == "" || policyData.productName == undefined) ?
+                                "-" : policyData.productName}}</span>
+                        </div>
+                        <div class="col-md-3 ">
+                            <p class="title-heading mt-2 mb-0">Product Code</p>
+                            <span class="data">{{(policyData.productCode == "" || policyData.productCode == undefined) ?
+                                "-" : policyData.productCode}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Component Code</p>
+                            <span class="data">{{(policyData.componentCode == "" || policyData.componentCode ==
+                                undefined) ? "-" :
+                                policyData.componentCode}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Sum Assured </p>
+                            <span class="data">{{(policyData.sumAssuredAtInception == "" || policyData.sumAssuredAtInception ==
+                                undefined) ? "-" :
+                                policyData.sumAssuredAtInception}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Policy Term </p>
+                            <span class="data">{{(policyData.policyTerm == "" || policyData.policyTerm == undefined) ?
+                                "-" : policyData.policyTerm }}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Premium Frequency </p>
+                            <span class="data">{{(policyData.premiumFrequency == "" || policyData.premiumFrequency ==
+                                undefined) ? "-" :
+                                policyData.premiumFrequency}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Premium Paying Term</p>
+                            <span class="data">{{(policyData.premiumPayingTerm == "" || policyData.premiumPayingTerm ==
+                                undefined) ? "-" :
+                                policyData.premiumPayingTerm}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Total Premium </p>
+                            <span class="data">{{(policyData.totalPremiumReceived == "" ||
+                                policyData.totalPremiumReceived == undefined) ? "-" :
+                                policyData.totalPremiumReceived}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Plan Name</p>
+                            <span class="data">-</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Lapse Date</p>
+                            <span class="data">-</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Premium Mode </p>
+                            <span class="data">-</span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </mat-card>
+
+            <mat-card class="mt-0 mb-3">
+
+                <div class="row">
+                    <div>
+                        <mat-icon class="nominee-icons">person_outline</mat-icon>
+                        <span class="title-nominee">Proposal Details</span>
+
+                    </div>
+                    <span class="underlineProposalDetails"></span>
+                    <div class="row mt-2">
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Proposal Date</p>
+                            <span class="data">{{(policyData.proposaldate == "" || policyData.proposaldate == undefined)
+                                ? "-" : policyData.proposaldate |
+                                dateFormat1830}}</span>
+                        </div>
+                        <div class="col-md-3 ">
+                            <p class="title-heading mt-2 mb-0">Policy Issue Date</p>
+                            <span class="data">{{(policyData.policyissuedate == "" || policyData.policyissuedate ==
+                                undefined) ? "-" : policyData.policyissuedate |
+                                dateFormat1830 }}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Risk Commencement Date</p>
+                            <span class="data">{{(policyData.rcd == "" || policyData.rcd == undefined) ? "-" :
+                                policyData.rcd | dateFormat1830 }}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Maturity Date</p>
+                            <span class="data">{{(policyData.maturityDate == "" || policyData.maturityDate == undefined)
+                                ? "-" : policyData.maturityDate |
+                                dateFormat}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Paid to Date</p>
+                            <span class="data">{{(policyData.paidToDate == "" || policyData.paidToDate == undefined) ?
+                                "-" : policyData.paidToDate | dateFormat
+                                }}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Bill to Date</p>
+                            <span class="data">{{(policyData.billToDate == "" || policyData.billToDate == undefined) ?
+                                "-" : policyData.billToDate | dateFormat}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">UW Decision</p>
+                            <span class="data">{{(policyData.uwDecision == "" || policyData.uwDecision == undefined) ?
+                                "-" : policyData.uwDecision | dateFormat
+                                }}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">UW Rating</p>
+                            <span class="data">{{(policyData.uwRatingLoading == "" || policyData.uwRatingLoading ==
+                                undefined) ? "-" :
+                                policyData.uwRatingLoading}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Medical at Proposal</p>
+                            <span class="data">{{(policyData.medicalAtProposal == "" || policyData.medicalAtProposal ==
+                                undefined) ? "-" :
+                                policyData.medicalAtProposal}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Settlement Option</p>
+                            <span class="data">{{(policyData.settlementOption == "" || policyData.settlementOption ==
+                                undefined) ? "-" :
+                                policyData.settlementOption}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Revival Flag</p>
+                            <span class="data">{{(policyData.revivalFlag == "" || policyData.revivalFlag == undefined) ?
+                                "-" : policyData.revivalFlag}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Revival Date</p>
+                            <span class="data">{{(policyData.revivalDate == "" || policyData.revivalDate == undefined) ?
+                                "-" : policyData.revivalDate |
+                                dateFormat1830}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Payment Method</p>
+                            <span class="data">{{(policyData.paymentMode == "" || policyData.paymentMode == undefined) ?
+                                "-" : policyData.paymentMode}}</span>
+                        </div>
+
+                        <div class="col-md-3 ">
+                            <p class="title-heading mt-2 mb-0">Total Premium Received</p>
+                            <span class="data">{{(policyData.totalPremiumReceived == "" ||
+                                policyData.totalPremiumReceived == undefined) ? "-" :
+                                policyData.totalPremiumReceived}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Premium Amount</p>
+                            <span class="data">{{(policyData.premiumAmount == "" || policyData.premiumAmount ==
+                                undefined) ? "-" :
+                                policyData.premiumAmount}}</span>
+                        </div>
+
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Sum Assured</p>
+                            <span class="data">{{(policyData.sumAssuredAtInception == "" ||
+                                policyData.sumAssuredAtInception == undefined) ? "-" :
+                                policyData.sumAssuredAtInception}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">PO Name</p>
+                            <span class="data">{{(policyData.poName == "" || policyData.poName == undefined) ? "-" :
+                                policyData.poName}}</span>
+                        </div>
+
+
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Premium Frequency</p>
+                            <span class="data">{{(policyData.premiumFrequency == "" || policyData.premiumFrequency ==
+                                undefined) ? "-" :
+                                policyData.premiumFrequency}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Branch</p>
+                            <span class="data">{{(policyData.loginBranch == "" || policyData.loginBranch == undefined) ?
+                                "-" : policyData.loginBranch}}</span>
+                        </div>
+
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Premium Paying Term</p>
+                            <span class="data">{{(policyData.premiumPayingTerm == "" || policyData.premiumPayingTerm ==
+                                undefined) ? "-" :
+                                policyData.premiumPayingTerm}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Policy Term</p>
+                            <span class="data">{{(policyData.policyTerm == "" || policyData.policyTerm == undefined) ?
+                                "-" : policyData.policyTerm}}</span>
+                        </div>
+
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Joint Life </p>
+                            <span class="data">{{(policyData.jointLife == "" || policyData.jointLife == undefined) ? "-"
+                                : policyData.jointLife}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">DRS NB Score</p>
+                            <span class="data">{{(policyData.drsNbScore == "" || policyData.drsNbScore == undefined) ?
+                                "-" : policyData.drsNbScore}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">State</p>
+                            <span class="data">{{(policyData.state == "" || policyData.state == undefined) ? "-" :
+                                policyData.state}}</span>
+                        </div>
+
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">RI Name</p>
+                            <span class="data">{{(policyData.riname == "" || policyData.riname == undefined) ? "-" :
+                                policyData.riname}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">RI amount</p>
+                            <span class="data">{{(policyData.raamount == "" || policyData.raamount == undefined) ? "-" :
+                                policyData.raamount}}</span>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+            <mat-card class="mt-0 mb-3">
+
+                <div class="row">
+                    <div>
+                        <mat-icon class="nominee-icons">person_outline</mat-icon>
+                        <span class="title-nominee">Agent Details</span>
+
+                    </div>
+                    <span class="underlineAgentDetails"></span>
+                    <div class="row mt-2">
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Agent Name</p>
+                            <span class="data">{{(policyData.agentName == "" || policyData.agentName == undefined) ? "-"
+                                : policyData.agentName}}</span>
+                        </div>
+                        <div class="col-md-2 ">
+                            <p class="title-heading mt-2 mb-0">Agent Code</p>
+                            <span class="data">{{(policyData.agentcode == "" || policyData.agentcode == undefined) ? "-"
+                                : policyData.agentcode}}</span>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="title-heading mt-2 mb-0">Status</p>
+                            <span class="data">{{(policyData.agentstatus == "" || policyData.agentstatus == undefined) ?
+                                "-" : policyData.agentstatus}}</span>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="title-heading mt-2 mb-0">Branch</p>
+                            <span class="data">{{(policyData.loginBranch == "" || policyData.loginBranch == undefined) ?
+                                "-" : policyData.loginBranch}}</span>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="title-heading mt-2 mb-0">Channel Description</p>
+                            <span class="data">{{(policyData.channelDescription == "" || policyData.channelDescription
+                                == undefined) ? "-" :
+                                policyData.channelDescription}}</span>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+            <mat-card class="mt-0 mb-3">
+                <div class="row col-md-12">
+                    <div>
+                        <mat-icon class="nominee-icons">person_outline</mat-icon>
+                        <span class="title-nominee">Rider Details</span>
+                    </div>
+                    <span class="underlineRiderDetails"></span>
+                    <mat-table #table [dataSource]="dataSource">
+
+                        <ng-container matColumnDef="RiderName">
+                            <mat-header-cell *matHeaderCellDef><span class="title-heading-matcell">Rider Name</span>
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let element" class="matcell ridername "> {{ element.riderName }}
+                            </mat-cell>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="RiderCode">
+                            <mat-header-cell *matHeaderCellDef><span class="title-heading-matcell">Rider Code</span>
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let element" class="matcell ">{{ element.riderComponent}} </mat-cell>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="RiderStatus">
+                            <mat-header-cell *matHeaderCellDef><span class="title-heading-matcell">Rider Status </span>
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let element" class="matcell "> {{ element.riderStatusDesc}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="SumAssured">
+                            <mat-header-cell *matHeaderCellDef><span class="title-heading-matcell"> Sum Assured </span>
+                            </mat-header-cell>
+                             <mat-cell *matCellDef="let element" class="matcell "> {{ element.sumAssuredAtInception}}
+                            </mat-cell>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="PolicyTerm">
+                            <mat-header-cell *matHeaderCellDef><span class="title-heading-matcell">Policy Term </span>
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let element" class="matcell "> {{ element.policyTerm }} </mat-cell>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="TotalPremium">
+                            <mat-header-cell *matHeaderCellDef><span class="title-heading-matcell">Total Premium</span>
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let element" class="matcell "> {{(element.totalPremiumReceived == "" ||
+                                element.totalPremiumReceived == undefined) ? "-" :
+                                element.totalPremiumReceived}}
+                            </mat-cell>
+                        </ng-container>
+
+
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                    </mat-table>
+                </div>
+            </mat-card>
+
+
+            <mat-card class="mt-0 mb-3">
+                <div class="row mt-2">
+                    <div>
+                        <mat-icon class="nominee-icons">person_outline</mat-icon>
+                        <span class="title-nominee">Fund Details</span>
+                    </div>
+                    <span class="underlineFundDetails"></span>
+                    <div class="row mt-2" *ngFor="let data of fundData let i=index">
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Fund Name</p>
+                            <span class="data">{{data.fundName}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">No. of Units</p>
+                            <span class="data">{{data.noOfUnits}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">NAV Date</p>
+                            <span class="data">{{data.navDate | dateFormat1830}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Fund Value</p>
+                            <span class="data">{{data.fundValue}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="fundData.length==0">
+                    <mat-card class="mt-2 mb-2 m-2 ErrorMessage">
+                        <span>&#42;</span>
+                        <span>Fund Details is not apllicable for this policy</span>
+                    </mat-card>
+                </div>
+
+            </mat-card>
+        </mat-card>
+    </div>
+    <div class="text-center mt-3">
+        <button mat-raised-button class="button-1" (click)="onCancelButton()">Cancel</button>
+    </div>
+</div>
+
+
+
+<!-- </div> -->
+
+

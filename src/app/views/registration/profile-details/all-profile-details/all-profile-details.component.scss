@@ -1,0 +1,75 @@
+.round{
+    /* Layout Properties */
+    top: 133px;
+    left: 739px;
+    width: 28px;
+    height: 28px;
+    background: #D8D4D4 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px rgb(0 0 0 / 16%);
+    opacity: 1;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+.arrow{
+    
+    width: 32px;
+    height: 35px;
+}
+.profileTabs{
+    margin-left:10px;
+}
+
+.tabData{
+    top: 141px;
+left: 587px;
+width: 160px;
+height: 30px;
+/* UI Properties */
+text-align: left;
+font: normal normal bold 22px/24px Arial;
+letter-spacing: 0.17px;
+color: #707070;
+opacity: 1;
+}
+.lifeAssured{
+    background:whitesmoke;
+}
+.headings{
+    letter-spacing: 0px;
+    color: black;
+    font-weight: 600;
+    // background-color: aliceblue;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+}
+
+.rotate{
+    writing-mode: vertical-lr;
+    text-orientation: sideways-right;
+  }
+  .rotate-container{
+    transform: rotate(3.142rad);
+    width: fit-contents;
+    min-height: fit-content;
+
+  }
+  .mat-tab{
+    border-radius: 9999px;
+    background-color: #142673;
+  }
+  .padding-left{
+    background-color: #d7dbee;
+  }
+  button{
+    height: fit-content;
+    width: fit-content;
+    border: none;
+    background-color: #d7dbee;
+  }
+  button:active{
+    background-color: blue;
+    color: white;
+    // border: none;
+
+  }

@@ -1,0 +1,880 @@
+<!-- <div  >
+    <div class="">
+        <mat-card>
+            <mat-card-title class="title1">Client Name (LA) # xxxxxxx xxxxxxxxxxxx</mat-card-title>
+
+        </mat-card>
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="mt-4 mb-4">
+        </div>
+        <form [formGroup]="eventAndClaimForm">
+            <mat-card>
+                <mat-card-title>Claim Details</mat-card-title>
+                <div class="row ">
+                    <div class="form-group col-md-3 mt-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Type of Claim</mat-label>
+                                <mat-select placeholder="--select--" formControlName="claimType"
+                                    [ngClass]="{ 'is-invalid': submitted && f['claimType'].errors }">
+                                    <mat-option *ngFor="let data of claimList" [value]="data.lookupCd">
+                                        {{data.shrtName}}
+                                    </mat-option>
+
+                                </mat-select>
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['claimType'].errors) || !f['claimType'].valid && f['claimType'].touched">
+                                        Please Enter Type of Claim</div>
+                                </mat-error>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group  col-md-3 mt-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Death Claim</mat-label>
+                                <mat-select placeholder="--select--" formControlName="deathClaimType"
+                                    [ngClass]="{ 'is-invalid': submitted && f['deathClaimType'].errors }">
+                                    <mat-option *ngFor="let data of claimDeath" [value]="data.lookupCd">
+                                        {{data.shrtName}}
+                                    </mat-option>
+
+                                </mat-select>
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['deathClaimType'].errors) || !f['deathClaimType'].valid && f['deathClaimType'].touched">
+                                        Please Enter Death Claim</div>
+                                </mat-error>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3 password_fl mt-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Claim Intimation Date</mat-label>
+                                <input (keydown)="false" (click)="basicDatepicker.open()" matInput [min]="min_Date"
+                                    [max]="max_Date" [matDatepicker]="basicDatepicker"
+                                    [ngClass]="{ 'is-invalid': submitted && f['intimationDateTime'].errors }"
+                                    placeholder="dd/mm/yyyy" formControlName="intimationDateTime"
+                                    (dateChange)="onChnageOfStartDate()">
+                                <mat-datepicker-toggle matSuffix [for]="basicDatepicker"></mat-datepicker-toggle>
+                                <mat-datepicker #basicDatepicker></mat-datepicker>
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['intimationDateTime'].errors) || !f['intimationDateTime'].valid && f['intimationDateTime'].touched">
+                                        Please Enter Claim Intimation Date</div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group col-md-3 mt-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Re-enter Claim Intimation Date</mat-label>
+                                <input (keydown)="false" (click)="basicDatepicker1.open()" matInput [min]="min_Date"
+                                    [max]="max_Date" [matDatepicker]="basicDatepicker1"
+                                    [ngClass]="{ 'is-invalid': submitted && f['ReenterClaimDate'].errors }"
+                                    placeholder="dd/mm/yyyy" formControlName="ReenterClaimDate">
+                                <mat-datepicker-toggle matSuffix [for]="basicDatepicker1"></mat-datepicker-toggle>
+                                <mat-datepicker #basicDatepicker1></mat-datepicker>
+                                <mat-error
+                                    *ngIf="(submitted && eventAndClaimForm.controls?.['ReenterClaimDate']?.errors) || eventAndClaimForm.controls?.['ReenterClaimDate']?.touched || eventAndClaimForm.errors">
+                                    <div *ngIf="eventAndClaimForm.controls?.['ReenterClaimDate']?.errors?.['']">
+                                        Please Enter Re-enter Claim Intimation Date
+                                    </div>
+                                    <div *ngIf="eventAndClaimForm.controls?.['ReenterClaimDate']?.errors?.['mustMatch']">
+                                        Re-enter Claim Intimation Date should be same as claim date
+                                    </div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group col-md-3 mt-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Claim Intimation Time</mat-label>
+                                <input matInput placeholder="10.01 AM" type="time"
+                                    [ngClass]="{ 'is-invalid': submitted && f['intimationTime'].errors }"
+                                    formControlName="intimationTime" (input)="onChnageOfClaimeTime()">
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['intimationTime'].errors) || !f['intimationTime'].valid && f['intimationTime'].touched">
+                                        Please Enter Claim Intimation Time</div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group col-md-3 mt-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label class="col-md-12">Re-enter Claim Intimation Time</mat-label>
+                                <input matInput placeholder="10.01 AM" type="time"
+                                    [ngClass]="{ 'is-invalid': submitted && f['ReenterIntimationTime'].errors }"
+                                    formControlName="ReenterIntimationTime">
+
+                                <mat-error
+                                    *ngIf="(submitted && eventAndClaimForm.controls?.['ReenterIntimationTime']?.errors) || eventAndClaimForm.controls?.['ReenterIntimationTime']?.touched || eventAndClaimForm.errors">
+                                    <div *ngIf="eventAndClaimForm.controls?.['ReenterIntimationTime']?.errors?.['']">
+                                        Please Enter Re-enter Claim Intimation Time
+                                    </div>
+                                    <div *ngIf="eventAndClaimForm.controls?.['ReenterIntimationTime']?.errors?.['MustMatchTime']">
+                                        Re-enter Claim Intimation Time should be same as Claim Intimation Time
+                                    </div>
+                                </mat-error>
+
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <mat-card-title class="mt-2">Event Details</mat-card-title>
+                <div class="row">
+                    <div class="form-group col-md-3 mt-2">
+
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Event Type </mat-label>
+                                <mat-select placeholder="--select--" formControlName="eventType"
+                                    [ngClass]="{ 'is-invalid': submitted && f['eventType'].errors }">
+                                    <mat-option *ngFor="let data of eventType" [value]="data.lookupCd">
+                                        {{data.shrtName}}
+                                    </mat-option>
+
+                                </mat-select>
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['eventType'].errors) || !f['eventType'].valid && f['eventType'].touched">
+                                        Please Enter Event Type </div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group  col-md-3 mt-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Cause of Death</mat-label>
+                                <mat-select placeholder="--select--" formControlName="deathCause"
+                                    [ngClass]="{ 'is-invalid': submitted && f['deathCause'].errors }">
+                                    <mat-option *ngFor="let data of causeofDeath" [value]="data.lookupCd">
+                                        {{data.shrtName}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['deathCause'].errors) || !f['deathCause'].valid && f['deathCause'].touched">
+                                        Please Enter Cause of Death</div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group  col-md-3 mt-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Place of Death</mat-label>
+                                <mat-select placeholder="--select--" formControlName="deathPlace"
+                                    [ngClass]="{ 'is-invalid': submitted && f['deathPlace'].errors }">
+                                    <mat-option *ngFor="let data of placeofDeath" [value]="data.lookupCd">
+                                        {{data.shrtName}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['deathPlace'].errors) || !f['deathPlace'].valid && f['deathPlace'].touched">
+                                        Please Enter Place of Death</div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 mt-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label class="col-sm-12">Date of Accident</mat-label>
+                                <input (keydown)="false" (click)="basicDatepicker3.open()" matInput [min]="min_Date"
+                                    [max]="max_Date" [matDatepicker]="basicDatepicker3"
+                                    [ngClass]="{ 'is-invalid': submitted && f['accidentDt'].errors }"
+                                    placeholder="dd/mm/yyyy" formControlName="accidentDt">
+                                <mat-datepicker-toggle matSuffix [for]="basicDatepicker3"></mat-datepicker-toggle>
+                                <mat-datepicker #basicDatepicker3></mat-datepicker>
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['accidentDt'].errors) || !f['accidentDt'].valid && f['accidentDt'].touched">
+                                        Please Enter Date of Accident</div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 password_fl mt-2 ">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Date of Event</mat-label>
+                                <input (keydown)="false" (click)="basicDatepicker4.open()" matInput [min]="min_Date"
+                                    [max]="max_Date" [matDatepicker]="basicDatepicker4"
+                                    [ngClass]="{ 'is-invalid': submitted && f['eventDt'].errors }"
+                                    placeholder="dd/mm/yyyy" formControlName="eventDt"
+                                    (dateChange)="onChnageOfStartDate1()">
+                                <mat-datepicker-toggle matSuffix [for]="basicDatepicker4"></mat-datepicker-toggle>
+                                <mat-datepicker #basicDatepicker4></mat-datepicker>
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['eventDt'].errors) || !f['eventDt'].valid && f['eventDt'].touched">
+                                        Please Enter Date of Event</div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 mt-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Re-enter of Date</mat-label>
+                                <input (keydown)="false" (click)="basicDatepicker5.open()" matInput [min]="min_Date"
+                                    [max]="max_Date" [matDatepicker]="basicDatepicker5"
+                                    [ngClass]="{ 'is-invalid': submitted && f['ReenterDate'].errors }"
+                                    placeholder="dd/mm/yyyy" formControlName="ReenterDate">
+                                <mat-datepicker-toggle matSuffix [for]="basicDatepicker5"></mat-datepicker-toggle>
+                                <mat-datepicker #basicDatepicker5></mat-datepicker>
+                                <mat-error
+                                    *ngIf="(submitted && eventAndClaimForm.controls?.['ReenterDate']?.errors) || eventAndClaimForm.controls?.['ReenterDate']?.touched || eventAndClaimForm.errors">
+                                    <div *ngIf="eventAndClaimForm.controls?.['ReenterDate']?.errors?.['']">
+                                        Please Enter Re-enter of Date
+                                    </div>
+                                    <div *ngIf="eventAndClaimForm.controls?.['ReenterDate']?.errors?.['mustMatch']">
+                                        Re-enter of Date should be same as Date of Event
+                                    </div>
+                                </mat-error>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 password_fl mt-2 ">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Organ that was impact leading,Leading to the event</mat-label>
+                                <mat-select placeholder="--select--" formControlName="eventOrganImpacted"
+                                    [ngClass]="{ 'is-invalid': submitted && f['eventOrganImpacted'].errors }">
+                                    <mat-option *ngFor="let data of organImpact" [value]="data.lookupCd">
+                                        {{data.shrtName}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['eventOrganImpacted'].errors) || !f['eventOrganImpacted'].valid && f['eventOrganImpacted'].touched">
+                                        Please Enter Organ</div>
+                                </mat-error>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 mt-2 ">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Name of Hospital</mat-label>
+                                <input matInput formControlName="hospitalName"
+                                    [ngClass]="{ 'is-invalid': submitted && f['hospitalName'].errors }">
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['hospitalName'].errors) || !f['hospitalName'].valid && f['hospitalName'].touched">
+                                        Please Enter Name of Hospital</div>
+                                </mat-error>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group  col-md-3 mt-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Secondary Cause of Event</mat-label>
+                                <mat-select placeholder="--select--" formControlName="secondaryeventCause"
+                                    [ngClass]="{ 'is-invalid': submitted && f['secondaryeventCause'].errors }">
+                                    <mat-option *ngFor="let data of secondaryEvent" [value]="data.lookupCd">
+                                        {{data.shrtName}}
+                                    </mat-option>
+                                </mat-select>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 mt-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Intimated by</mat-label>
+                                <mat-select placeholder="--select--" formControlName="initiatedBy"
+                                    [ngClass]="{ 'is-invalid': submitted && f['initiatedBy'].errors }">
+
+                                    <mat-option *ngFor="let data of intimatedBy" [value]="data.lookupCd">
+                                        {{data.shrtName}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['initiatedBy'].errors) || !f['initiatedBy'].valid && f['initiatedBy'].touched">
+                                        Please Enter Intimated by</div>
+                                </mat-error>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 mt-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Relation With Life Assured</mat-label>
+                                <mat-select placeholder="--select--" formControlName="relationWithLifeAssured"
+                                    [ngClass]="{ 'is-invalid': submitted && f['relationWithLifeAssured'].errors }">
+                                    <mat-option *ngFor="let data of realationLifeAssured" [value]="data.lookupCd">
+                                        {{data.shrtName}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['relationWithLifeAssured'].errors) || !f['relationWithLifeAssured'].valid && f['relationWithLifeAssured'].touched">
+                                        Please Enter Relation With Life Assured</div>
+                                </mat-error>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 mt-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Payout Option</mat-label>
+                                <mat-select placeholder="--select--" formControlName="payoutOption"
+                                    [ngClass]="{ 'is-invalid': submitted && f['payoutOption'].errors }">
+                                    <mat-option *ngFor="let data of payoutOption" [value]="data.lookupCd">
+                                        {{data.shrtName}}
+                                    </mat-option>
+
+                                </mat-select>
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['payoutOption'].errors) || !f['payoutOption'].valid && f['payoutOption'].touched">
+                                        Please Enter Payout Option</div>
+                                </mat-error>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 mt-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Remarks if Intimated by choosen others</mat-label>
+                                <textarea matInput type="text" formControlName="remarks" placeholder="Text"
+                                    [ngClass]="{ 'is-invalid': submitted && f['remark'].errors }"></textarea>
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['remarks'].errors) || !f['remarks'].valid && f['remarks'].touched">
+                                        Please Enter Remarks</div>
+                                </mat-error>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+            </mat-card>
+            <mat-card class="mt-2 mb-2">
+                <div class="col-sm-12 text-end">
+                    <button mat-raised-button type="reset" class="button-clr-3" (click)="clearData()">Clear</button>
+                    <button mat-raised-button type="submit" class="button-1" (click)="saveEventAndClaimDetails()">Save</button>
+                </div>
+            </mat-card>
+        </form>
+    </div>
+</div> -->
+
+<div>
+    <!-- ---------------------------Claim Details--------------------------------->
+   
+    <div class="container-fluid">
+      <div class="text-end mb-2">
+        <button class="margin-right btn-height" mat-raised-button mat-dialog-close> <mat-icon class="font">close</mat-icon></button>
+      </div>
+        <form [formGroup]="eventAndClaimForm" autocomplete="off">
+            <mat-card class="px-5">
+                <div class="title-1 text-center mb-2">Claim Details</div>
+                <div class="row ">
+                    <div class="form-group col-md-3 mt-2 mb-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Source</mat-label>
+                                <mat-select  placeholder="--select--" formControlName="claimSource" [disabled] = "isReadonly"
+                                    [ngClass]="{ 'is-invalid': submitted && f['claimSource'].errors }" >
+                                  
+                                    <mat-option *ngFor="let data of source" [value]="data.lookupCd" >
+                                        {{data.shrtName}}
+                                    </mat-option>
+                                  
+
+                                </mat-select>
+                                <mat-error>
+                                    <div *ngIf="(eventAndClaimForm.get('claimSource')?.touched || eventAndClaimForm.get('claimSource')?.dirty)" >
+                                        <div *ngIf="eventAndClaimForm.get('claimSource')?.errors?.['required']"> Please Select Claim Source</div>
+                                    </div>
+                                </mat-error>
+                               
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group col-md-3 mt-2 mb-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Type of Claim</mat-label>
+                                <mat-select   placeholder="--select--" formControlName="claimType" [disabled] = "isReadonly"
+                                    [ngClass]="{ 'is-invalid': submitted && f['claimType'].errors }" required >
+                               
+                                    <mat-option *ngFor="let data of claimList" [value]="data.lookupCd" >
+                                        {{data.shrtName}}
+                                    </mat-option>
+
+                                </mat-select>
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['claimType'].errors) || !f['claimType'].valid && f['claimType'].touched">
+                                        Please Select Type of Claim</div>
+                                </mat-error>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 password_fl mt-2" >
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Claim Intimation Date</mat-label>
+                                <input (keydown)="false" (click)="basicDatepicker.open()" matInput [min]="min_Date" [disabled] = "isReadonly"  
+                                    [max]="max_Date" [matDatepicker]="basicDatepicker" 
+                                    [ngClass]="{ 'is-invalid': submitted && f['ClaimDate'].errors }"
+                                    placeholder="dd/mm/yyyy" formControlName="ClaimDate" required >
+                                <mat-datepicker-toggle matSuffix [for]="basicDatepicker"></mat-datepicker-toggle>
+                                <mat-datepicker #basicDatepicker></mat-datepicker>
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['ClaimDate'].errors) || !f['ClaimDate'].valid && f['ClaimDate'].touched">
+                                        Please Select Claim Intimation Date</div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 mt-2" >
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Re-enter Claim Intimation Date</mat-label>
+                                <input (keydown)="false" (click)="basicDatepicker1.open()" matInput [min]="min_Date" [disabled] = "isReadonly"
+                                    [max]="max_Date" [matDatepicker]="basicDatepicker1"
+                                    [ngClass]="{ 'is-invalid': submitted && f['ReenterClaimDate'].errors }"
+                                    placeholder="dd/mm/yyyy" formControlName="ReenterClaimDate" required>
+                                <mat-datepicker-toggle matSuffix [for]="basicDatepicker1"></mat-datepicker-toggle>
+                                <mat-datepicker #basicDatepicker1></mat-datepicker>
+                                <mat-error
+                                    *ngIf="(submitted && eventAndClaimForm.controls?.['ReenterClaimDate']?.errors) || eventAndClaimForm.controls?.['ReenterClaimDate']?.touched || eventAndClaimForm.errors">
+                                    <div *ngIf="eventAndClaimForm.controls?.['ReenterClaimDate']?.errors?.['']">
+                                        Please Select Re-Select Claim Intimation Date
+                                    </div>
+                                    <div *ngIf="eventAndClaimForm.controls?.['ReenterClaimDate']?.errors?.['mustMatch']">
+                                        Re-Enter Claim Intimation Date should be same as claim date
+                                    </div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                   <div class="form-group col-md-3 mt-2 mb-2" >
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Claim Intimation Time</mat-label>
+                                <input matInput placeholder="10.01 AM" type="time" [readonly]="isReadonly" 
+                                    [ngClass]="{ 'is-invalid': submitted && f['intimationTime'].errors }"
+                                    formControlName="intimationTime" (input)="onChnageOfClaimeTime()" required>
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['intimationTime'].errors) || !f['intimationTime'].valid && f['intimationTime'].touched">
+                                        Please Enter Claim Intimation Time</div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+
+                   <div class="form-group col-md-3 mt-2 mb-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label class="col-md-12">Re-enter Claim Intimation Time</mat-label>
+                                <input matInput placeholder="10.01 AM" type="time" [readonly]="isReadonly" 
+                                    [ngClass]="{ 'is-invalid': submitted && f['ReenterIntimationTime'].errors }"
+                                    formControlName="ReenterIntimationTime" required>
+
+                                <mat-error
+                                    *ngIf="(submitted && eventAndClaimForm.controls?.['ReenterIntimationTime']?.errors) || eventAndClaimForm.controls?.['ReenterIntimationTime']?.touched || eventAndClaimForm.errors">
+                                    <div *ngIf="eventAndClaimForm.controls?.['ReenterIntimationTime']?.errors?.['']">
+                                        Please Select Re-Select Claim Intimation Time
+                                    </div>
+                                    <div *ngIf="eventAndClaimForm.controls?.['ReenterIntimationTime']?.errors?.['MustMatchTime']">
+                                        Re-Enter Claim Intimation Time should be same as Claim Intimation Time
+                                    </div>
+                                </mat-error>
+
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- ---------------------------Event Details------------------------------- -->
+
+                <div class="mt-2 mb-2 title-1 text-center">Event Details</div>
+                <div class="row">
+                    <div class="form-group  col-md-3 mt-2" >
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Cause of Event</mat-label>
+                                <mat-select placeholder="--select--" formControlName="eventCause" [disabled] = "isReadonly"
+                                    [ngClass]="{ 'is-invalid': submitted && f['eventCause'].errors }" required [errorStateMatcher]="errorMatcherForClaimEvent">
+                                    <mat-option *ngFor="let data of dropdownvalue" [value]="data.lookupCd">
+                                        {{data.shrtName}}
+                                    </mat-option>
+                                </mat-select>
+                            
+                                <mat-error>
+                                    <div *ngIf="(eventAndClaimForm.get('eventCause')?.touched || eventAndClaimForm.get('eventCause')?.dirty)" >
+                                        <div *ngIf="eventAndClaimForm.get('eventCause')?.errors?.['required']"> Please select cause of event</div>
+                                    </div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="form-group  col-md-3 mt-2" *ngIf="isDeath">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Secondary Cause of Event</mat-label>
+                                <mat-select placeholder="--select--" formControlName="secondary_event_Cause" [disabled] = "isReadonly"
+                                    [ngClass]="{ 'is-invalid': submitted && f['secondary_event_Cause'].errors }" [errorStateMatcher]="errorMatcherforSecondaryCauseOfEvent">
+                                    <mat-option *ngFor="let data of secondary_event_Cause" [value]="data.lookupCd"  >
+                                        {{data.shrtName}}
+                                    </mat-option>
+                                </mat-select>
+
+                                <mat-error >
+
+                                    <div *ngIf="eventAndClaimForm.hasError('secondary_event_Cause')">
+                                        Please Enter Secondary Cause of Event
+                                    </div>
+                                    
+                                  </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group  col-md-3 mt-2" *ngIf="isDeath">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always" >
+                                <mat-label>Place of Death<span class="mat-form-field-required-marker">*</span></mat-label>
+                                <mat-select placeholder="--select--" formControlName="PlaceDeath" [disabled] = "isReadonly" (selectionChange)="checkPlaceofDeath()" 
+                                    [ngClass]="{ 'is-invalid': submitted && f['PlaceDeath'].errors }" [errorStateMatcher]="errorMatcherForPlaceOfDeath">
+                                    <mat-option *ngFor="let data of placeofDeath" [value]="data.lookupCd">
+                                        {{data.shrtName}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <mat-error *ngIf="eventAndClaimForm.hasError('PlaceDeath')">
+                                        Please Enter Place of Death
+                                      </mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['PlaceDeath'].errors) || !f['PlaceDeath'].valid && f['PlaceDeath'].touched">
+                                        Please Select Place of Death</div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                   <div class="form-group col-md-3 mt-2 mb-2" *ngIf="isDisableDateOfAccident">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label class="col-sm-12">Date of Accident</mat-label>
+                                <input (keydown)="false" (click)="basicDatepicker3.open()"  matInput [min]="min_Date" [disabled] = "isReadonly"
+                                    [max]="max_Date" [matDatepicker]="basicDatepicker3"
+                                    
+                                    placeholder="dd/mm/yyyy" formControlName="DateAccident" [errorStateMatcher]="errorMatcherForDateOfAccident">
+                                <mat-datepicker-toggle matSuffix [for]="basicDatepicker3"></mat-datepicker-toggle>
+                                <mat-datepicker #basicDatepicker3></mat-datepicker>
+                                <mat-error >
+                                    <div *ngIf="eventAndClaimForm.hasError('dateofaccident_lessthan_claimintimation')">
+                                       Date of Accident is more than Claim Intimation Date 
+                                    </div>
+                                    <div *ngIf="eventAndClaimForm.hasError('Date_Accident')">
+                                        Please Enter Date of Accident
+                                    </div>
+                                    <div *ngIf="eventAndClaimForm.hasError('murder_Selected')">
+                                        Please Enter Date of Accident
+                                    </div>
+                                    <div *ngIf="eventAndClaimForm.hasError('date_of_accident')">
+                                        Date of Accident Should be less or equal to Date of Event
+                                    </div>
+                                  </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 password_fl mt-2 " >
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Date of Event</mat-label>
+                                <input (keydown)="false" (click)="basicDatepicker4.open()"  matInput [min]="min_Date" [disabled] = "isReadonly"
+                                    [max]="max_Date" [matDatepicker]="basicDatepicker4" required 
+                                    [ngClass]="{ 'is-invalid': submitted && f['eventDate'].errors }"
+                                    placeholder="dd/mm/yyyy" formControlName="eventDate" [errorStateMatcher]="errorMatcherForDateOfEvent"
+                                    (dateChange)="dateofEventChange()">
+                                  
+                                <mat-datepicker-toggle matSuffix [for]="basicDatepicker4"></mat-datepicker-toggle>
+                                <mat-datepicker #basicDatepicker4></mat-datepicker>
+                                
+                                
+                                <mat-error>
+                                    <div *ngIf="eventAndClaimForm.hasError('date_of_intimation')" >
+                                        Date of Intimation Should be grater or equal to Date of Event
+                                    </div>
+                                    <div
+                                        *ngIf="(submitted && f['eventDate'].errors) || !f['eventDate'].valid && f['eventDate'].touched">
+                                        Please Select Date of Event</div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                   <div class="form-group col-md-3 mt-2 mb-2" >
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Re-enter Date of Event</mat-label>
+                                <input (keydown)="false" (click)="basicDatepicker5.open()" matInput [min]="min_Date" [disabled] = "isReadonly"
+                                    [max]="max_Date" [matDatepicker]="basicDatepicker5"
+                                    [ngClass]="{ 'is-invalid': submitted && f['ReenterDate'].errors }"
+                                    placeholder="dd/mm/yyyy" formControlName="ReenterDate" required>
+                                <mat-datepicker-toggle matSuffix [for]="basicDatepicker5"></mat-datepicker-toggle>
+                                <mat-datepicker #basicDatepicker5></mat-datepicker>
+                                <mat-error
+                                    *ngIf="(submitted && eventAndClaimForm.controls?.['ReenterDate']?.errors) || eventAndClaimForm.controls?.['ReenterDate']?.touched || eventAndClaimForm.errors">
+                                    <div *ngIf="eventAndClaimForm.controls?.['ReenterDate']?.errors?.['']">
+                                        Please Enter Re-Select of Date
+                                    </div>
+                                    <div *ngIf="eventAndClaimForm.controls?.['ReenterDate']?.errors?.['mustMatch']">
+                                        Re-Enter of Date should be same as Date of Event
+                                    </div>
+                                </mat-error>
+                                
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3 mt-2 ">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Reason for late Intimation</mat-label>
+                                <input matInput formControlName="reason_for_late_Intimation" [readonly]="isReadonly"
+                                    [ngClass]="{ 'is-invalid': submitted && f['reason_for_late_Intimation'].errors }" [errorStateMatcher]="errorMatcherForLateIntemation">
+
+                                    <mat-error *ngIf="eventAndClaimForm.hasError('reasonRequiredLateIntimation')">
+                                        Please Enter reason for late intimation
+                                      </mat-error>
+                                
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 password_fl mt-2 ">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Organ that was impacted leading to the Event</mat-label>
+                                <mat-select placeholder="--select--" formControlName="Organ" [disabled] = "isReadonly"
+                                    [ngClass]="{ 'is-invalid': submitted && f['Organ'].errors }">
+                                    <mat-option *ngFor="let data of organImpact" [value]="data.lookupCd">
+                                        {{data.shrtName}}
+                                    </mat-option>
+
+                                </mat-select>
+                                
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['Organ'].errors) || !f['Organ'].valid && f['Organ'].touched">
+                                        Please Enter Organ</div>
+                                </mat-error>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 mt-2 ">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Name of Hospital</mat-label>
+                                <input matInput formControlName="hospitalName" [readonly]="isReadonly"
+                                    [ngClass]="{ 'is-invalid': submitted && f['hospitalName'].errors }" [errorStateMatcher]="errorMatcherforHospitalName">
+
+                                   
+                                    <mat-error>
+
+                                        <div *ngIf="eventAndClaimForm.hasError('hospitalName')">
+                                            Please Enter Hospital Name
+                                        </div>
+                                        <div *ngIf="eventAndClaimForm.hasError('albhabetsonly')">
+                                            Number and Special Characters Not Allowed 
+                                        </div>
+                                       
+                                      </mat-error>
+                              
+                            </mat-form-field>
+                            
+                        </div>
+                    </div>
+                    <div *ngIf = "showHosptitalDetails" class="form-group col-md-3 mt-2 ">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Location of Hospital</mat-label>
+                                <input matInput formControlName="hospitalLocation">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div *ngIf = "showHosptitalDetails" class="form-group col-md-3 mt-2 ">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Address of Hospital</mat-label>
+                                <input matInput formControlName="hospitalAddress">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div *ngIf = "showHosptitalDetails" class="form-group col-md-3 mt-2 ">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Name of Doctor</mat-label>
+                                <input matInput formControlName="doctorName">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div *ngIf = "showHosptitalDetails" class="form-group col-md-3 mt-2 ">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Details of Treatment</mat-label>
+                                <input matInput formControlName="treatmentDetails">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                
+
+                   <div class="form-group col-md-3 mt-2 mb-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Intimated by</mat-label>
+                                <mat-select placeholder="--select--" formControlName="IntimatedBy" [disabled] = "isReadonly"
+                                    [ngClass]="{ 'is-invalid': submitted && f['IntimatedBy'].errors }" required>
+
+                                    <mat-option *ngFor="let data of intimatedBy" [value]="data.lookupCd">
+                                        {{data.shrtName}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['IntimatedBy'].errors) || !f['IntimatedBy'].valid && f['IntimatedBy'].touched">
+                                        Please Select Intimated by</div>
+                                </mat-error>
+
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                   <div class="form-group col-md-3 mt-2 mb-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Relation With Life Assured</mat-label>
+                                <mat-select placeholder="--select--" formControlName="Relation" [disabled] = "isReadonly"
+                                    [ngClass]="{ 'is-invalid': submitted && f['Relation'].errors }" required>
+                                    <mat-option *ngFor="let data of realationLifeAssured" [value]="data.lookupCd">
+                                        {{data.shrtName}}
+                                    </mat-option>
+
+                                </mat-select>
+                                <mat-error>
+                                    <div
+                                        *ngIf="(submitted && f['Relation'].errors) || !f['Relation'].valid && f['Relation'].touched">
+                                        Please Select Relation With Life Assured</div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 mt-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Remarks</mat-label>
+                                <textarea matInput type="text" formControlName="relationWithLaRemarks" placeholder="Text" [readonly]="isReadonly"
+                                    >
+                                    </textarea>
+                                    <!-- <mat-error *ngIf="eventAndClaimForm.hasError('Doechanged')">
+                                        Please Enter Remark
+                                      </mat-error> -->
+                                <mat-error *ngIf="eventAndClaimForm.hasError('remark')">
+                                    Please Enter Remark
+                                  </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 mt-2">
+                        <div class="col-md-12">
+                            <mat-form-field floatLabel="always">
+                                <mat-label>Comment</mat-label>
+                                <textarea matInput type="text" formControlName="remark" placeholder="text" [readonly]="isReadonly"
+                                     [errorStateMatcher]="errorMatcherforRemark">
+                                    
+                                    </textarea>
+                                    <mat-error >
+                                    <div *ngIf="eventAndClaimForm.hasError('Doechanged') || eventAndClaimForm.hasError('claimtypeChanged') ">
+                                        Please Enter Comment </div>
+                                      </mat-error>
+                                <!-- <mat-error *ngIf="eventAndClaimForm.hasError('remark')">
+                                    Please Enter Remark
+                                  </mat-error> -->
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+
+            
+
+            </mat-card>
+            <mat-card class="mt-2 mb-2" *ngIf="this.onlyRead == false">
+                <div class="col-sm-12 text-end" *ngIf="!trackClaim">
+                    <button mat-raised-button type="reset" class="button-clr-3" (click)="clearData()">Clear</button>
+                    <button mat-raised-button type="submit" class="button-1"  (click)="saveEventAndClaimDetails()">Save</button>
+                </div>
+            </mat-card>
+        </form>
+    </div>
+</div>

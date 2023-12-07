@@ -1,0 +1,448 @@
+<div class="container-fluid">
+    <div class="mt-4"><button class="close-dialogue" mat-raised-button mat-dialog-close>
+            <mat-icon class="close-btn">close</mat-icon>
+        </button>
+        <div>
+            <h6 class="title-work text-center">Claim Processing Sheet</h6>
+        </div>
+        <mat-card class=" scrollbar scrollbar-primary m-1">
+            <div class="row">
+                <div class="col-md-9">
+                    <mat-card class="mt-0 mb-3">
+                        <div class="row">
+                            <div> 
+                                <mat-icon class="nominee-icons">person_outline</mat-icon>
+                                <span class="title-nominee">Policy Holder</span>
+                            </div>
+                            <span class="policyHolder"></span>
+                            <div class="row mt-2">
+                                <div class="col-md-4">
+                                    <p class="title-heading mt-2 mb-0"> Name</p>
+                                    <span class="data">{{lifeassureddata.name}}</span>
+                                    
+                                </div>
+                                <div class="col-md-4 ">
+                                    <p class="title-heading mt-2 mb-0">DOB</p>
+                                    <span class="data">{{lifeassureddata.dateOfBirth | dateFormat1830}}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="title-heading mt-2 mb-0">Gender</p>
+                                    <span class="data">{{lifeassureddata.genderDesc}}</span>
+                                </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p class="title-heading mt-2 mb-0">Occupation </p>
+                                        <span class="data">{{lifeassureddata.occupationDesc}}</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="title-heading mt-2 mb-0">Income</p>
+                                        <span class="data">{{lifeassureddata.income}}</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="title-heading mt-2 mb-0">Age</p>
+                                        <span class="data">{{lifeassureddata.age}}</span>
+                                    </div>
+                                </div>
+                        </div>
+                    </mat-card>
+                </div>
+                <div class="col-md-3">
+                    <mat-card class="mt-0 mb-3">
+                        <div class="row">
+                            <div> 
+                                <mat-icon class="nominee-icons">person_outline</mat-icon>
+                                <span class="title-nominee">Branch Details</span>
+                            </div>
+                            <span class="branchDetails"></span>
+                            <div class="row mt-2">
+                                <div class="col-md-12">
+                                    <p class="title-heading mt-2 mb-0">Sourcing Branch</p>
+                                    <span class="data">{{policyData.loginBranch}}</span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row mt-2">
+                                <div class="col-md-12">
+                                <p class="title-heading mb-0">Channel</p>
+                                <span class="data">{{policyData.channelDescription}}</span>
+                            </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                   
+                </div>
+            </div>
+
+            <mat-card class="mt-0 mb-3">
+                            <div class="row">
+                                <div>
+                                    <mat-icon class="nominee-icons">person_outline</mat-icon>
+                                    <span class="title-nominee">Beneficiary Details</span>
+                                </div>
+                                <span class="beneficiarydetails"></span>
+                                <mat-table #table [dataSource]="dataSource" class="mt-3">
+                                   
+                                    <ng-container matColumnDef="Name">
+                                        <mat-header-cell *matHeaderCellDef><span class="title-heading-matcell">Nominee Name</span>
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element" class="matcell ridername "> {{ element.name }} </mat-cell>
+                                    </ng-container>
+            
+                                
+                                    <ng-container matColumnDef="DOB">
+                                        <mat-header-cell *matHeaderCellDef><span class="title-heading-matcell">DOB</span>
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element" class="matcell ">{{ element.dob | date:'dd/MM/yyyy'}} </mat-cell>
+                                    </ng-container>
+            
+                                  
+                                    <ng-container matColumnDef="Gender">
+                                        <mat-header-cell *matHeaderCellDef><span class="title-heading-matcell">Gender </span>
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element"class="matcell " > {{ element.genderDisp}} </mat-cell>
+                                    </ng-container>
+            
+                                    <ng-container matColumnDef="RelationWithLA">
+                                        <mat-header-cell *matHeaderCellDef><span class="title-heading-matcell"> Relation With LA </span>
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element" class="matcell "> {{ element.relationWithLaDisp}} </mat-cell>
+                                    </ng-container>
+
+                                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                                </mat-table>
+                            </div>
+            </mat-card>
+            
+
+            
+            <mat-card class="mt-0 mb-3">
+                <div class="row">
+                    <div> 
+                        <mat-icon class="nominee-icons">person_outline</mat-icon>
+                        <span class="title-nominee">Policy Details</span>
+
+                    </div>
+                    <span class="underlinePlanDetails"></span>
+                    <div class="row mt-2">
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Product Name</p>
+                            <span class="data">{{policyData.productName}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">RCD</p>
+                            <span class="data">{{policyData.rcd | dateFormat1830 }}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Proposal date</p>
+                            <span class="data">{{policyData.proposaldate | dateFormat1830}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Login Branch</p>
+                            <span class="data">{{policyData.loginBranch}}</span>
+                        </div>
+                         <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Sum Assured</p>
+                            <span class="data">{{policyData.sumAssuredAtInception}}</span>
+                        </div> 
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Claim amount</p>
+                            <span class="data">{{claimAmountCPS || '-'}}</span>
+                        </div> 
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Total premium received</p>
+                            <span class="data">{{policyData.totalPremiumReceived}}</span>
+                        </div> 
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Early / Non-Early</p>
+                            <span class="data">{{earlyNonEarlyCR}}</span>
+                        </div> 
+    
+                        <div class="col-md-3">
+                             <p class="title-heading mt-2 mb-0">Re-Insurer Name </p>
+                            <span class="data">-</span>
+                        </div> 
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">KLI Retention</p>
+                            <span class="data">-</span>
+                        </div> 
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Re-Insured Amount</p>
+                            <span class="data">-</span>
+                        </div> 
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Agent Name </p>
+                            <span class="data">{{policyData.agentName}}</span>
+                        </div> 
+                </div>
+                </div>
+            </mat-card>
+
+
+            <mat-card class="mt-0 mb-3">
+                <div class="row">
+                    <div> 
+                        <mat-icon class="nominee-icons">person_outline</mat-icon>
+                        <span class="title-nominee">Claim Details</span>
+
+                    </div>
+                    <span class="underlinePlanDetails"></span>
+                    <div class="row mt-2">
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Type of Claim </p>
+                            <span class="data" >{{claimTypeDisp}}</span>
+                        </div>
+                        <div class="col-md-3 ">
+                            <p class="title-heading mt-2 mb-0">Intimation Date</p>
+                            <span class="data">{{claimIntimationDt | date:'dd/MM/yyyy'}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">DOE</p>
+                            <span class="data">{{eventDt | date:'dd/MM/yyyy'}}</span>
+                        </div>  
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Cause Of Death</p>
+                            <span class="data">{{deathCause}}</span>
+                        </div> 
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Intimated By</p>
+                            <span class="data">{{initiatedByDisp}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">RCD to DOE</p>
+                            <!-- <span class="data">{{rcddoe}} years</span> -->
+                            <span *ngIf="rcddoe">{{rcddoe}} <span *ngIf="rcddoe != message"></span></span> 
+                        <span *ngIf="!rcddoe">NA</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">RCD to DOI</p>
+                            <!-- <span class="data">{{rcddoi}} </span> -->
+                            <span *ngIf="rcddoi">{{rcddoi}} <span *ngIf="rcddoi != message"></span></span> 
+                        <span *ngIf="!rcddoi">NA</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Revival to DOE</p>
+                            <!-- <span class="data">{{revivaldoe}} </span> -->
+                            <span *ngIf="revivaldoe">{{revivaldoe}} <span *ngIf="revivaldoe != message"></span></span> 
+                        <span *ngIf="!revivaldoe">NA</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Payout Option</p>
+                            <span class="data">-</span>
+                        </div> 
+                    </div>
+                </div>
+            </mat-card>
+
+            <mat-card class="mt-0 mb-3">
+                <div class="row">
+                    <div> 
+                        <mat-icon class="nominee-icons">person_outline</mat-icon>
+                        <span class="title-nominee">STP Output</span>
+
+                    </div>
+                    <span class="underlineSTPOutput"></span>
+                </div>
+                <div class="row">
+                    <p class="title-heading mt-3 mb-0 text-secondary">{{stpDate}}</p>
+                </div>
+                <div class=" row ml-5">
+                        <p class="title-heading mt-2 mb-0  text-secondary">Decision : {{ stpDecision || '-'  }} </p>
+                </div>
+                <div class=" row ml-5">
+                        <p class="title-heading mt-2 mb-0  text-secondary">Reason : {{ stpReason || '-' }} </p>
+                </div>
+            </mat-card>
+ 
+            
+            <mat-card class="mt-0 mb-3">
+                <div class="row mt-2">
+                    <div>
+                        <mat-icon class="nominee-icons">person_outline</mat-icon>
+                        <span class="title-nominee">Fund Details</span>
+                    </div>
+                    <span class="underlineFundDetails"></span>
+                    <div class="row mt-2" *ngFor="let data of fundData let i=index">
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Fund Name</p>
+                            <span class="data">{{data.fundName}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">No. of Units</p>
+                            <span class="data">{{data.noOfUnits}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">NAV Date</p>
+                            <span class="data">{{data.navDate | dateFormat1830}}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Fund Value</p>
+                            <span class="data">{{data.fundValue}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="fundData.length==0">
+                    <mat-card class="mt-2 mb-2 m-2 ErrorMessage">
+                        <span>&#42;</span>
+                        <span>Fund Details is not apllicable for this policy</span>
+                    </mat-card>
+                </div>
+
+            </mat-card>
+
+
+
+            <mat-card class="mt-0 mb-3">
+                <div class="row">
+                    <div> 
+                        <mat-icon class="nominee-icons">person_outline</mat-icon>
+                        <span class="title-nominee">Investigation Details</span>
+
+                    </div>
+                    <span class="investigationDetails"></span>
+                    <div class="row mt-2">
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Investigator Name </p>
+                            <span class="data">-</span>
+                        </div>
+                        <div class="col-md-3 ">
+                            <p class="title-heading mt-2 mb-0">Type of Investigation</p>
+                            <span class="data">-</span>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Assign Date</p>
+                            <span class="data">-</span>
+                        </div>  
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Complete Date</p>
+                            <span class="data">-</span>
+                        </div> 
+                        <div class="col-md-3">
+                            <p class="title-heading mt-2 mb-0">Location</p>
+                            <span class="data">-</span>
+                        </div>  
+                    </div>
+                </div>
+            </mat-card>
+
+            <mat-card class="mt-0 mb-3">
+                <div class="row">
+                    <div>
+                        <mat-icon class="nominee-icons">person_outline</mat-icon>
+                        <span class="title-nominee">Referral Consultation</span>
+                    </div>
+                    <span class="recommendationsDecisions"></span>
+                    <div *ngFor="let status of statuses  let i = index" class="mt-3">
+                        <b>{{status}}</b>
+                        <mat-table #table [dataSource]="dataSourceReferralConsultation[i]" matSort>
+
+                            <ng-container matColumnDef="referralTypeDisp">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>Action</mat-header-cell>
+
+
+                                <mat-cell *matCellDef="let element">{{element.referralTypeDisp }}
+                                </mat-cell>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="asmRemarks">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>Accessor Remarks
+                                </mat-header-cell>
+
+                                <mat-cell *matCellDef="let element">{{element.asmRemarks}}</mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="refUserName">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>Referral User</mat-header-cell>
+
+                                <mat-cell *matCellDef="let element"> {{element.refUserName}}</mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="updatedOn">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>Response Date</mat-header-cell>
+
+
+                                <mat-cell *matCellDef="let element"> {{element.updatedOn | dateFormat }}
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="refRemarks">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>Referral Remarks
+                                </mat-header-cell>
+
+                                <mat-cell *matCellDef="let element"> {{element.refRemarks}}</mat-cell>
+                            </ng-container>
+
+
+                            <mat-header-row *matHeaderRowDef="dataSourceReferral"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: dataSourceReferral"></mat-row>
+                        </mat-table>
+
+                    </div>
+                </div>
+</mat-card>
+
+            
+            
+            <mat-card class="mt-0 mb-3">
+                <div class="row">
+                    <div>
+                        <mat-icon class="nominee-icons">person_outline</mat-icon>
+                        <span class="title-nominee">Claim Requirements</span>
+                    </div>
+                    <span class="claimRequirements"></span>
+                    <mat-table #table1 [dataSource]="dataSourcedoc" class="mt-3">
+                       
+                        <ng-container matColumnDef="RequirementName">
+                            <mat-header-cell *matHeaderCellDef><span class="title-heading-matcell">Requirement Name</span>
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let element" class="matcell docname "> {{ element.rqmtName }} </mat-cell>
+                        </ng-container>
+
+            
+                        <ng-container matColumnDef="Status">
+                            <mat-header-cell *matHeaderCellDef><span class="title-heading-matcell">Status</span>
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let element" class="matcell">{{convertlookup(element.lookupCd)}}
+                            </mat-cell>
+                        </ng-container>
+
+                      
+                        <ng-container matColumnDef="ReceivedDate">
+                            <mat-header-cell *matHeaderCellDef><span class="title-heading-matcell">Received Date </span>
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let element"class="matcell " > {{ element.updatedOn | dateFormatUTC}} </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumnsdocument"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumnsdocument"></mat-row>
+                    </mat-table>
+                </div>
+</mat-card>
+
+            <mat-card class="mt-0 mb-3">
+                <div class="row">
+                    <div> 
+                        <mat-icon class="nominee-icons">person_outline</mat-icon>
+                        <span class="title-nominee">Policy Terms and Condition</span>
+
+                    </div>
+                    <span class="policyTerms"></span>
+                    <div class="mt-2">
+                        <h6>
+                            <!-- {{note}} -->
+                            Life Assured or Proposer {{lifeassureddata.salutationLa || '-'}} {{lifeassureddata.name || '-'}}, {{lifeassureddata.genderDesc || '-'}}, age {{lifeassureddata.age || '-'}} years has applied for {{policyData.productName || '-'}} with Sum Assured {{policyData.sumAssuredAtInception || '-'}}. He was {{lifeassureddata.occupationDesc || '-'}} and was earning Rs {{lifeassureddata.income || '-'}}. 
+                            Policy was medical or non-medical issued at standard or rated - up.
+                        </h6>
+                    </div>
+                    
+                </div>
+            </mat-card>
+
+        </mat-card>
+    </div>
+    
+</div>
+

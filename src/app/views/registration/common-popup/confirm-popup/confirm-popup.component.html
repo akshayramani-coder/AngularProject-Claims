@@ -1,0 +1,31 @@
+
+<div>
+    <div class="popupheader">
+        <div class="head_img">
+            <mat-icon  *ngIf="data.type == 'confirmation' " >done_outline</mat-icon>
+            <mat-icon  *ngIf="data.type == 'alert' ">warning</mat-icon>
+            <mat-icon  *ngIf="data.type == 'Nomineealert' ">warning</mat-icon>
+            <mat-icon  *ngIf="data.type == 'success' " >done_outline</mat-icon>
+        </div>
+    </div>
+    <div class="popupBody">
+        <p *ngIf="data.type == 'confirmation' ">Confirm !</p>
+        <p *ngIf="data.type == 'alert' ">Alert !</p>
+        <p *ngIf="data.type == 'Nomineealert' ">Alert !</p>
+        <p *ngIf="data.type == 'success' ">Congratulations !</p>
+        <div>{{data.message}}</div>
+    </div>
+    <div class="popupFooter" mat-dialog-actions>
+        <div *ngIf="data.type == 'confirmation'">
+            <button class="btn mar15" type="reset" (click)="confirm()">ok</button>
+            <!-- <button class="btn-danger" (click)="cancel()">Cancel</button> -->
+        </div>
+        <div *ngIf="data.type == 'alert' || data.type == 'success' ">
+            <button class="btn mar15" (click)="confirm()">Ok</button>
+            <button class="btn-danger" (click)="cancel()">Cancel</button>
+        </div>
+        <div *ngIf="data.type == 'Nomineealert'">
+            <button class="btn mar15" (click)="NomineeAlert()">Ok</button>
+        </div>
+    </div>
+</div>

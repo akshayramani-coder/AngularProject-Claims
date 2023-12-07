@@ -1,0 +1,190 @@
+<div *ngIf="data.type == 'confirmation' ">
+    <div class="popupheader">
+        <div class="head_img">
+            <mat-icon *ngIf="data.type == 'confirmation' ">done_outline</mat-icon>
+        </div>
+    </div>
+    <div class>
+        <!-- <p *ngIf="data.type == 'confirmation' ">Confirm !</p> -->
+        <div>
+            <hr>
+            <ul>
+                <li class="life-claim">
+
+
+                    <p class="life-tag">
+                        Name :
+                        <span>
+                            {{panData.firstName}} {{panData.lastName}}
+                        </span>
+                    </p>
+                </li>
+
+
+                <li class="life-claim">
+
+
+                    <p class="life-tag">
+                        Pan Number :
+                        <span>{{panData.pan}}</span>
+                    </p>
+                </li>
+                <li class="life-claim">
+                    <p class="life-tag">
+                        Pan Status :
+                        <span>{{panData.panStatus}}</span>
+                    </p>
+
+
+                </li>
+            </ul>
+            <hr>
+        </div>
+
+
+    </div>
+    <div
+        class="popupFooter"
+        mat-dialog-actions
+    >
+        <div *ngIf="data.type == 'confirmation'">
+            <button
+                class="btn mar15"
+                type
+                (click)="confirm()"
+            >
+                ok
+            </button>
+        </div>
+
+
+    </div>
+</div>
+
+
+<div *ngIf="data.type == 'bankInformation'">
+    <div class="popupheader">
+        <div class="head_img">
+            <mat-icon *ngIf="data.type == 'bankInformation'">done_outline</mat-icon>
+        </div>
+    </div>
+    <div class>
+        <div>
+            <hr>
+            <ul>
+                <li class="life-claim">
+
+
+                    <p class="life-tag">
+                        IMPS Status :
+                        <span>{{bankData.status}}</span>
+                    </p>
+                </li>
+
+
+                <li class="life-claim">
+
+
+                    <p class="life-tag">
+                        Bank Name :
+                        <span>{{bankData.data?.bankName || '-'}}</span>
+                    </p>
+                </li>
+
+
+                <li class="life-claim">
+
+
+                    <p class="life-tag">
+                        Name Status :
+                        <span>
+                            {{bankData.data?.nameMatchResult || '-'}}
+                        </span>
+                    </p>
+                </li>
+                <li class="life-claim">
+                    <p class="life-tag">
+                        Name Match Score :
+                        <span>
+                            {{bankData.data?.nameMatchScore || '-'}}
+                        </span>
+                    </p>
+
+
+                </li>
+            </ul>
+            <hr>
+        </div>
+
+
+    </div>
+    <div
+        class="popupFooter"
+        mat-dialog-actions
+    >
+        <div *ngIf="data.type == 'bankInformation'">
+            <button
+                class="btn mar15"
+                type
+                (click)="confirm()"
+            >
+                ok
+            </button>
+        </div>
+
+
+    </div>
+</div>
+
+<div *ngIf="data.type == 'addNominee'">
+    <div class="popupheader">
+        <div class="head_img">
+            <mat-icon *ngIf="data.type == 'addNominee'">done_outline</mat-icon>
+        </div>
+    </div>
+    <div class="popupBody">
+        <p *ngIf="data.type == 'addNominee' ">Confirm !</p>
+        <div>{{data.message}}</div>
+    </div>
+    <div class="popupFooter"  mat-dialog-actions>
+        <div *ngIf="data.type == 'addNominee'">
+            <button class="btn mar15" type (click)="addNominee()">ok </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="data.type == 'editNomineeForm'">
+    <div class="popupheader">
+        <div class="head_img">
+            <mat-icon *ngIf="data.type == 'editNomineeForm'">done_outline</mat-icon>
+        </div>
+    </div>
+    <div class="popupBody">
+        <p *ngIf="data.type == 'editNomineeForm' ">Confirm !</p>
+        <div>{{data.message}}</div>
+    </div>
+    <div class="popupFooter"  mat-dialog-actions>
+        <div *ngIf="data.type == 'editNomineeForm'">
+            <button class="btn mar15" type (click)="freezForm()">Yes </button>
+            <button class="btn-danger" (click)="cancelForm()">No</button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="data.type == 'removeNominee'">
+    <div class="popupheader">
+        <div class="head_img">
+            <mat-icon *ngIf="data.type == 'removeNominee'">done_outline</mat-icon>
+        </div>
+    </div>
+    <div class="popupBody">
+        <p *ngIf="data.type == 'removeNominee' ">Confirm !</p>
+        <div>{{data.message}}</div>
+    </div>
+    <div class="popupFooter"  mat-dialog-actions>
+        <div *ngIf="data.type == 'removeNominee'">
+            <button class="btn mar15" type (click)="removeNominee()">Yes </button>
+            <button class="btn-danger" (click)="cancelNominee()">No</button>
+        </div>
+    </div>
+</div>

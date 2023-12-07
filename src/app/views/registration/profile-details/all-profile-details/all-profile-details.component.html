@@ -1,0 +1,127 @@
+
+<div class="container-fluid">
+    <div class="py-4">
+
+        <div class="row col-md-12 col-sm-12">
+            <div class="col-md-3 col-sm-3">
+                <app-assured-details></app-assured-details>
+
+            </div>
+
+            <div class="col-md-9 col-sm-9 profile-horizontal-stepper mx-0 px-0 d-flex">
+                <div class="col-md-12 col-sm-12">
+                    <app-life-assured-details></app-life-assured-details>
+
+                    <div class="col-md-12 col-sm-12">
+                        <div class="my-profile-tab col-md-12 col-sm-12">
+
+                            <mat-tab-group mat-stretch-tabs (selectedTabChange)="onChange($event)" disableRipple [selectedIndex]="selectedIndex-1">
+                                <mat-tab [disabled]="tab1 == true" class="">
+                                    <ng-template mat-tab-label class="">
+                                        <!-- <span></span> -->
+                                        <div class="headings">Policy</div>
+                                        <span class="round"></span>
+                                        <img src="../../../assets/arrowhead.png" class="arrow">
+                                    </ng-template>
+                                    <app-policy-details></app-policy-details>
+                                </mat-tab>
+                                <mat-tab [disabled]="selectedIndex == 2 || tab2 == true">
+                                    <ng-template mat-tab-label>
+                                        <!-- <span></span> -->
+                                        <div class="headings">Role</div>
+                                        <span class="round"></span>
+                                        <img src="../../../assets/arrowhead.png" class="arrow">
+                                    </ng-template>
+                                    <app-role-details></app-role-details>
+                                </mat-tab>
+                                <mat-tab label="Beneficiary" [disabled]="selectedIndex == 3 || tab3==true">
+                                    <ng-template  mat-tab-label>
+                                        <!-- <span class="nomineeTab"></span> -->
+                                        <div class="headings">Beneficiary</div>
+                                        <span class="round"></span>
+                                        <img src="../../../assets/arrowhead.png" class="arrow">
+                                    </ng-template>
+                                    <app-nominee-and-bank-details [callFetchData]="clickCount"></app-nominee-and-bank-details>
+                                </mat-tab>
+                                <mat-tab [disabled]="selectedIndex == 4 || tab4==true">
+                                    <ng-template mat-tab-label>
+                                        <!-- <span></span> -->
+                                        <div class="headings">Document</div>
+                                        <span class="round"></span>
+                                        <img src="../../../assets/arrowhead.png" class="arrow">
+                                    </ng-template>
+                                    <app-doc-upload></app-doc-upload>
+                                </mat-tab>
+                                <mat-tab [disabled]="selectedIndex == 5 || tab5==true" *ngIf="appCode == 'CR'">
+                                    <!-- --  NO CHANGE -- -->
+                                    <ng-template mat-tab-label>
+                                        <!-- <span></span> -->
+                                        <div class="headings">Remark</div>
+                                        <span class="round"></span>
+                                        <img src="../../../assets/arrowhead.png" class="arrow">
+                                    </ng-template>
+                                    <app-remark></app-remark>
+                                </mat-tab>
+                                <mat-tab [disabled]="selectedIndex == 5 || tab5==true" *ngIf="appCode == 'AS' || appCode == 'AP' || this.appCode == 'PO'"  >
+                                    <ng-template mat-tab-label>
+                                        <!-- <span></span> -->
+                                        <div class="headings">Benefit</div>
+                                        <span class="round"></span>
+                                        <img src="../../../assets/arrowhead.png" class="arrow">
+                                    </ng-template>
+                                    <app-benefit></app-benefit>
+                                </mat-tab>
+                                <mat-tab [disabled]="selectedIndex == 6 || tab6==true"*ngIf="!(appCode == 'CI' || appCode == 'CR')">
+                                    <ng-template mat-tab-label>
+                                        <!-- <span></span> -->
+                                        <div class="headings">Notes</div>
+                                        <span class="round"></span>
+                                        <img src="../../../assets/arrowhead.png" class="arrow">
+                                    </ng-template>
+                                    <app-referral></app-referral>
+                                </mat-tab>
+                                <mat-tab label="decision" [disabled]="selectedIndex == 7 || tab7==true"
+                                    *ngIf="appCode == 'AS' || appCode == 'AP' || this.appCode == 'PO' && !trackClaim">
+                                    <ng-template mat-tab-label>
+                                        <!-- <span></span> -->
+                                        <div class="headings">Decision</div>
+                                        <span class="round"></span>
+                                        <img src="../../../assets/arrowhead.png" class="arrow">
+                                    </ng-template>
+                                    <app-decision></app-decision>
+                                </mat-tab>
+                            </mat-tab-group>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+
+                <div class=" padding-left mt-5 pt-2 rotate" *ngIf="appCode == 'AS' || appCode == 'AP' || this.appCode == 'PO' ">
+                    <div class="col-md-1 col-sm-1 col-xs-1">
+                        <button class=" rotate-container px-0 mx-0  my-1" (click)=" audit()">
+                            <span class="rotate my-2">Audit History</span>
+                        </button>
+                        <button class=" rotate-container px-0 mx-0  my-1" (click)="transaction()">
+                            <span class="rotate my-2">Transaction History</span>
+                        </button>
+                        <button class=" rotate-container px-0 mx-0  my-1" (click)="iib()">
+                            <span class="rotate my-2">IIB</span>
+                        </button>
+                        <button class=" rotate-container px-0 mx-0  my-1" (click)="cps()">
+                            <span class="rotate my-2">CPS</span>
+                        </button>
+                        <button class=" rotate-container px-0 mx-0  my-1" (click)="correspondence()">
+                            <span class="rotate my-2">Correspondence</span>
+                        </button>
+                        <button class=" rotate-container px-0 mx-0  my-1" (click)="onViewClick()">
+                            <span class="rotate my-2">View Document</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

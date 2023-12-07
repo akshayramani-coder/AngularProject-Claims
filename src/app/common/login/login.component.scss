@@ -1,0 +1,85 @@
+
+.bg {
+  min-height: 100vh;
+  padding: 1rem;
+  background: #EC3137;
+  display: block;
+  border-width: 2rem ;
+  border-color: white ;
+  border-style: solid ;
+}
+
+.logincard {
+  text-align: center;
+  height: 22.5rem;
+  // border-radius: 40px;
+  border-radius: 2rem;
+}
+
+.img-kotak {
+
+  height: 22.5rem;
+  border-radius: 2rem;
+  width: 100%;
+}
+
+.bg-logo {
+  background-color: #1E4679;
+}
+
+.login-title{
+  font-size: 100%;
+  height: 22.5rem;
+  border-radius: 2rem;
+  // width: 100%;
+}
+
+.heading-1 {
+  font-size: 2rem;
+  font-family: Times New Roman;
+  color: rgb(45, 45, 112);
+}
+
+.heading-2 {
+  color: red;
+  // font-size: 150%;
+  font-size: 1.7rem;
+  font-family: Times New Roman;
+}
+
+.login-btn {
+  background-color: #1E4679;
+  // width: 110px;
+  width: 34%;
+  color: white;
+  border-radius: 0px;
+}
+
+.height-1 {
+  height: 1px;
+}
+
+.icon-parent{
+  // height: 50px;
+  height: 2.5rem;
+  // width: 50px;
+  background: #1E4679;
+  // padding: 10px;
+  color: #ffffff ;
+}
+mat-label,
+.example-full-width{
+  color: #1E4679;
+  font-weight: 400;
+}
+
+::ng-deep .mat-form-field-flex > .mat-form-field-infix { padding: 0.2em 0px !important;}
+::ng-deep .mat-form-field-label-wrapper { top: -1.5em; }
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    transform: translateY(-1.1em) scale(.75);
+    width: 133.33333%;
+}
+.mat-hint{
+  color: red;
+}

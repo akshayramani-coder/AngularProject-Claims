@@ -1,0 +1,140 @@
+<div class="title-header">
+
+</div>
+<div class="container-fluid ">
+    <div class="">
+
+        <div class="row">
+
+            <!-- <div class="col-md-12">
+                <mat-card class="card" *ngIf="!multiplePolicies">
+                    <h4>Data Not Found</h4>
+                </mat-card>
+                <mat-card class="card"  *ngIf="multiplePolicies">
+
+                    <div class=" row col-md-12 mt-2 mb-4 ">
+
+                        <div class="d-flex justify-content-center position-relative text-wrap">
+
+                            <mat-card class="space1 col-md-3 mx-3" *ngFor="let dt of multiplePolicies; let i = index">
+                                <input type="radio" id="data2" name="nameinfo" class="radiobtn mt-1">
+                                <p class="specification">
+                                    <span class="color">Client Role</span>  <br>
+                                    <span class="policy-details">{{dt.role}}</span>
+                                </p>
+                                <p class="specification">
+                                    <span class="color">Client Id</span>  <br>
+                                    <span class="policy-details">{{dt.id}}</span>
+                                </p>
+                                <p class="specification">
+                                    <span class="color">Client Name</span>  <br>
+                                    <span class="policy-details">{{dt.name}}</span>
+                                </p>
+
+                            </mat-card> 
+
+
+                            <div class="position-absolute bottom-0 end-0 ">
+                                <button mat-raised-button class="button-1" (click)="getPolicy()">Get
+                                    Policies</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+
+
+                </mat-card>
+            </div> -->
+
+            <div>
+                <mat-card class="mb-4 card1">
+                    <div class="text-center">
+                        <p class="title-1 mb-0">Claim List</p>
+                        <p class="display-data mb-0"  *ngIf="claimList.length == []">Claims Not Available</p>
+                        <p class="display-data mb-0"  *ngIf="claimList.length !=[] ">Claim for this policy
+                            number already exists, please find the details</p>
+                    </div>
+                    <mat-table #table [dataSource]="dataSource" class="" matSort>
+
+                        <!--  Claim Ack.#  Column -->
+
+                        <ng-container matColumnDef="claimAck">
+                            <mat-header-cell *matHeaderCellDef  mat-sort-header> Claim Ack. </mat-header-cell>
+
+                            <mat-cell *matCellDef="let element"  (click)="redirect(element.clientId)" class="claimack-data"> {{element.claimNo || '-' }} </mat-cell>
+
+                        </ng-container>
+
+                        <!--  Policy # Column -->
+                        <ng-container matColumnDef="policy">
+                            <mat-header-cell *matHeaderCellDef  mat-sort-header> Policy No </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.policyId  || '-'}} </mat-cell>
+                        </ng-container>
+
+                        <!-- nameOfInsured Column -->
+                        <ng-container matColumnDef="nameOfInsured">
+                            <mat-header-cell *matHeaderCellDef  mat-sort-header> Name of Life Insured </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.nameOfInsured  || '-'}} </mat-cell>
+                        </ng-container>
+
+                        <!-- Product Column -->
+                        <ng-container matColumnDef="ownerName">
+                            <mat-header-cell *matHeaderCellDef  mat-sort-header> Owner Name </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.ownerName  || '-'}} </mat-cell>
+                        </ng-container>
+                        <!-- Polic DOI Column -->
+                        <ng-container matColumnDef="dateOfEvent">
+                            <mat-header-cell *matHeaderCellDef  mat-sort-header> Date of Event </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.dateOfEvent | date:'dd/MM/yyyy' || '-' }} </mat-cell>
+                        </ng-container>
+                        <!-- Policy DOE  Column -->
+                        <ng-container matColumnDef="claimType">
+                            <mat-header-cell *matHeaderCellDef  mat-sort-header> Claim Type </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.claimTypeDisp || '-' }} </mat-cell>
+                        </ng-container>
+                        <!--  Claim Type Column -->
+                        <ng-container matColumnDef="intimationDate">
+                            <mat-header-cell *matHeaderCellDef  mat-sort-header> Intimation Date </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.intimationDate | date:'dd/MM/yyyy' || '-' }}
+                            </mat-cell>
+                        </ng-container>
+                        <!-- Eligibility Column -->
+                        <ng-container matColumnDef="claimStatus">
+                            <mat-header-cell *matHeaderCellDef  mat-sort-header> Claim Status </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.claimStatusDesc || '-'}} </mat-cell>
+                        </ng-container>
+                        <!--  Alert Message Column -->
+                        <ng-container matColumnDef="intimatingBranch">
+                            <mat-header-cell *matHeaderCellDef  mat-sort-header> Intimating Branch </mat-header-cell>
+                            <mat-cell *matCellDef="let element" style="justify-content: center;"> {{
+                                element.intimatingBranch || '-'}} </mat-cell>
+                        </ng-container>
+                        <!--  Case lob Column -->
+                        <ng-container matColumnDef="case">
+                            <mat-header-cell *matHeaderCellDef  mat-sort-header style="justify-content: center;">
+                                Case LOB </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{ element.caseLob || '-'}} </mat-cell>
+                        </ng-container>
+
+
+
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                    </mat-table>
+
+
+                        <mat-paginator [pageSize]="5" [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
+                </mat-card>
+                <div class="text-center">
+                    <button mat-raised-button class="button-clr-2"  (click)="cancel()" >Cancel</button>
+                    <button mat-raised-button class="button-1 mx-3" (click)="oktoProceed()" >Ok to Proceed</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

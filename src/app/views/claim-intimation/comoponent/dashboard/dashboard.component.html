@@ -1,0 +1,81 @@
+<div class="title-header">
+    <mat-card class="">
+        <mat-card-title>Dashboard</mat-card-title>
+        <div class="refresh-btn">
+            <button mat-raised-button class="button-blue mx-3" (click)="assign()" type="submit">Assign</button>
+            <button mat-raised-button class="button-1" (click)="refresh()" type="submit">Refresh</button>
+        </div>
+        <div class="refresh-btn">
+
+        </div>
+    </mat-card>
+</div>
+<div class="container-fluid">
+    <div class="mt-4">
+        <mat-card>
+            <h4 class="title-work text-center">My Work Queue</h4>
+            <div class="example-header">
+                <mat-form-field floatLabel="always">
+                    <input matInput #filter (keyup)="applyFilter($event.target)" placeholder="Search">
+                </mat-form-field>
+            </div>
+
+            <mat-table #table [dataSource]="dataSource" class="" matSort>
+                <ng-container matColumnDef="claimNo">
+                    <mat-header-cell *matHeaderCellDef class="header-data" mat-sort-header> Claim No.</mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data link" (click)="redirect(element)"> {{
+                        element?.claimNo || '-'}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="policy">
+                    <mat-header-cell *matHeaderCellDef class="header-data" mat-sort-header> Policy No.
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element?.policyId || '-' }} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="dateOfEvent">
+                    <mat-header-cell *matHeaderCellDef class="header-data" mat-sort-header> Date of Event
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element.eventDt | date:'dd/MM/yyyy' ||
+                        '-'}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="claimType">
+                    <mat-header-cell *matHeaderCellDef class="header-data" mat-sort-header> Claim Type
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element.claimType }} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="intimationDate">
+                    <mat-header-cell *matHeaderCellDef class="header-data" mat-sort-header> Date Of Intimation
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element?.claimIntimationDt |
+                        date:'dd/MM/yyyy' || '-'}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="caseStatus">
+                    <mat-header-cell *matHeaderCellDef class="header-data" mat-sort-header>Case Status</mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element?.tskDispName || '-'}}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="caseStage">
+                    <mat-header-cell *matHeaderCellDef class="header-data" mat-sort-header>Case Stage</mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element?.stageDesc || '-' }}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="intimatingBranch">
+                    <mat-header-cell *matHeaderCellDef class="header-data" mat-sort-header> Intimating Branch
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element?.intimatingBranch || '00' }}
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+            <mat-paginator [pageSize]="5" [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
+        </mat-card>
+    </div>
+</div>

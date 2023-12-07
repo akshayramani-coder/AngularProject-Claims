@@ -1,0 +1,284 @@
+<div class="title-header">
+    <mat-card>
+        <mat-card-title>Home</mat-card-title>
+
+    </mat-card>
+</div>
+<div class="container-fluid">
+    <div class="mt-4">
+        <!-- <mat-card>
+            <h4 class="title-1 text-center">My Work Queue</h4>
+            <form [formGroup]="searchFormGroup">
+
+                <div class="row">
+                    <div class="form-group col-sm-3 ">
+                        <mat-form-field floatLabel="always" class="col-sm-9">
+                            <mat-label>Start Date</mat-label>
+                            <input matInput [matDatepicker]="startDate" (dateChange)="dateChange($event)" required
+                                [ngClass]="{ 'is-invalid': submitted && w['startDate'].errors }"
+                                formControlName="startDate" min="{{startingdate2 | date:'yyyy-MM-dd'}}"
+                                max="{{startingdate1| date:'yyyy-MM-dd'}}" placeholder="dd/mm/yyyy">
+                            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                            <mat-datepicker #startDate></mat-datepicker>
+                            <mat-error>
+                                <div
+                                    *ngIf="(submitted && w['startDate'].errors) || !w['startDate'].valid && w['startDate'].touched">
+                                    Please Enter Start Date</div>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group col-sm-3 ">
+                        <mat-form-field floatLabel="always" class="col-sm-9">
+                            <mat-label>End Date</mat-label>
+                            <input matInput [matDatepicker]="endDate" [min]="minDate"
+                                [ngClass]="{ 'is-invalid': submitted && w['endDate'].errors }" required
+                                formControlName="endDate" max="{{startingdate1 | date:'yyyy-MM-dd'}}"
+                                placeholder="dd/mm/yyyy">
+                            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                            <mat-datepicker #endDate></mat-datepicker>
+                            <mat-error>
+                                <div *ngIf="(submitted && w['endDate'].errors) || !w['endDate'].valid && w['endDate'].touched">
+                                    Please Enter End Date</div>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                    <p class="form-group col-sm-3 ">
+                        <mat-form-field floatLabel="always" class="col-sm-9">
+                            <mat-label>Policy No.</mat-label>
+                            <input matInput placeholder="XXXXXXXXXX" required
+                                [ngClass]="{ 'is-invalid': submitted && w['policyNo'].errors }" formControlName="policyNo">
+                            <mat-error>
+                                <div
+                                    *ngIf="(submitted && w['policyNo'].errors) || !w['policyNo'].valid && w['policyNo'].touched">
+                                    Please Enter Policy No.</div>
+                            </mat-error>
+                        </mat-form-field>
+                    </p>
+
+
+                    <div class="form-group col-sm-3 ">
+
+                        <div class="col-sm-12 button-top">
+                            <button mat-raised-button class="button-1" type="submit"
+                                (click)="searchWork()">Search</button>
+                            <button mat-raised-button class="button-clr-2" type="reset"
+                                (click)="cancel()">Clear</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <mat-table #table [dataSource]="dataSource" class="">
+
+
+                <ng-container matColumnDef="claimAck">
+                    <mat-header-cell *matHeaderCellDef class="header-data"> Claim Ack.</mat-header-cell>
+
+                    <mat-cell *matCellDef="let element"  class="mat-data claimack-data"> {{ element.claimAck }}
+                    </mat-cell>
+
+                </ng-container>
+
+                <ng-container matColumnDef="policy">
+                    <mat-header-cell *matHeaderCellDef class="header-data"> Policy No. </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element.policy }} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="nameOfInsured">
+                    <mat-header-cell *matHeaderCellDef> Name of Life Insured </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{ element.nameOfInsured }} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="ownerName">
+                    <mat-header-cell *matHeaderCellDef> Owner Name </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{ element.ownerName }} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="dateOfEvent">
+                    <mat-header-cell *matHeaderCellDef class="header-data"> Date of Event </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element.dateOfEvent }} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="claimType">
+                    <mat-header-cell *matHeaderCellDef class="header-data"> Claim Type </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element.claimType }} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="intimationDate">
+                    <mat-header-cell *matHeaderCellDef class="header-data"> Intimation Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element.intimationDate }} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="claimStatus">
+                    <mat-header-cell *matHeaderCellDef class="header-data"> Claim Status </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element.claimStatus }} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="intimatingBranch">
+                    <mat-header-cell *matHeaderCellDef class="header-data"> Intimating Branch </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element.intimatingBranch }} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="case">
+                    <mat-header-cell *matHeaderCellDef class="header-data"> Case LOB </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="mat-data"> {{ element.case }} </mat-cell>
+                </ng-container>
+
+
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+            <p class="display-data mt-2">2 items found,
+                displaying all items</p>
+        </mat-card> -->
+        <div class="row mt-4 mb-4 d-flex justify-content-between mx-4">
+            <div class="col-sm-5">
+                <mat-card class="card-1 px-4">
+                    <div class="mb-1">
+
+                        <div><span class="iconify size"
+                                data-icon="fluent:window-new-24-filled"></span>
+                            <span class="title-1"> Raise a claim</span>
+
+                        </div>
+
+
+
+                    </div>
+                    <span class="line"></span>
+                    <form >
+                        <div class=" d-flex justify-content-between px-auto mt-4 mb-3">
+
+                            <div class="form-group col-sm-5 ">
+                                <p [formGroup]="formGroup">
+                                    <mat-form-field floatLabel="always" class="form-group col-sm-12 ">
+                                        <mat-label>Policy No.</mat-label>
+                                        <input matInput placeholder="XXXXXXXXXX"
+                                            [ngClass]="{ 'is-invalid': submitted && f['policyNo'].errors }"
+                                            formControlName="policyNo" required [errorStateMatcher]="errorMatcherNew">
+                                        <mat-error>
+                                            <div *ngIf="(formGroup.get('policyNo')?.touched || formGroup.get('policyNo')?.dirty)" >
+                                                <div *ngIf="formGroup.get('policyNo')?.errors?.['required']">  Please enter policy number</div>
+                                                <div *ngIf="formGroup.get('policyNo')?.errors?.['pattern']">special characters not allowed</div>
+                                                <div *ngIf="(formGroup.get('policyNo')?.errors?.['maxlength']) && !formGroup.get('policyNo')?.errors?.['pattern']" >Policy Number should be less than 8 digits</div>
+                                            </div>
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                </p>
+                            </div>
+                            <p class="or mt-4">Or</p>
+                            <div class="form-group col-sm-5 ">
+                                <p class="" [formGroup]="clientForm">
+                                    <mat-form-field floatLabel="always">
+                                        <mat-label>Client ID</mat-label>
+                                        <input matInput placeholder="XXXXXXXXXX"
+                                        [ngClass]="{ 'is-invalid': submitted && c['clientID'].errors }"
+                                        formControlName="clientID" required [errorStateMatcher]="errorMatcherNew">
+                                        <mat-error>
+                                            <div *ngIf="(clientForm.get('clientID')?.touched || clientForm.get('clientID')?.dirty)" >
+                                                <div *ngIf="clientForm.get('clientID')?.errors?.['required']">  Please enter client id</div>
+                                                <div *ngIf="clientForm.get('clientID')?.errors?.['pattern']">special characters not allowed</div>
+                                                <div *ngIf="(clientForm.get('clientID')?.errors?.['maxlength']) && !clientForm.get('clientID')?.errors?.['pattern']" >Client Id should be less than 8 digits</div>
+                                            </div>
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                </p>
+                            </div>
+
+                        </div>
+                        <div class="text-center ">
+                    <button mat-raised-button type="reset" class="button-clr-3" (click)="clearData()">Clear</button>
+
+                            <button mat-raised-button class="button-1" type="submit"
+                                (click)="searchNewClaim()">Search</button>
+
+                        </div>
+                    </form>
+
+                </mat-card>
+            </div>
+
+
+            <div class="col-sm-5">
+                <mat-card class="card-1 px-4">
+                    <div class="mb-1">
+                        <div> <span class="iconify size"
+                                data-icon="fluent:eye-tracking-24-filled"></span>
+                            <span class="title-1"> Track a claim</span>
+                        </div>
+
+                    </div>
+                    <span class="line"></span>
+                    <form>
+                        <div class="d-flex justify-content-between px-auto mt-4 mb-3">
+
+                            <div class="form-group col-sm-5">
+                                <p [formGroup]="trackFormGroup">
+                                    <mat-form-field floatLabel="always" class="form-group col-sm-12 ">
+                                        <mat-label>Policy No.</mat-label>
+                                        <input matInput placeholder="XXXXXXXXXX"
+                                        [ngClass]="{ 'is-invalid': submitted && t['policyNo'].errors }"
+                                        formControlName="policyNo" required [errorStateMatcher]="errorMatcherNew">
+                                            <mat-error>
+                                                <div *ngIf="(trackFormGroup.get('policyNo')?.touched || trackFormGroup.get('policyNo')?.dirty)" >
+                                                    <div *ngIf="trackFormGroup.get('policyNo')?.errors?.['required']">  Please enter policy number</div>
+                                                    <div *ngIf="trackFormGroup.get('policyNo')?.errors?.['pattern']">special characters not allowed</div>
+                                                    <div *ngIf="(trackFormGroup.get('policyNo')?.errors?.['maxlength']) && !trackFormGroup.get('policyNo')?.errors?.['pattern']" >Policy Number should be less than 8 digits</div>
+                                                </div>
+                                            </mat-error>
+                                    </mat-form-field>
+                                </p>
+                            </div>
+                            <p class="or mt-4">Or</p>
+                            <div class="form-group col-sm-5">
+                                <p class="" [formGroup]="trackclientForm">
+                                    <mat-form-field floatLabel="always" class="form-group col-sm-12 ">
+                                        <mat-label>Client ID</mat-label>
+                                        <input matInput placeholder="XXXXXXXXXX"
+                                            [ngClass]="{ 'is-invalid': submitted && s['clientID'].errors }"
+                                            formControlName="clientID" required [errorStateMatcher]="errorMatcherNew">
+                                            <mat-error>
+                                                <div *ngIf="(trackclientForm.get('clientID')?.touched || trackclientForm.get('clientID')?.dirty)" >
+                                                    <div *ngIf="trackclientForm.get('clientID')?.errors?.['required']">  Please enter client id</div>
+                                                    <div *ngIf="trackclientForm.get('clientID')?.errors?.['pattern']">special characters not allowed</div>
+                                                    <div *ngIf="(trackclientForm.get('clientID')?.errors?.['maxlength']) && !trackclientForm.get('clientID')?.errors?.['pattern']" >Client Id should be less than 8 digits</div>
+                                                </div>
+                                            </mat-error>
+                                    </mat-form-field>
+                                </p>
+                            </div>
+
+                        </div>
+                        <div class="text-center ">
+                    <button mat-raised-button type="reset" class="button-clr-3" (click)="clearDataTrackClaim()">Clear</button>
+                            <button mat-raised-button class="button-1" type="submit"
+                                (click)="trackClaim()">Search</button>
+                            <!-- <button mat-raised-button class="new-claim" [routerLink]="['/claims-intimation/claim-intimation']">New Claim</button> -->
+
+                        </div>
+                    </form>
+                </mat-card>
+            </div>
+            <div class="col-sm-2">
+                <mat-card class="card-1 px-4 h-100">
+                    <div class="mb-1">
+                        <div> <span class="iconify size"
+                                data-icon="fluent:chart-multiple-24-filled"></span>
+                            <span class="title-1"> Dashboard</span>
+                        </div>
+                    </div>
+                    <span class="line-1"></span>
+
+                    <div class="mb-3 position-absolute bottom-0 start-50 translate-middle-x">
+                        <button mat-raised-button class="button-1">Open</button>
+
+                    </div>
+
+                </mat-card>
+            </div>
+        </div>
+        <!-- </div> -->
+
+
+    </div>
+</div>

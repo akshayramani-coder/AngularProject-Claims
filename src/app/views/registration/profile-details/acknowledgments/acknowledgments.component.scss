@@ -1,0 +1,41 @@
+.ackLabel{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.ackList{
+    
+    font-size: 15px;
+
+}
+
+.matAck{
+    top:80px;
+}
+
+table.table tbody tr td{
+    width: 20%;
+    text-align: center;
+    // line-height: 0.7;
+  
+  }
+  
+  table.table tbody tr td br .line{
+    // width: 33.33%;
+    // text-align: center;
+    line-height: 0.7;
+  
+  }
+  
+  table.table tbody tr td img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+  }
+  
+  @media screen {
+    #printable {
+        display: none;
+    }
+  }

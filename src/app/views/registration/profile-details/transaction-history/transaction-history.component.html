@@ -1,0 +1,60 @@
+<div class="container-fluid">
+    <div class=""><button class="close-dialogue" mat-raised-button mat-dialog-close>
+            <mat-icon class="close-btn">close</mat-icon>
+        </button>
+        <div>
+            <h6 class="title-work text-center">Transaction History</h6>
+        </div>
+
+        <mat-card class="scrollbar scrollbar-primary">
+            <mat-table #table [dataSource]="dataSource" class="" matSort>
+
+                <ng-container matColumnDef="tranno">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Tran No.</mat-header-cell>
+
+                    <mat-cell *matCellDef="let element"> {{element.tranno}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="chdrnum">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Policy No.</mat-header-cell>
+
+
+                    <mat-cell *matCellDef="let element">{{element.chdrnum}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="trdt">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Tran Date </mat-header-cell> -->
+
+                    <mat-cell *matCellDef="let element"> {{element.datesub | dateFormat}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="ptrneff">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Eff Date</mat-header-cell>
+
+                    <mat-cell *matCellDef="let element">{{element.ptrneff | dateFormat }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="codeStatz">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Code Statz</mat-header-cell> -->
+
+                    <mat-cell *matCellDef="let element"> {{element.codeStatz}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="description">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell> -->
+
+                    <mat-cell *matCellDef="let element"> {{element.description}}</mat-cell>
+                </ng-container>
+
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+            <mat-paginator [pageSize]="5" [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
+            <!-- <p class="display-data mt-2">2 items found,
+                displaying all items</p> -->
+        </mat-card>
+
+
+    </div>
+</div>

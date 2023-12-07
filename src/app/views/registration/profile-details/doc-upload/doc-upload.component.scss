@@ -1,0 +1,118 @@
+.border-bottom {
+    border-bottom: 1px solid black !important;
+    cursor: pointer;
+}
+
+.margin-top {
+    margin-top: 75px;
+}
+
+.mat-select {
+    display: inline-block;
+    width: 80%;
+    outline: none;
+}
+
+.mat-card {
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    display: block;
+    position: relative;
+    padding: 16px;
+    border-radius: 0px;
+}
+
+.text3 {
+    color: gray;
+    font-size: 14px;
+}
+
+.mat-row {
+    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 22%), 0px 1px 1px 1px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    border-radius: 0px;
+    margin-top: 10px;
+    display: flex;
+    border-width: 0;
+    align-items: center;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.title-2 {
+    text-align: left;
+    font: normal normal bold 18px/24px Arial;
+    letter-spacing: 0px;
+    color: #1E4679;
+    opacity: 1;
+    margin-left: 1rem;
+
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 0rem;
+}
+.scrollbar {
+    height: 22.5rem;
+    background: #fff;
+    overflow-y: scroll;
+}
+
+
+.scrollbar-primary::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
+.scrollbar-primary::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #707070;
+}
+
+.add-btn {
+    color: #1E4679;
+    cursor: pointer;
+}
+
+.btn-refresh {
+    text-align: end;
+}
+
+.title-heading-Upload {
+    color: #1a73e8 !important;
+    border-bottom: 1px solid;
+    cursor: pointer;
+}
+
+.matcell {
+    font-size: 100%;
+    letter-spacing: 0.14px;
+    color: black;
+    opacity: 1;
+    word-wrap: break-word;
+    white-space: nowrap;
+}
+
+.requirement-title {
+    color: #FB4E60;
+    text-align: left;
+    font: normal normal bold 18px/24px Arial;
+    letter-spacing: 0px;
+    opacity: 1;
+    margin-left: 2px;
+}
+
+.underline-requirement {
+    border-bottom: 3px solid #1E4679 !important;
+    margin-top: 0px;
+    width: 110%;
+}
+.remark{
+    margin-left: 102px;
+}
+
+.viewDoc{
+    margin-left: 465px
+}

@@ -1,0 +1,28 @@
+
+mat-header-row {
+    /* min-height: 56px; */
+    min-height: fit-content !important;
+}
+mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
+    /* padding-left: 24px; */
+    padding-left: 0px !important; 
+}
+
+.mat-cell {
+    font-size: 90%;
+    letter-spacing: 0.14px;
+    color: black;
+    opacity: 1;
+    /* justify-content: center; */
+    justify-content: left; 
+}
+
+.mat-header-cell {
+    letter-spacing: 0.14px;
+    color: #EC3137;
+    opacity: 1;
+    justify-content: left; 
+}
+.mat-column-remark{
+    width: 50%;
+}

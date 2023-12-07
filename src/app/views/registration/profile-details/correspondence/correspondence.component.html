@@ -1,0 +1,26 @@
+<div class="container-fluid" >
+    <div class="mt-5"><button class="close-dialogue" mat-raised-button mat-dialog-close>
+        <mat-icon class="close-btn">close</mat-icon>
+    </button>
+    <div>
+        <h6 class="title-work text-center">Correspondence Sheet</h6>
+    </div>
+</div>
+
+<mat-card *ngIf="showLettersFlag == true"  class=" scrollbar scrollbar-primary m-1">
+    <mat-card *ngFor="let data of correspondanceCodeArray" class="mb-2">
+        <mat-card-title class="title-communication ">{{data.correspondenceName}}</mat-card-title>
+        <div class="text-end">
+            <button mat-raised-button class="button-blue mx-3" (click)="previewAPI(data.correspondenceCode)">Preview</button>
+            <!-- <button mat-raised-button class="button-1" (click)="submitDocument(0)" >Submit</button> -->
+        </div>
+    </mat-card>
+</mat-card>
+<mat-card *ngIf="showLettersFlag == false"  class="mt-2 mb-2 m-2 ErrorMessage">
+        <span>&#42;</span>
+        <span>Correspondence history is not available for this claim</span>
+</mat-card>
+</div>
+<app-spinner></app-spinner>
+<!-- <router-outlet></router-outlet> -->
+

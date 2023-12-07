@@ -1,0 +1,122 @@
+<div>
+    <div class="container-fluid">
+        <div class="mt-4 col-md-12">
+            <div class="col-md-12">
+                <mat-card class="matAck">
+                    <form>
+                        <div class="col-md-12 ">
+                            <div class="col-md-12">
+                                <div><span class="iconify size" data-icon="fluent:window-new-24-filled"></span>
+                                    <span class="title-1"> Acknowledgements</span>
+
+                                </div>
+                                <span class="line"></span>
+
+                                <mat-list role="list">
+                                    <label class="ackLabel">Print the following Claim Acknowledgement Letter(s).</label>
+                                    <mat-list *ngFor="let data of ackData;let i = index">
+
+                                        
+                                        <mat-list-item>
+                                          <p  *ngIf="data.claimNo!=='ERROR'">{{i+1}}. <a class="link-primary" href="javascript:void(0)" (click)="printDiv(data)" > Generate Acknowledgement Slip
+                                            for Policy No. {{data.policyId}} for (Claim No ({{data.claimNo
+                                            }}) / Client Id ({{data.clientId}})) </a>
+                                          </p> 
+                                          
+                                        
+                                            <mat-error class="ackList" *ngIf="data.claimNo==='ERROR'">{{i+1}}. Claim Not generated
+                                                for Policy No. {{data.policyId}} of Client Id {{data.clientId}} for Reason {{data.message}} </mat-error> 
+                                        </mat-list-item>
+
+                                                <!-- <a class="ackList">{{i+1}}. Generate Acknowledgement Slip
+                                                    for Policy No. {{data.policyId}} for (Claim No ({{data.claimNo
+                                                    }}) / Client Id ({{data.clientId}}))</a> -->
+                                    </mat-list>
+                                    <mat-list-item role="listitem"> </mat-list-item>
+                                </mat-list>
+                            </div>
+                        </div>
+                    </form>
+                </mat-card>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" id="printable" #printable style="font-family:Calibri, sans-serif;font-size: 12pt;">
+    <img src="assets/kotak.jpg" class="kotak-logo" style="height:30px;margin:10px;">
+    <br>
+    <div class="row  mb-2">
+      <div class="text-center">Acknowledgement Slip </div>
+    </div>
+    <div class="row  mb-2">
+      <div class="text-center">{{claimType}}</div>
+    </div>
+    <div class="container" style="margin-left: 20px;">
+    <div class="row mb-2">
+      Date: {{date | date: "dd/MM/yyyy"}}
+    </div>
+    <div class="row mb-2">
+      Time: {{time | date:'hh:mm a'}}
+    </div>
+   
+    <div class="row mb-2">
+      Claim No: {{claimNumber}}
+    </div>
+  
+    <div class="row mb-2">
+      Policy Number: {{policyNumber}}
+    </div>
+    
+    <div class="row mb-2">
+      Nominee Name(s): {{claimentName}}
+    </div>
+    
+    <div class="row mb-2">
+      Branch Name & code: {{branchNameAndCode}} 
+    </div >
+    <div class="mb-2">
+    <div class="row">
+      We acknowledge receipt of following documents:
+    </div>
+    <div *ngFor="let doc of documentList;let i=index" class="row" class="margin-left:10px">
+      {{i+1}} &nbsp; {{doc}}
+    </div>
+  </div>
+   
+    <div class="row mb-2">
+    We will be assessing the claim and may call for any further information / additional document(s) / Requirement(s) as it may deem necessary.
+    </div>
+    <div class="row mt-2 mb-2">
+    In case of any queries/concerns, you can reach out to us at:
+    </div>
+    <table class="table table-bordered border-dark">
+      <tbody>    <tr>
+        <td><img src="assets/Acknowladgement/Phone.png">
+          <!-- <br class="line"> -->
+         <p> Call at 
+          1800 209 8800 </p></td>
+        <td><img src="assets/Acknowladgement/Location.png">
+          <!-- <br class="line"> -->
+          Visit nearest Kotak Life Branch
+          Address details available at <a target="_blank" href="www.kotak.com">www.kotak.com</a></td>
+        <td><img src="../../../assets/Acknowladgement/Document.png">
+          <!-- <br class="line"> -->
+          Write us at:
+          <a href="mailto:kli.claimsmitra@kotak.com">kli.claimsmitra@kotak.com</a></td>
+      </tr>
+      </tbody>
+    </table>
+    </div>
+  <br>
+  <div class="row mb-2" style="display:inline">
+    Track the status of your claim submitted by visiting the claims section of our website: 
+     <a href="https://customer.kotaklifeinsurance.com/ocm" target="_blank"> 
+      https://customer.kotaklifeinsurance.com/ocm
+     </a>
+  </div>
+    <div class="row" style="font-size: 10pt;">
+      ****Please note that this letter is only the acknowledgement, from our side, to the intimation of the claim and does not constitute to be an admission of liability under the policy or acceptance of claim by us. We also wish to inform you that no amounts are to be paid to any investigator who will be visiting for verification and that any such request from investigator needs to be brought to our attention immediately.
+    </div>
+</div>

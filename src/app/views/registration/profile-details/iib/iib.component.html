@@ -1,0 +1,91 @@
+<div class="container-fluid">
+    <div class=""><button class="close-dialogue" mat-raised-button mat-dialog-close>
+            <mat-icon class="close-btn">close</mat-icon>
+        </button>
+        <div>
+            <h6 class="title-work text-center" *ngIf="iibRes">{{iibRes.message}}</h6>
+        </div>
+
+        <mat-card class="scrollbar scrollbar-primary">
+            <mat-table #table [dataSource]="dataSource" class="" matSort>
+
+                <ng-container matColumnDef="questDbNo">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Db No.</mat-header-cell>
+
+                    <mat-cell *matCellDef="let element"> {{element.questDbNo || '-'}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="questDopDoc">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Dop Doc</mat-header-cell>
+
+                    <mat-cell *matCellDef="let element">{{element.questDopDoc | date:'dd/MM/yyyy' || '-'  }}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="questSumAssured">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Sum Assured</mat-header-cell> -->
+
+                    <mat-cell *matCellDef="let element"> {{element.questSumAssured || '-'}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="questPolicyStatus">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Policy Status</mat-header-cell>
+
+                    <mat-cell *matCellDef="let element">{{element.questPolicyStatus || '-'}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="questDateOfExit">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Date Of Exit</mat-header-cell> -->
+
+                    <mat-cell *matCellDef="let element"> {{element.questDateOfExit | date:'dd/MM/yyyy' || '-' }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="questDateOfDeath">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Date Of Death</mat-header-cell> -->
+
+                    <mat-cell *matCellDef="let element"> {{element.questDateOfDeath | date:'dd/MM/yyyy' || '-'  }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="questCauseOfDeath">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Cause Of Death</mat-header-cell>
+
+                    <mat-cell *matCellDef="let element"> {{element.questCauseOfDeath || '-'}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="questRecordLastUpdated">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Record Last Updated</mat-header-cell>
+
+                    <mat-cell *matCellDef="let element">{{element.questRecordLastUpdated | date:'dd/MM/yyyy' || '-' }}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="questEntityCautionStatus">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Entity Caution Status</mat-header-cell> -->
+
+                    <mat-cell *matCellDef="let element"> {{element.questEntityCautionStatus || '-'}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="questIntermedCautionStatus">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Intermed Caution Status</mat-header-cell>
+
+                    <mat-cell *matCellDef="let element">{{element.questIntermedCautionStatus || '-'}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="questCompanyNumber">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Company Number</mat-header-cell> -->
+
+                    <mat-cell *matCellDef="let element"> {{element.questCompanyNumber || '-'}}</mat-cell>
+                </ng-container>
+
+            
+
+
+                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+            <mat-paginator [pageSize]="5" [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
+            <!-- <p class="display-data mt-2">2 items found,
+                displaying all items</p> -->
+        </mat-card>
+
+
+    </div>
+</div>

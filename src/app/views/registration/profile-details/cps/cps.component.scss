@@ -1,0 +1,147 @@
+
+
+.matcell {
+    font-size: 100%;
+    letter-spacing: 0.14px;
+    color: black;
+    opacity: 1;
+}
+
+mat-table {
+    width: 100%;
+}
+
+.title-heading-matcell {
+    letter-spacing: 0px;
+    color: black !important;
+    font-weight: 600;
+    font-size: 110%;
+}
+
+.underlinePlanDetails {
+    border-bottom: 5px solid #FB4E60 !important;
+    margin-top: 0px;
+    width: 15%;
+    margin-left: 14px;
+}
+.policyHolder{
+    border-bottom: 5px solid #FB4E60 !important;
+    margin-top: 0px;
+    width: 21%;
+    margin-left: 14px;
+}
+
+.policyDetails{
+    border-bottom: 5px solid #FB4E60 !important;
+    margin-top: 0px;
+    width: 18%;
+    margin-left: 14px;
+}
+.beneficiarydetails{
+    border-bottom: 5px solid #FB4E60 !important;
+    margin-top: 0px;
+    width: 20%;
+    margin-left: 14px;
+}
+.investigationDetails{
+    border-bottom: 5px solid #FB4E60 !important;
+    margin-top: 0px;
+    width: 21%;
+    margin-left: 14px;
+}
+
+.recommendationsDecisions{
+    border-bottom: 5px solid #FB4E60 !important;
+    margin-top: 0px;
+    width: 22%;
+    margin-left: 14px;
+}
+.claimRequirements{
+    border-bottom: 5px solid #FB4E60 !important;
+    margin-top: 0px;
+    width: 21%;
+    margin-left: 14px;
+}
+.policyTerms{
+    border-bottom: 5px solid #FB4E60 !important;
+    margin-top: 0px;
+    width: 26%;
+    margin-left: 14px;
+}
+
+.matcell {
+    font-size: 100%;
+    letter-spacing: 0.14px;
+    color: black;
+    opacity: 1;
+}
+
+mat-table {
+    width: 100%;
+}
+
+.title-heading-matcell {
+    letter-spacing: 0px;
+    color: black !important;
+    font-weight: 600;
+    font-size: 110%;
+}
+
+.decisionDetails{
+    border-bottom: 5px solid #FB4E60 !important;
+    margin-top: 0px;
+    width: 18%;
+    margin-left: 14px;
+}
+
+.branchDetails{
+    border-bottom: 5px solid #FB4E60 !important;
+    margin-top: 0px;
+    width: 70%;
+    margin-left: 14px;
+}
+.underlineFundDetails {
+    border-bottom: 5px solid #FB4E60 !important;
+    margin-top: 0px;
+    width: 16%;
+    margin-left: 14px;
+
+}
+
+.ErrorMessage {
+    font-size: 14px;
+    color: red;
+}
+.underlineSTPOutput{
+    border-bottom: 5px solid #FB4E60 !important;
+    margin-top: 0px;
+    width: 15%;
+    margin-left: 14px;
+}
+
+
+
+mat-header-row {
+    /* min-height: 56px; */
+    min-height: fit-content !important;
+}
+mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
+    /* padding-left: 24px; */
+    padding-left: 0px !important; 
+}
+
+.mat-cell {
+    font-size: 90%;
+    letter-spacing: 0.14px;
+    color: black;
+    opacity: 1;
+    /* justify-content: center; */
+    justify-content: left; 
+}
+
+.mat-header-cell {
+    letter-spacing: 0.14px;
+    color: #EC3137;
+    opacity: 1;
+    justify-content: left; 
+}

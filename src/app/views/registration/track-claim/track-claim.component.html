@@ -1,0 +1,55 @@
+<div class="title-header">
+    
+</div>
+<div class="container-fluid">
+    <div class="mt-4">
+      
+        <div  class="mt-4 col-md-12 d-flex justify-content-center">
+
+            <div class="col-md-10">
+                <mat-card>
+                    <div class="mb-1">
+                        <div> <span class="iconify size"
+                                data-icon="fluent:eye-tracking-24-filled"></span>
+                            <span class="title-1"> Track a claim</span>
+                        </div>
+
+                    </div>
+                    <span class="line"></span>
+                    <form [formGroup]="trackFormGroup">
+                        <div class="d-flex justify-content-between px-auto mt-4 mb-3">
+                            <div class="col-md-6">
+                                <p class="" [formGroup]="clientForm">
+                                    <mat-form-field floatLabel="always" class="form-group col-sm-12 ">
+                                        <mat-label>Client ID</mat-label>
+                                        <input matInput placeholder="XXXXXXXXXX"
+                                            [ngClass]="{ 'is-invalid': submitted && t['clientID'].errors }"
+                                            formControlName="clientID" required>
+                                        <mat-error>
+                                            <div
+                                                *ngIf="(submitted && t['clientID'].errors) || !t['clientID'].valid && t['clientID'].touched">
+                                                Please Enter Client ID</div>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </p>
+                            </div>
+
+                        
+                        <div  class="col-md-3">
+                           <button mat-raised-button type="reset" class="button-clr-3" (click)="clearData()">Clear</button>
+                            <button mat-raised-button class="button-1" type="submit"
+                                (click)="trackClaim()">Search</button>
+                            <!-- <button mat-raised-button class="new-claim" [routerLink]="['/claims-intimation/claim-intimation']">New Claim</button> -->
+
+                        </div>
+                        </div>
+                    </form>
+                </mat-card>
+            </div>
+           
+        </div>
+        <!-- </div> -->
+
+
+    </div>
+</div>

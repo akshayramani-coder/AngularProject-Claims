@@ -1,0 +1,55 @@
+.riderDetails{
+    border-bottom: 5px solid #FB4E60 !important;
+    margin-top: 0px;
+    width: 15%;
+    margin-left: 14px;
+}
+.riderDetailsinput{
+    border-bottom: 5px solid #FB4E60 !important;
+    margin-top: 0px;
+    width: 26%;
+    margin-left: 14px;
+}
+
+// .mat-form-field{
+//     font-size: 17px;
+//     width: 280px;
+//     letter-spacing: 0px;
+//     &.mat-focused{
+//         font-size: 20px;
+//         letter-spacing: 0px;
+//     }
+//     .mat-input-element{
+//         width: 100%;
+//         font-size: 14px;
+//     }
+//     &::placeholder{
+//         font-size: 14px;
+//     }
+//  }
+
+//  .mat-form-field{
+//     letter-spacing: 0px;
+//     color: black;
+//     font-weight: 600;
+//     font-family: Arial;
+
+//  }
+
+//  .title-heading {
+//     letter-spacing: 0px;
+//     color: black;
+//     font-weight: 600;
+//     font-family: Arial;
+//   }
+
+
+// .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label:not(.mat-empty):not(.mat-form-field-empty) {
+//     letter-spacing: 0px;
+//     color: black;
+//     font-weight: 600;
+//   }
+.ErrorMessage {
+    font-size: 14px;
+    color: red;
+}

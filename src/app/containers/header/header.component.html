@@ -1,0 +1,117 @@
+<!-- <div class="topbar main-header d-flex justify-content-between align-items-center">
+    <div class="container-fluid">
+        <div class=" col-12 d-flex">
+            <div class="col-md-1 ">
+                <button mat-icon-button (click)="toggleSidebar()" class=" m-2">
+                    <mat-icon>menu</mat-icon>
+                </button>
+            </div>
+            <div class="col-md-2 d-flex justify-content-left align-items-center">
+                <a>
+                    <span>
+                        <img src="../../../../assets/kotak.jpg" alt="logo-small" class=" kotak-logo">
+
+                    </span>
+                </a>
+
+            </div>
+            <div class="col-md-6 d-flex justify-content-end ">
+                <span class="align-items-center">
+                    <h4 class="d-flex justify-content-center title-heading mt-2">
+                        <span class="life">Life</span><span class="claim">Claims</span>
+                    </h4>
+
+                </span>
+            </div>
+
+            <div class="col-md-3 align-items-center">
+                <div class="col-md-12 d-flex justify-content-end ">
+                    <div class="col-md-2 d-flex justify-content-center mt-2">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" [routerLink]="['/home']">home</mat-icon>
+                    </div>
+                    <div class="col-md-2 d-flex justify-content-center mt-2">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" class=" mat-notification">
+                            notifications</mat-icon>
+                    </div>
+
+                    <div class="col-md-2 d-flex justify-content-center mt-2">
+                        <div mat-button [matMenuTriggerFor]="menu">
+                            <img src="./assets/user.jpg" alt="user-image" class="user-image" />
+
+                        </div>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item>
+                                <mat-icon>exit_to_app</mat-icon>
+                                Logout
+                            </button>
+                        </mat-menu>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="topbar main-header d-flex justify-content-between align-items-center sticky-top">
+    <div class="container-fluid">
+        <div class=" col-12 d-flex">
+            <div class="col-md-1 ">
+                <button mat-icon-button (click)="toggleSidebar()" class=" m-2">
+                    <mat-icon>menu</mat-icon>
+                </button>
+            </div>
+            <div class="col-md-2 d-flex justify-content-left align-items-center">
+                <a>
+                    <span>
+                        <img src="../../../../assets/kotak.jpg" alt="logo-small" class=" kotak-logo" >
+                        <!-- [routerLink]="['/dashboard']" -->
+
+                    </span>
+                </a>
+
+            </div>
+            <div class="col-md-6 d-flex justify-content-end ">
+                <!-- <span class="align-items-center">
+                    <h4 class="d-flex justify-content-center title-heading mt-2">
+                        <span class="life">Life</span><span class="claim">Claims</span>
+                    </h4>
+
+                </span> -->
+            </div>
+
+            <div class="col-md-3 align-items-center">
+                <div class="col-md-12 d-flex justify-content-end ">
+                    <!-- <div class="col-md-2 d-flex justify-content-center mt-2">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+                    </div> -->
+                    <div class="col-md-2 d-flex justify-content-center mt-2">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" class=" mat-notification" [routerLink]="['/notification']"
+                        [matBadge]="notification">
+                            notifications</mat-icon>
+                    </div>
+
+                    <div class="col-md-6 d-flex justify-content-center mt-2 loginID" >
+                        <div mat-button [matMenuTriggerFor]="menu">
+                           <mat-icon>person</mat-icon>
+                           {{dispName}} 
+                           <mat-icon >expand_more</mat-icon>
+                        </div>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="logout()">
+                                <mat-icon>exit_to_app</mat-icon>
+                                Logout
+                            </button>
+                        </mat-menu>
+                    </div>
+                </div>
+                <div  class="col-md-12 d-flex justify-content-end title-work">
+                   
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>

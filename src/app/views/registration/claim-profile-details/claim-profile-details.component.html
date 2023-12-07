@@ -1,0 +1,236 @@
+<div class="container-fluid">
+    <div class="margin-top">
+        <form>
+        <div class="row">
+            <div class="col-lg-3">
+                <app-assured-details></app-assured-details>
+            </div>
+            <div class="col-md-9 details">
+           
+                <mat-card class="mt-2  mb-4" *ngFor="let userdata of userprofile;  let i = index">
+                  
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="row text-center">
+                                <div class="col-md-2">
+                                    <p class="title-heading my-0">Policy No.</p>
+                                    <span *ngIf="userdata.claimAllowed == true">
+                                    <a  (click)="onPolicyClick(userdata)">
+                                        <a class="claimack-data" >{{userdata.policyNumber}}</a>
+                                    </a>
+                                </span> 
+                                <span *ngIf="userdata.claimAllowed == false">
+                                    <span class="data">{{userdata.policyNumber}}</span>
+                                </span>
+                                
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="title-heading my-0">Client Name</p>
+                                    <span class="data">{{userdata.clientName}}</span>
+                                </div>
+
+                                <div class="col-md-1">
+                                    <p class="title-heading my-0">Product</p>
+                                    <span class="data">{{userdata.productCode}}</span>
+                                </div>
+                                
+                                <div class="col-md-1">
+                                    <p class="title-heading my-0">Role</p>
+                                    <span class="data">{{userdata.clientRole}}</span>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <p class="title-heading my-0">Status at DOI</p>
+                                    <span class="data">{{userdata.policyStatusOnIntimation}}</span>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <p class="title-heading my-0">Status at DOE</p>
+                                    <span class="data"
+                                        *ngIf="userdata.policyStatusOnEvent">{{userdata.policyStatusOnEvent}}</span>
+                                    <span class="data" *ngIf="!userdata.policyStatusOnEvent">NA</span>
+                                </div>
+                                <!-- <span class="border-bottom"></span> -->
+                            </div>
+                            <div>
+                                <!-- <div *ngIf="userdata.riderDetails == null">
+
+                                </div> -->
+                                <!-- <div *ngIf="userdata.riderDetails !=null"> -->
+                                <hr>
+                                <!-- </div> -->
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div *ngIf="userdata.riderDetails == null">
+        
+                                    </div>
+                                    <div *ngIf="userdata.riderDetails != null">
+                                        <p class="title-heading my-0">Rider Name</p>
+                                        <div *ngFor="let data of userdata.riderDetails; let i = index">
+                                            <span *ngIf="data.riderName">
+                                                <span class="data" *ngIf="data.claimAllowed == false"><img src="../../../../assets/round.png"
+                                                        class="img-icon-2">{{data.riderName}}</span>
+                                                        
+        
+                                                <span class="data" *ngIf="data.claimAllowed == true"><img src="../../../assets/right.png"
+                                                    class="img-icon-2">{{data.riderName}}</span>
+                                            </span>
+                                            <span *ngIf="!data.riderName">
+        
+                                                <span class="data">
+        
+                                                    <input type="checkbox" name="select" id="Preferred Term Rider"
+                                                        value="Preferred Term Rider">NA</span>
+                                            </span>
+                                            <br>
+        
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div class="col-md-1">
+                                    <div *ngIf="userdata.riderDetails == null">
+        
+                                    </div>
+                                    <div *ngIf="userdata.riderDetails != null">
+                                        <p class="title-heading my-0">Product</p>
+                                        <div *ngFor="let data of userdata.riderDetails; let i = index">
+                                            <span class="data" *ngIf="data.riderCode">{{data.riderCode}}</span>
+                                            <span class="data" *ngIf="!data.riderCode">NA</span>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div class="col-md-2 text-center">
+                                    <div *ngIf="userdata.riderDetails == null">
+        
+                                    </div>
+                                    <div *ngIf="userdata.riderDetails !=null">
+                                        <p class="title-heading my-0">Status at DOI</p>
+                                        <div *ngFor="let data of userdata.riderDetails; let i = index">
+                                            <span class="data"
+                                                *ngIf="data.riderStatusOnIntimation">{{data.riderStatusOnIntimation}}</span>
+                                            <span class="data" *ngIf="!data.riderStatusOnIntimation">NA</span>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <div *ngIf="userdata.riderDetails == null">
+        
+                                    </div>
+                                    <div *ngIf="userdata.riderDetails !=null">
+                                        <p class="title-heading my-0">Status at DOE</p>
+                                        <div *ngFor="let data of userdata.riderDetails; let i = index">
+                                            <span class="data"
+                                                *ngIf="data.riderStatusOnIntimation">{{data.riderStatusOnIntimation}}</span>
+                                            <span class="data" *ngIf="!data.riderStatusOnIntimation">NA</span>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+
+                     
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row">
+                                <div class="column">
+                                    <div class="card">
+                                        <h6>Claim Allowed
+
+                                            <span *ngIf="userdata.claimAllowed == true">
+                                                <img src="../../../assets/right.png" class="img-icon-1">
+
+                                            </span>
+
+                                            <span *ngIf="userdata.claimAllowed == false">
+                                                <img src="../../../../assets/round.png" class="img-icon-1">
+                                                <!-- <p class="Not-Allowed">Invalid policy status
+                                                    :{{userdata.policyStatusOnIntimation}}</p>
+                                                <p class="Not-Allowed1">Claim not allowed :{{userdata.policyStatusOnIntimation}}</p> -->
+                                                <p class="Not-Allowed">
+                                                    {{userdata.claimAllowedReason}}
+                                                </p>
+                                            </span>
+
+                                        </h6>
+                                    </div>
+                                </div>
+
+                                <div class="column">
+                                    <div class="card" *ngIf="userdata.claimAllowed == true">
+                                        <h6>Nominee Check
+                                            <span *ngIf="userdata.impsStatus == true">
+
+                                                <!-- <img src="../../../assets/exclamation.png" class="img-icon-1"> -->
+                                                <img src="../../../assets/right.png" class="img-icon-1">
+                                            </span>
+                                            <span *ngIf="userdata.impsStatus == false">
+
+                                                <img src="../../../assets/exclamation.png" class="img-icon-1">
+                                                <!-- <img src="../../../assets/right.png" class="img-icon-1"> -->
+                                            </span>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="column">
+                                    <div class="card" *ngIf="userdata.claimAllowed == true">
+                                        <h6>IMPS Check
+                                            <span *ngIf="userdata.impsStatus == true">
+
+                                                <!-- <img src="../../../assets/exclamation.png" class="img-icon-1"> -->
+                                                <img src="../../../assets/right.png" class="img-icon-1">
+                                            </span>
+                                            <span *ngIf="userdata.impsStatus == false">
+
+                                                <img src="../../../assets/exclamation.png" class="img-icon-1">
+                                                <!-- <img src="../../../assets/right.png" class="img-icon-1"> -->
+                                            </span>
+                                        </h6>
+
+                                    </div>
+                                </div>
+
+                                <div class="column">
+                                    <div class="card" *ngIf="userdata.claimAllowed == true">
+                                        <h6>Mandatory Doc
+                                            <span *ngIf="userdata.docStatus  == true">
+                                                <img src="../../../assets/right.png" class="img-icon-1">
+                                            </span>
+                                            <span *ngIf="userdata.docStatus  == false">
+                                                <img src="../../../assets/exclamation.png" class="img-icon-1">
+                                            </span>
+                                        </h6>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                   
+                </mat-card>
+                <div class="text-center mt-2  mb-4">
+                    <!--submit [disabled]="!isIMPSenable" -->
+
+                    <button mat-raised-button disabled class="button-1">Save</button>
+                    <button mat-raised-button class="button-clr-2" (click)="backToClaimProfile()">Cancel</button>
+                    <button mat-raised-button class="button-clr-2"  (click)="submitDetails()" [disabled]="!isSubmitEnable">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>
+
+
+

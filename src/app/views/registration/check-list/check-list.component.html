@@ -1,0 +1,49 @@
+<div class="text-end mb-2">
+    <button class="margin-right btn-height" mat-raised-button mat-dialog-close>
+        <mat-icon class="font">close</mat-icon>
+    </button>
+</div>
+<mat-card class="mt-5">
+
+    <div class="container-fluid scrollbar scrollbar-primary" >
+        <form [formGroup]="checkListForm">
+            <div formArrayName="checklist">
+                <div *ngFor="let data of CheckListdata.controls; let i = index">
+                    <div [formGroupName]="i">
+                        <div>
+                            <div class="row col-md-12">
+                                <div class="col-md-12 d-flex">
+                                    <h6 class="col-md-8 mt-3 " >Q.{{i+1}} {{data.get('labelName')?.value}}</h6>
+                                    
+                                    <!-- <mat-form-field class="col-md-2" appearance="outline">
+                                        <mat-select placeholder="Select" formControlName="answers" class="col-md-3" (change)="approvalChange($event)"
+                                        [ngClass]="{ 'is-invalid': submitted && userFormGroups.controls[i].get('answers')?.errors }"
+                                        >
+                                            <mat-option value="Y" >Yes</mat-option>
+                                            <mat-option value="N" >No</mat-option>
+                                        </mat-select>
+                                    </mat-form-field> -->
+                                   
+                                    <mat-checkbox formControlName="answers" class="col-md-3" required>
+                                    </mat-checkbox >
+                                    
+                                    
+                                </div> 
+                               <hr>
+                                <!-- <label class="mt-1 col-md-4">{{data.get('label')?.value}}</label> -->
+    
+                            </div>
+                            
+    
+                        </div>
+    
+                    </div>
+    
+                </div>
+            </div>
+        </form>
+    </div>
+    </mat-card>
+    <mat-card class="text-center">
+        <button mat-raised-button class="button-1" (click)="saveCheckList(checkListForm.value)">Submit</button>
+    </mat-card>

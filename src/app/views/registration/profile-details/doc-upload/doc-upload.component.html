@@ -1,0 +1,163 @@
+<!-- <div class="container-fluid">
+
+</div> -->
+<div class="container-fluid px-0">
+    <!-- <div class="row"> -->
+    <!-- <div class="col-lg-2">
+            <div class="margin-top">
+                <app-assured-details></app-assured-details>
+            </div>
+        </div> -->
+
+    <div class="col-lg-12">
+
+        <mat-card class="m-1"> 
+
+
+            <div class=" mt-2">
+                <mat-card class="scrollbar scrollbar-primary">
+                    <button *ngIf="appCode=='CR'" mat-raised-button class="button-1" (click)="onViewClick()">View Document</button>
+                    <form [formGroup]="form" autocomplete="off">
+                        <ng-container formArrayName="documents">
+                            <mat-table #table [dataSource]="documents.controls">
+                                <!--  Document Name Column -->
+                                <div class="col-md-3">
+                                <ng-container matColumnDef="documentName">
+                                    <mat-header-cell *matHeaderCellDef> Document Name </mat-header-cell>
+                                    <mat-cell [formGroup]="element" *matCellDef="let element" class="matcell"> {{ 
+                                        element.rqmtName }}
+                                        <textarea matInput  formControlName="rqmtName" [value]="element.rqmtCode" readonly style="resize: none;"></textarea>
+                                        <div *ngIf="appCode === 'CI'">
+                                        <input matInput  formControlName="rqmtCode" readonly style="display: contents;">
+
+                                        </div>
+                                    </mat-cell>
+                                </ng-container>
+                            </div>
+
+                                <!-- Source type -->
+                                <ng-container matColumnDef="requirmentType">
+                                    <mat-header-cell *matHeaderCellDef> Requirement Type </mat-header-cell>
+                                    <mat-cell [formGroup]="element" *matCellDef="let element" class="matcell"> {{ 
+                                        element.rqmtType }}
+                                        
+                                        <input matInput  formControlName="rqmtType" [value]="element.rqmtType" readonly >
+                                    </mat-cell>
+                                </ng-container>
+                                <!-- Mandatory type -->
+                                <ng-container matColumnDef="mandatoryDoc">
+                                    <mat-header-cell *matHeaderCellDef> Mandatory </mat-header-cell>
+                                    <mat-cell [formGroup]="element" *matCellDef="let element" class="matcell"> {{ 
+                                        element.mandatoryYn }}
+                                        <input matInput  formControlName="mandatory" [value]="element.mandatoryYn" readonly >
+                                    </mat-cell>
+                                </ng-container>
+                                <!-- Raised Date Column -->
+                                <ng-container matColumnDef="raisedDate">
+                                    <mat-header-cell *matHeaderCellDef> Raised Date </mat-header-cell>
+                                    <mat-cell *matCellDef="let element" class="matcell" [formGroup]="element"> {{
+                                        element.raisedDate  }}
+
+                                        <input matInput  formControlName="raisedDate" readonly>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <!-- Received Date Column -->
+                                <ng-container matColumnDef="receivedDate">
+                                    <mat-header-cell *matHeaderCellDef> Received Date </mat-header-cell>
+                                    <mat-cell *matCellDef="let element" class="matcell" [formGroup]="element"> {{element.receivedDate}} 
+                                        <input matInput  formControlName="receivedDate" readonly>
+                                    </mat-cell>
+
+                                    
+                                </ng-container>
+
+                                	<!-- Remark Column -->
+                                    <ng-container matColumnDef="remark">
+                                        <mat-header-cell *matHeaderCellDef> Remark </mat-header-cell>
+                                        <mat-cell *matCellDef="let element" [formGroup]="element">{{ 
+                                            element.remark ||'-'}}
+                                            <mat-form-field floatLabel="never" >
+                                                <input matInput class="remark" [value]="element.remark" formControlName="remark" (input)="setRemarkValue($event)" >
+                                            </mat-form-field>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                <!-- Uploade Doc  Column -->
+                                <ng-container matColumnDef="uplodeDoc">
+                                    <mat-header-cell *matHeaderCellDef>Document Status  </mat-header-cell>
+                                    <mat-cell *matCellDef="let element; let i = index" class="matcell" [formGroup]="element">
+
+                                        <mat-select type="text" class="border-bottom"  (selectionChange)="onDocChange($event,element, i)"
+                                            formControlName="lookupCd" 
+                                            name="name" [disabled] = "isReadonly">
+                                            <!-- <mat-option>Yes</mat-option>value="{{element.lookupCd}}"
+                                        <mat-option>No</mat-option> -->
+                                            <mat-option *ngFor="let data of documentstatus" [value]="data.lookupCd" >
+                                                {{data.shrtName}}
+                                            </mat-option>
+
+                                        </mat-select>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <!--  Uploade Date Column -->
+                                <ng-container matColumnDef="uploadeDate">
+                                    <mat-header-cell *matHeaderCellDef> Upload Date </mat-header-cell>
+                                    <mat-cell *matCellDef="let element" class="matcell" [formGroup]="element"> {{
+                                       element.upldDt}}
+                                        <input matInput  formControlName="upldDt" readonly>
+                                        <!-- <input matInput  formControlName="requirementId" readonly> -->
+                                    </mat-cell>
+                                </ng-container>
+
+
+
+                                <!-- Document Status Column -->
+                                <ng-container matColumnDef="documentStatus">
+                                    <mat-header-cell *matHeaderCellDef>Upload Doc </mat-header-cell>
+                                    <mat-cell *matCellDef="let element;let i = index" class="matcell">
+                                        <a>
+                                            <p class="" (click)="openDialog(element,i)" *ngIf="(!trackClaim && (appCode == 'CI' || appCode == 'CR' || appCode == 'AS'))"><span
+                                                    class="title-heading-Upload">Upload</span></p>
+                                                    <p class="" *ngIf="trackClaim"><span
+                                                        class="title-heading-Upload"></span></p>
+                                        </a>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                            </mat-table>
+                        </ng-container>
+                    </form>
+                </mat-card>
+            </div>
+            <div class="mt-4 d-flex">
+                <div  class="d-flex" *ngIf="(!trackClaim && (appCode =='CI' || appCode == 'CR' || appCode =='AS'))">
+                    <mat-icon class="add-btn" (click)="documentcreateRequest(form)">add_circle_outline</mat-icon>
+                    <p class="title-2 " *ngIf="appCode != 'AS'">Additional Documents <code>
+                    </code></p>
+                        <div class="" *ngIf="appCode == 'AS'">
+                            <span class="requirement-title">Raise Requirements</span>
+                            <span class="row underline-requirement"></span>
+        
+                        </div>                 
+                </div>
+
+            </div>
+                    
+                    <!-- <div class="text-center"  *ngIf="this.taskCode == 'AWAIT_ASSESSMENT_REFERRAL'">
+                        <button mat-raised-button class="button-1 mx-3" (click)="onCancelButton()">Cancel</button>
+                    </div> -->
+        </mat-card>
+    </div>
+    <div class="text-center mb-2 mt-5">
+        <button mat-raised-button class="button-1 mx-3" type="submit" (click)="submitdata()" *ngIf="!trackClaim" [disabled] = "isReadonly">Save</button>
+        <button mat-raised-button class="button-1 mx-3" (click)="onCancelButton()">Cancel</button>
+        <!-- <button mat-raised-button class="button-1 mx-3"  *ngIf="!trackClaim">Refresh</button> -->
+        <button mat-raised-button class="button-1 mx-3" *ngIf="appCode == 'CI'" type="submit" (click)="submitNominee()">Submit</button>
+    </div>
+    <!-- </div> -->
+
+</div>

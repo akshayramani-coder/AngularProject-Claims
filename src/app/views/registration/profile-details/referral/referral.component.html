@@ -1,0 +1,134 @@
+<div class="container-fluid px-0">
+
+
+
+    <div class="col-lg-12">
+
+        <mat-card class="m-1 scrollbar scrollbar-primary">
+            <div class="col-lg-12 mb-2">
+                <button mat-raised-button class="button-1" (click)="note()" *ngIf="!referralCode">User
+                    Remark</button>
+                <button mat-raised-button class="button-1 mx-1" *ngIf="!referralCode" (click)="referral()">Referral
+                    History</button>
+            </div>
+            <mat-card>
+                <div class="mt-2" *ngIf="notes">
+                    <div class="container-fluid px-0">
+                        <div class="">
+                            <div>
+                                <h6 class="title-work">User Remark</h6>
+                            </div>
+                            <div>
+                                <table mat-table [dataSource]="dataSourceUser" matSort class="w-100">
+
+
+                                    <ng-container matColumnDef="task">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Task</th>
+                                        <td mat-cell *matCellDef="let row"> {{row.tskDispName}}</td>
+                                    </ng-container>
+
+
+                                    <ng-container matColumnDef="date">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Remark Date</th>
+                                        <td mat-cell *matCellDef="let row"> {{row.tskDcsnDt | date:'dd/MM/yyyy'}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="name">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>User Name</th>
+                                        <td mat-cell *matCellDef="let row"> {{row.dcsnByUsrName}} </td>
+                                    </ng-container>
+
+                                        <ng-container matColumnDef="remark" class="col-md-4">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Remark</th>
+                                            <td mat-cell *matCellDef="let row"> {{row.tskDcsnRmrks}} </td>
+                                        </ng-container>
+
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsUser"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumnsUser;"></tr>
+
+
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" mt-2" *ngIf="referrals">
+                    <!-- <div *ngIf="dataSource.length == 0">
+                        Data is not available
+                    </div> -->
+                    <div class="container-fluid px-0">
+                        <div class="">
+                            <div>
+                                <h6 class="title-work">Referral History</h6>
+                            </div>
+
+
+                            <div *ngFor="let status of statuses;  let i = index" class="mb-5">
+                                <b>{{status}}</b>
+                                <mat-table #table [dataSource]="dataSource[i]" matSort>
+
+                                    <ng-container matColumnDef="referralTypeDisp">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Action</mat-header-cell>
+
+
+                                        <mat-cell *matCellDef="let element">{{element.referralTypeDisp }}
+                                        </mat-cell>
+                                    </ng-container>
+
+
+                                    <ng-container matColumnDef="asmRemarks">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Accessor Remarks
+                                        </mat-header-cell>
+
+                                        <mat-cell *matCellDef="let element">{{element.asmRemarks}}</mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="refUserName">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Referral
+                                            User</mat-header-cell>
+
+                                        <mat-cell *matCellDef="let element"> {{element.refUserName}}</mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="updatedOn">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Response
+                                            Date</mat-header-cell>
+
+
+                                        <mat-cell *matCellDef="let element"> {{element.updatedOn | dateFormat }}
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="refRemarks">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Referral Remarks
+                                        </mat-header-cell>
+
+                                        <mat-cell *matCellDef="let element"> {{element.refRemarks}}</mat-cell>
+                                    </ng-container>
+
+
+                                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                                </mat-table>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </mat-card>
+        </mat-card>
+    </div>
+
+
+
+
+
+    <div class="text-center mt-3">
+        <button mat-raised-button class="button-1" (click)="onCancelButton()">Cancel</button>
+    </div>
+</div>

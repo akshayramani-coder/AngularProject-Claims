@@ -1,0 +1,23 @@
+<div class="container">
+    <form>
+        <div class="container-fluid">
+
+            <div class="row ">
+                <!-- <span class="material-icons">file_upload</span> -->
+                <span class="material-icons">cloud_upload</span>
+            </div>
+
+            <div class="row inp">
+                <input type="file" id="choose_file" (change)="selectFiles($event)" >
+                <p class="Note">(You may upload: jpeg, png, pdf, tiff file formats)</p> <!-- Change message for file formats Vipul -->
+                <!-- <h6 class="mt-1" [innerHTML]="result"></h6> -->
+</div>
+        </div>
+        <div class="row">
+            <div class="btn my-3">
+                <button mat-raised-button mat-dialog-close="data()" type="button" class="mx-3 bg-secondary btn-save" >Cancel</button>
+                <button mat-raised-button type="submit" class="bg-secondary btn-save"  (click)="uploadFiles()">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
